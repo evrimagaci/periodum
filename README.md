@@ -6,6 +6,8 @@
 # install dependencies
 $ npm install
 
+# copy .env.development as .env file and change database credentials
+
 # serve with hot reload at localhost:3000
 $ npm run dev
 
