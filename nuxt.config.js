@@ -22,6 +22,7 @@ module.exports = {
   plugins: [
     { src: '~/plugins/vue-range-slider', ssr: false },
     { src: '~/plugins/element-ui', ssr: false },
+    { src: '~/plugins/vue-gtag.js', ssr: false, mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
