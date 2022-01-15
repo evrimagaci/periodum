@@ -1,6 +1,6 @@
 # periodium
 
-## Build Setup
+## Kurulum Bilgileri
 
 ```bash
 # install dependencies
@@ -21,4 +21,23 @@ $ npm run generate
 
 download [db.sql.zip](https://evrimagaci.org/public/periodum/db.sql.zip)
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+
+# Yol Haritası
+
+Bu kısımda, Periodum Projesi'nin şu anki durumu ve yapılması gereken güncellemeler ve geleceğe yönelik planlarla ilgili bilgi alabilirsiniz.
+
+*Son Güncelleme: 15 Ocak 2022, 11:30 GMT-5
+
+* **Proje Koordinatörü'nün belirlenmesi:** Bu projenin ihtiyaçlarını yönlendirebilecek ve kendisi Vue.js gibi araçları kullanabilecek bir gönüllü bulmamız gerekiyor.
+  * Projenin görünümünü ve kurallarını bizimle birlikte çerçevelendirecek.
+  * Proje akışını belirleyecek ve yönlendirecek.
+* **Acil İhtiyaçlar:**
+  * **Boyutlandırma:** Farklı ekran çözünürlüklerine uyarlama (şu anda belli ekran boyutlarında çalışıyor)
+  * **Tarayıcılar:** Farklı tarayıcılar için kontrol (şu anda büyük oranda Chrome özelinde tasarlandı)
+    * Firefox'ta sol menüde transparan özellik çalışmıyor.
+  * **Mobil:** Mobilde sayfayı çevirmeyi ve mümkünse PC'ye geçmeyi öneriyoruz. Bu kısım geliştirilebilir. 
+  * **Detaylı Bilgiler:** Elementlerin üzerine tıklandığında çıkan "Detaylı Bilgi" linkinin tasarımı geliştirilebilir.
+* **Öncelikli Geliştirmeler:**
+  * Sağ panelde bir bileşiğe ulaşmak biraz zor. Dolayısıyla "Örnek Bileşik" göstermemiz gerekiyor. Örneğin Hidrojen elementi sürüklendiğinde, onunla inşa edilebilecek en basit birkaç bileşik önerilebilir.
+  * Dikey ekranlar için bir geliştirme düşünülebilir.
