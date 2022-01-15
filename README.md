@@ -41,3 +41,5 @@ Bu kısımda, Periodum Projesi'nin şu anki durumu ve yapılması gereken günce
 * **Öncelikli Geliştirmeler:**
   * Sağ panelde bir bileşiğe ulaşmak biraz zor. Dolayısıyla "Örnek Bileşik" göstermemiz gerekiyor. Örneğin Hidrojen elementi sürüklendiğinde, onunla inşa edilebilecek en basit birkaç bileşik önerilebilir.
   * Dikey ekranlar için bir geliştirme düşünülebilir.
+  * Sıcaklık kaydırma çubuğunun çalışma prensipleri gözden geçirilebilir.
+    * Çubuğun altındaki 4 faza tıklandığında, o fazda olan elementler aydınanlanabilir (bir "filtre" gibi çalışabilir).
