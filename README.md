@@ -1,4 +1,4 @@
-# periodium
+# periodum
 
 ## Kurulum Bilgileri
 
