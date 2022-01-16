@@ -26,7 +26,7 @@ import InfoModalContent from './InfoModalContent.vue'
 
 export default {
   name: 'InfoModal',
-  components: [InfoModalContent],
+  components: { InfoModalContent },
   data() {
     return {
       loading: false,
