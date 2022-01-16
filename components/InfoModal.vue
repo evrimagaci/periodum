@@ -1,31 +1,32 @@
 <template>
-  <el-dialog :visible="$store.state.showInfoModal" :show-close="false" :before-close="beforeClose" :close-on-click-modal="false" @open="getContent">
+  <el-dialog :visible="$store.state.showInfoModal" class="info-modal" :show-close="false" :before-close="beforeClose" modal :close-on-click-modal="false" @open="getContent">
     <img src="../assets/icons/icons-close.svg" class="close-btn" @click="beforeClose" />
-    <div slot="title">
-      <div style="display: flex">
-        <img :src="content.image" class="element-image" />
-        <div style="margin-left: 15px">
-          <div class="title">
-            {{ content.title }}
-          </div>
-          <div class="description">
-            {{ content.subtitle }}
-          </div>
-          <div style="margin-top: 20px">
-            <a class="url" :href="content.url" target="_blank">{{ content.url }}</a>
-          </div>
+    <div slot="title" style="display: flex; align-items: center">
+      <img :src="content.image" class="element-image" />
+      <div style="margin-left: 15px">
+        <div class="title">
+          {{ content.title }}
+        </div>
+        <div class="description">
+          {{ content.subtitle }}
+        </div>
+        <div style="margin-top: 20px">
+          <a class="url" :href="content.url" target="_blank">{{ content.url }}</a>
         </div>
       </div>
     </div>
-    <div v-loading="loading" class="dialog-body">
-      <p style="color: #878c97; word-break: break-word" v-html="content.html" />
+    <div v-loading="loading">
+      <InfoModalContent :html="content.html" />
     </div>
   </el-dialog>
 </template>
 
 <script>
+import InfoModalContent from './InfoModalContent.vue'
+
 export default {
   name: 'InfoModal',
+  components: [InfoModalContent],
   data() {
     return {
       loading: false,
@@ -67,46 +68,32 @@ export default {
   right: 0;
   position: absolute;
 }
-.el-dialog {
-  background-color: #272f3f !important;
-}
-.el-dialog__header {
-  background-image: url('../assets/images/rectangle.png');
-  background-repeat: no-repeat;
-  background-size: 100% 150px;
-  height: 210px;
-  padding: 20px;
-  .title {
-    font-size: 24px;
-    font-weight: 800;
-    color: #fff;
-    margin-top: 68px;
-  }
-  .description {
-    font-size: 12px;
-    font-weight: 800;
-    color: #fff;
-    margin-top: 5px;
-  }
 
-  .url {
-    font-size: 10px;
-    font-weight: 600;
-    color: #aa80ff;
-    margin-top: 25px;
-  }
+.element-image {
+  width: 250px;
 }
+
 .el-dialog__body {
   padding: 15px 20px;
   height: 320px;
   overflow: auto;
 }
-.dialog-body {
-  padding: 30px;
-  position: relative;
+
+.title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
 }
-.element-image {
-  width: 250px;
-  height: 180px;
+.description {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  margin-top: 5px;
+}
+.url {
+  font-size: 14px;
+  font-weight: 600;
+  color: #aa80ff;
+  margin-top: 25px;
 }
 </style>
