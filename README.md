@@ -21,6 +21,7 @@ $ npm run generate
 
 download [db.sql.zip](https://evrimagaci.org/public/periodum/db.sql.zip)
 
+Her türlü soru, sorun ve destek için için: info@evrimagaci.org
 
 
 # Yol Haritası
