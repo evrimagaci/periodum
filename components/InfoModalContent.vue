@@ -8,7 +8,7 @@ export default {
   props: {
     html: {
       type: String,
-      required: true,
+      default: '',
     },
   },
 }
