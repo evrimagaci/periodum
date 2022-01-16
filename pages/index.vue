@@ -122,10 +122,6 @@ import RightSideBar from '../components/RightSideBar'
 export default {
   components: { SideBar, RightSideBar, Slider, PElement },
   asyncData({ error, params, app, store, req }) {
-    if (req) {
-      const md = new MobileDetect(req.headers['user-agent'])
-      store.commit('SET_IS_MOBILE', md.mobile() || md.tablet() || md.phone())
-    }
     return app.$axios
       .get(`/api/elements`)
       .then(({ data }) => {
@@ -145,6 +141,10 @@ export default {
       .catch((err) => {
         return error({ statusCode: 404, message: err })
       })
+  },
+  beforeMount(){
+    const md = new MobileDetect(req.headers['user-agent'])
+    store.commit('SET_IS_MOBILE', md.mobile() || md.tablet() || md.phone())
   },
   data() {
     return {
