@@ -1,5 +1,7 @@
 # periodium
 
+**Periodum Güncel Versiyon:** https://periodum.com/
+
 ## Kurulum Bilgileri
 
 ```bash
