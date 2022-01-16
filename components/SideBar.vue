@@ -144,8 +144,8 @@
         <div class="row">
           <div class="wrapper">
             <div class="menu-title">Kütle Numarası</div>
-            <div v-if="isotope.mass_uncertainty" class="menu-value">{{ isotope.mass_number }} ±{{ Number(isotope.mass_uncertainty).toExponential() }}</div>
-            <div v-else class="menu-value">{{ isotope.mass_number }} }}</div>
+            <div v-if="isotope.mass_uncertainty" class="menu-value">{{ isotope.mass_number }} ± {{ Number(isotope.mass_uncertainty).toExponential() }}</div>
+            <div v-else class="menu-value">{{ isotope.mass_number }}</div>
           </div>
         </div>
         <div class="row">
