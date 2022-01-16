@@ -1,7 +1,7 @@
 # periodium
 
-**Periodum Güncel Versiyon:** https://periodum.com/
-**Proje İhtiyaçları & Yol Haritası:** https://github.com/evrimagaci/periodum/projects/1
+- **Periodum Güncel Versiyon:** https://periodum.com/
+- **Proje İhtiyaçları & Yol Haritası:** https://github.com/evrimagaci/periodum/projects/1
 
 ## Kurulum Bilgileri
 
