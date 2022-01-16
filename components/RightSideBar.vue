@@ -295,8 +295,30 @@ export default {
         }
       })
 
+      if (suggestions.length < 5) {
+        suggestions.splice(0, 5)
+        const inputElementMatchStrings = elements.map((e) => `${e.symbol}${e.count === 1 ? '' : e.count}`)
+
+        for (const compound of compounds) {
+          const forbidden = compound.formula.includes('?')
+          if (!forbidden && inputElementMatchStrings.every((str) => compound.formula.includes(str))) {
+            suggestions.push(compound)
+          }
+        }
+      }
+
       suggestions.sort((a, b) => a.formula.length - b.formula.length)
-      this.suggestedCompounds = suggestions.slice(0, 5)
+
+      this.suggestedCompounds = suggestions.slice(0, 5).filter((suggestion) => {
+        let { formula } = suggestion
+
+        for (const element of elements) {
+          const re = new RegExp(`[A-Z0-9]?${element.symbol}${element.count === 1 ? '' : element.count}`)
+          formula = formula.replace(re, '')
+        }
+
+        return formula.length
+      })
 
       let exactCompound = null
       availableCompoundElements.forEach((availableElements) => {
