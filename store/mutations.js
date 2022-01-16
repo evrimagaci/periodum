@@ -42,4 +42,7 @@ export default {
   SET_IS_ORIENTED(state, isOriented) {
     state.isOriented = isOriented
   },
+  SET_PHASE_OF_MATTER(state, phaseOfMatter) {
+    state.selectedPhaseOfMatter = phaseOfMatter
+  },
 }

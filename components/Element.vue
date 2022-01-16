@@ -77,7 +77,8 @@ export default {
       const selectedTemperatureType = this.$store.state.selectedTemperatureType
       const temperature = this.$store.state.temperature
 
-      if (isTemperatureTriggered && this.element.number) {
+      let currentPhaseOfElement
+      if ((isTemperatureTriggered && this.element.number) || this.selectedPhaseOfElement) {
         let ref
         if (selectedTemperatureType === 'c') {
           ref = temperature + 273.15
@@ -88,22 +89,50 @@ export default {
         }
 
         if (this.element.boil_use === '' && this.element.melt_use === '') {
-          return 'element-searched orange'
-        }
-        if (this.element.boil_use === '') {
-          return ref >= this.element.melt_use ? 'element-searched orange' : 'element-searched purple'
-        }
-        if (this.element.melt_use === '') {
-          return ref >= this.element.boil_use ? 'element-searched teal' : 'element-searched orange'
-        }
-        if (ref >= this.element.boil_use) {
-          return 'element-searched teal'
+          currentPhaseOfElement = 'unknown'
+        } else if (this.element.boil_use === '') {
+          currentPhaseOfElement = ref >= this.element.melt_use ? 'unknown' : 'solid'
+        } else if (this.element.melt_use === '') {
+          currentPhaseOfElement = ref >= this.element.boil_use ? 'gas' : 'unknown'
+        } else if (ref >= this.element.boil_use) {
+          currentPhaseOfElement = 'gas'
         } else if (ref >= this.element.melt_use) {
-          return 'element-searched blue'
+          currentPhaseOfElement = 'liquid'
         } else {
-          return 'element-searched purple'
+          currentPhaseOfElement = 'solid'
         }
       }
+
+      const selectedPhaseOfElement = this.$store.state.selectedPhaseOfMatter
+      if (selectedPhaseOfElement) {
+        if (selectedPhaseOfElement === currentPhaseOfElement) {
+          switch (currentPhaseOfElement) {
+            case 'solid':
+              return 'element-searched purple'
+            case 'liquid':
+              return 'element-searched blue'
+            case 'gas':
+              return 'element-searched teal'
+            case 'unknown':
+              return 'element-searched orange'
+          }
+        }
+        return null
+      }
+
+      if (isTemperatureTriggered && this.element.number) {
+        switch (currentPhaseOfElement) {
+          case 'solid':
+            return 'element-searched purple'
+          case 'liquid':
+            return 'element-searched blue'
+          case 'gas':
+            return 'element-searched teal'
+          case 'unknown':
+            return 'element-searched orange'
+        }
+      }
+
       if (this.isFoundOnSearch || this.element.block === this.selectedBlock || this.selectedCategory === this.element.type || this.$store.getters.probableElements.includes(this.element.symbol)) {
         return `element-searched ${this.element.searchClass}`
       } else if (this.isFoundOnSearch === false) {
