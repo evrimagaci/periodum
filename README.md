@@ -1,6 +1,7 @@
 # periodium
 
 **Periodum Güncel Versiyon:** https://periodum.com/
+**Proje İhtiyaçları & Yol Haritası:** https://github.com/evrimagaci/periodum/projects/1
 
 ## Kurulum Bilgileri
 
@@ -24,8 +25,3 @@ $ npm run generate
 download [db.sql.zip](https://evrimagaci.org/public/periodum/db.sql.zip)
 
 Her türlü soru, sorun ve destek için için: info@evrimagaci.org
-
-
-# Yol Haritası
-
-**Projenin geliştirilmesine dahil olmak ve yol haritasını görmek için:** https://github.com/evrimagaci/periodum/projects/1
