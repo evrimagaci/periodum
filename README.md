@@ -26,21 +26,4 @@ Her türlü soru, sorun ve destek için için: info@evrimagaci.org
 
 # Yol Haritası
 
-Bu kısımda, Periodum Projesi'nin şu anki durumu ve yapılması gereken güncellemeler ve geleceğe yönelik planlarla ilgili bilgi alabilirsiniz.
-
-*Son Güncelleme: 15 Ocak 2022, 20:45 GMT+3
-
-* **Proje Koordinatörü'nün belirlenmesi:** Bu projenin ihtiyaçlarını yönlendirebilecek ve kendisi Vue.js gibi araçları kullanabilecek bir gönüllü bulmamız gerekiyor.
-  * Projenin görünümünü ve kurallarını bizimle birlikte çerçevelendirecek.
-  * Proje akışını belirleyecek ve yönlendirecek.
-* **Acil İhtiyaçlar:**
-  * **Boyutlandırma:** Farklı ekran çözünürlüklerine uyarlama (şu anda belli ekran boyutlarında çalışıyor)
-  * **Tarayıcılar:** Farklı tarayıcılardaki tutarsızlıkların giderilmesi (şu anda büyük oranda Chrome özelinde tasarlandı)
-    * Firefox'ta sol menüde transparan özellik çalışmıyor.
-  * **Mobil:** Mobilde sayfayı çevirmeyi ve mümkünse PC'ye geçmeyi öneriyoruz. Bu kısım geliştirilebilir. 
-  * **Detaylı Bilgiler:** Elementlerin üzerine tıklandığında çıkan "Detaylı Bilgi" ekranının tasarımı geliştirilebilir.
-* **Öncelikli Geliştirmeler:**
-  * Sağ panelde bir bileşiğe ulaşmak biraz zor. Dolayısıyla "Örnek Bileşik" göstermemiz gerekiyor. Örneğin Hidrojen elementi sürüklendiğinde, onunla inşa edilebilecek en basit birkaç bileşik önerilebilir.
-  * Dikey ekranlar için bir geliştirme düşünülebilir.
-  * Sıcaklık kaydırma çubuğunun çalışma prensipleri gözden geçirilebilir.
-    * Çubuğun altındaki 4 faza tıklandığında, o fazda olan elementler aydınanlanabilir (bir "filtre" gibi çalışabilir).
+**Projenin geliştirilmesine dahil olmak ve yol haritasını görmek için:** https://github.com/evrimagaci/periodum/projects/1
