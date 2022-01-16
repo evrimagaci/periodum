@@ -2,11 +2,18 @@
 
 ## Kurulum Bilgileri
 
+### Adımlar
+
+1. `mysql` kurulumunu [bu linkten](https://dev.mysql.com/doc/refman/8.0/en/installing.html) tamamlayın.
+2. [db.sql.zip](https://evrimagaci.org/public/periodum/db.sql.zip) veri tabanı dosyasını indirin.
+3. İndirilen dosyadaki `db.sql` dosyasını projenin ana dizinine çıkartın.
+4. Terminalden projenin ana dizinine giderek, `./setup.sh` komutunu çalıştırın.
+
+## Komutlar
+
 ```bash
 # install dependencies
 $ npm install
-
-# copy .env.development as .env file and change database credentials
 
 # serve with hot reload at localhost:3000
 $ npm run dev
@@ -19,10 +26,7 @@ $ npm run start
 $ npm run generate
 ```
 
-download [db.sql.zip](https://evrimagaci.org/public/periodum/db.sql.zip)
-
 Her türlü soru, sorun ve destek için için: info@evrimagaci.org
-
 
 # Yol Haritası
 
