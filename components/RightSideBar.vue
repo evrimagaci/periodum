@@ -63,6 +63,11 @@
         </swiper>
       </div>
     </div>
+    <div v-if="suggestedCompounds.length > 0" class="suggestion-area">
+      <div v-for="(compound, index) in suggestedCompounds" :key="index" class="suggested-compound" @click="setElementsByFormula(compound.formula)">
+        {{ compound.formula }}
+      </div>
+    </div>
     <div v-if="foundCompound && foundCompound.formula" class="wrapper" style="color: white">
       <canvas id="smiley" width="200" height="80"></canvas>
       <div class="row">
@@ -157,6 +162,7 @@ export default {
       foundCompound: {
         dtp_names: [],
       },
+      suggestedCompounds: [],
       loadingInstance: null,
       timeoutCheck: null,
     }
@@ -203,6 +209,25 @@ export default {
     this.$store.commit('SET_PROBABLE_ELEMENTS', [])
   },
   methods: {
+    setElementsByFormula(formula) {
+      const formulaElements = Array.from(formula.matchAll(/[A-Z][a-z0-9]*/g)).map((match) => match[0])
+      const elements = this.$store.getters.elements
+      const compoundElements = []
+
+      for (const formulaElement of formulaElements) {
+        const [, symbol, count] = formulaElement.match(/([A-Za-z]+)(\d*)/)
+        const element = elements.find((e) => e.symbol === symbol)
+
+        if (element) {
+          compoundElements.push({
+            count: Number(count || 1),
+            ...element,
+          })
+        }
+      }
+
+      this.elements = compoundElements
+    },
     getAvailableElements(elements) {
       this.loadingInstance = Loading.service({ background: 'rgba(0, 0, 0, 0.7)', lock: true })
       this.foundCompound = {
@@ -220,6 +245,14 @@ export default {
       const compounds = this.$store.getters.compounds
       const availableCompoundElements = []
       const finalized = []
+      const suggestions = []
+      const inputElementRegExps = elements.map((element) => {
+        if (element.count > 1) {
+          return new RegExp(`${element.symbol}${element.count}`)
+        }
+
+        return new RegExp(`${element.symbol}(?![a-f0-9])`)
+      })
 
       compounds.forEach((compound) => {
         let symbol = ''
@@ -246,6 +279,12 @@ export default {
           pushAvailableElement(index)
         })
         availableCompoundElements.push(availableElements)
+
+        const forbidden = compound.formula.includes('?')
+        if (!forbidden && inputElementRegExps.every((regex) => regex.test(compound.formula))) {
+          suggestions.push(compound)
+        }
+
         function pushAvailableElement(index) {
           if (chars.length - 1 === index) {
             availableElements.push({
@@ -255,6 +294,9 @@ export default {
           }
         }
       })
+
+      suggestions.sort((a, b) => a.formula.length - b.formula.length)
+      this.suggestedCompounds = suggestions.slice(0, 5)
 
       let exactCompound = null
       availableCompoundElements.forEach((availableElements) => {
@@ -509,6 +551,24 @@ export default {
       align-self: center;
       margin-left: -3px;
     }
+  }
+}
+
+.suggestion-area {
+  color: #fff;
+  display: flex;
+  width: 20vw;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 30px;
+
+  .suggested-compound {
+    background: #10b710;
+    padding: 2px 10px;
+    border-radius: 8px;
+    user-select: none;
+    cursor: pointer;
   }
 }
 </style>
