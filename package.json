@@ -54,6 +54,7 @@
     "vue": "^2.6.12",
     "vue-awesome-swiper": "^4.1.1",
     "vue-gtag": "^1.16.1",
+    "vue-sanitize": "^0.2.1",
     "vue-slider-component": "^3.2.11",
     "xlsx": "^0.16.9"
   },
