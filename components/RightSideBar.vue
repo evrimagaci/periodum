@@ -64,7 +64,7 @@
       </div>
     </div>
     <div v-if="suggestedCompounds.length > 0" class="suggestion-area">
-      <div v-for="(compound, index) in suggestedCompounds" :key="index" class="suggested-compound" @click="setElementsByFormula(compound.formula)">
+      <div v-for="compound in suggestedCompounds" :key="compound.formula" v-fcf class="compound-suggestion" @click="setElementsByFormula(compound.formula)">
         {{ compound.formula }}
       </div>
     </div>
@@ -245,14 +245,52 @@ export default {
       const compounds = this.$store.getters.compounds
       const availableCompoundElements = []
       const finalized = []
-      const suggestions = []
-      const inputElementRegExps = elements.map((element) => {
+
+      // this holds the suggestions with exact count matches
+      const primaryCompoundSuggestions = new Map()
+
+      // this holds a loose match; will match the atoms (symbols) only
+      const secondaryCompoundSuggestions = new Map()
+
+      const primaryRegExps = elements.map((element) => {
         if (element.count > 1) {
+          // if there are more than 1 atoms, filter the compounds accordingly
           return new RegExp(`${element.symbol}${element.count}`)
         }
 
+        // if there is only one atom, perform a negative look-ahead search to filter out compounds with multiple counts
         return new RegExp(`${element.symbol}(?![a-f0-9])`)
       })
+      const secondaryRegExps = elements.map((e) => new RegExp(`${e.symbol}${e.count === 1 ? '' : e.count}`))
+
+      const performMatch = (compound, regexps, map) => {
+        let compoundHasAllElements = true
+
+        for (const regex of regexps) {
+          if (!regex.test(compound.formula)) {
+            compoundHasAllElements = false
+            break
+          }
+        }
+
+        if (compoundHasAllElements) {
+          if (map.size < 5) {
+            map.set(compound.formula, compound)
+          } else {
+            let longestFormula = ''
+            for (const key of map.keys()) {
+              if (longestFormula.length < key.length) {
+                longestFormula = key
+              }
+            }
+
+            if (compound.formula.length < longestFormula.length) {
+              map.delete(longestFormula)
+              map.set(compound.formula, compound)
+            }
+          }
+        }
+      }
 
       compounds.forEach((compound) => {
         let symbol = ''
@@ -281,8 +319,10 @@ export default {
         availableCompoundElements.push(availableElements)
 
         const forbidden = compound.formula.includes('?')
-        if (!forbidden && inputElementRegExps.every((regex) => regex.test(compound.formula))) {
-          suggestions.push(compound)
+
+        if (!forbidden) {
+          performMatch(compound, primaryRegExps, primaryCompoundSuggestions)
+          performMatch(compound, secondaryRegExps, secondaryCompoundSuggestions)
         }
 
         function pushAvailableElement(index) {
@@ -295,21 +335,21 @@ export default {
         }
       })
 
-      if (suggestions.length < 5) {
-        suggestions.splice(0, 5)
-        const inputElementMatchStrings = elements.map((e) => `${e.symbol}${e.count === 1 ? '' : e.count}`)
+      while (primaryCompoundSuggestions.size < 5) {
+        const [key, value] = secondaryCompoundSuggestions.entries().next().value
+        secondaryCompoundSuggestions.delete(key)
+        primaryCompoundSuggestions.set(key, value)
 
-        for (const compound of compounds) {
-          const forbidden = compound.formula.includes('?')
-          if (!forbidden && inputElementMatchStrings.every((str) => compound.formula.includes(str))) {
-            suggestions.push(compound)
-          }
+        if (secondaryCompoundSuggestions.size === 0) {
+          break
         }
       }
 
-      suggestions.sort((a, b) => a.formula.length - b.formula.length)
+      const suggestedCompounds = Array.from(primaryCompoundSuggestions.values())
+      suggestedCompounds.sort((a, b) => a.formula.length - b.formula.length)
 
-      this.suggestedCompounds = suggestions.slice(0, 5).filter((suggestion) => {
+      // filter out the current compound formula from the suggestions (since it is already being shown)
+      this.suggestedCompounds = suggestedCompounds.filter((suggestion) => {
         let { formula } = suggestion
 
         for (const element of elements) {
@@ -577,7 +617,6 @@ export default {
 }
 
 .suggestion-area {
-  color: #fff;
   display: flex;
   width: 20vw;
   flex-wrap: wrap;
@@ -585,12 +624,19 @@ export default {
   justify-content: center;
   margin-top: 30px;
 
-  .suggested-compound {
-    background: #10b710;
-    padding: 2px 10px;
-    border-radius: 8px;
+  .compound-suggestion {
+    background: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
+    padding: 7px 22px;
+    border-radius: 4px;
     user-select: none;
     cursor: pointer;
+    color: #fff;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 </style>
