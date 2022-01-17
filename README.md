@@ -1,5 +1,6 @@
 # Periodum: Türkçe ve İnteraktif Periyodik Tablo Projesi
 
+## Önemli Bağlantılar
 - **Periodum Periyodik Tablo (Güncel Versiyon):** https://periodum.com/
 - **Proje İhtiyaçları & Yol Haritası:** https://github.com/evrimagaci/periodum/projects/1
 - **Zeplin Tasarım Dosyası:** https://zpl.io/bopNyyM
