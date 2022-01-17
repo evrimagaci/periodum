@@ -1,4 +1,4 @@
-# periodium
+# periodum
 
 - **Periodum Periyodik Tablo (Güncel Versiyon):** https://periodum.com/
 - **Proje İhtiyaçları & Yol Haritası:** https://github.com/evrimagaci/periodum/projects/1
