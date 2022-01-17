@@ -4,9 +4,9 @@ Evrim Ağacı'nın sadece sizlerin destekleriyle ilerleyen bir platform olduğun
 
 Projeye;
 
-- Hataları raporlayarak
-- Kodun durumunu inceleyerek/tartışarak
-- Değişim istekleri(PR) göndererek
+- Hataları raporlayarak,
+- Kodun durumunu inceleyerek/tartışarak,
+- Değişim istekleri(PR) göndererek,
 - Yeni özellikler önererek
 
 destek olabilirsiniz.
