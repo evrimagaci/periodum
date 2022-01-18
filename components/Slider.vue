@@ -50,8 +50,8 @@ export default {
   components: { PeriodSelect },
   data() {
     return {
-      temperature: 25,
-      viewTemperature: 25,
+      temperature: this.$store.state.temperature,
+      viewTemperature: this.$store.state.temperature,
       timer: null,
       tempTimer: null,
       temperatureOptions: [
@@ -73,6 +73,13 @@ export default {
     },
   },
   watch: {
+    '$store.state.temperature': {
+      handler() {
+        this.viewTemperature = this.$store.state.temperature
+        clearTimeout(this.timer)
+        this.timer = setTimeout(this.triggerTimer, 3000)
+      },
+    },
     temperature() {
       this.$store.commit('UPDATE_TEMPERATURE', this.temperature)
       clearTimeout(this.timer)
@@ -107,8 +114,9 @@ export default {
       if (type === 'k' && this.$store.state.selectedTemperatureType === 'f') {
         this.viewTemperature = Number(((this.viewTemperature - 273 - 32) / 1.8).toFixed(0))
       }
-
       this.$store.commit('SET_TEMPERATURE_TYPE', type)
+      console.log(Number(this.viewTemperature))
+      this.$store.commit('UPDATE_VIEW_TEMPERATURE', Number(this.viewTemperature))
     },
     onTemperatureChange(val) {
       this.viewTemperature = val

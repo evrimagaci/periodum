@@ -1,7 +1,7 @@
 <template>
   <div class="slider-select-container" :style="isSelectOpened ? 'border-radius: 12px 12px 0 0' : 'border-radius: 12px'">
     <div class="wrapper">
-      <div class="value">{{ value }}</div>
+      <input v-model="temperature" class="input-value" />
       <div class="separator" />
       <div style="width: 30px; display: flex; cursor: pointer">
         <div class="slider-selected">{{ selected.label }}</div>
@@ -42,9 +42,23 @@ export default {
     return {
       selected: {},
       isSelectOpened: false,
+      temperature: this.$store.state.temperature,
     }
   },
   watch: {
+    '$store.state.temperature': {
+      handler() {
+        this.temperature = this.$store.state.temperature
+      },
+    },
+    '$store.state.selectedTemperatureType': {
+      handler() {
+        this.temperature = this.$store.state.temperature
+      },
+    },
+    temperature(value) {
+      this.$store.commit('UPDATE_TEMPERATURE', Number(value))
+    },
     selectedValue() {
       this.selected = _.find(this.options, { value: this.selectedValue }) || {}
     },
@@ -65,7 +79,7 @@ export default {
 @import '~@/assets/css/partials/variables';
 
 .slider-select-container {
-  width: 86px;
+  width: 100px;
   border-radius: 12px;
   background-color: #0b0e13;
   margin-top: -8px;
@@ -76,6 +90,13 @@ export default {
     margin: 4px 6px;
     display: flex;
     justify-content: space-between;
+    .input-value {
+      background: none;
+      color: white;
+      border: none;
+      width: 35px;
+      font-size: 12px;
+    }
     .separator {
       width: 2px;
       height: 14px;
@@ -102,7 +123,7 @@ export default {
 }
 
 .option-container {
-  width: 86px;
+  width: 100px;
   position: absolute;
   background-color: #0b0e13;
   border-radius: 0 0 12px 12px;
