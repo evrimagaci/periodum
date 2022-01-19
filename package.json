@@ -5,14 +5,15 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development NUXT_HOST=0.0.0.0 nodemon server/index.js --watch server",
     "build": "NODE_ENV=production nuxt build",
-    "heroku-postbuild": "npm run build",
+    "heroku-postbuild": "yarn build",
     "start_": "nuxt start",
     "start": "cross-env pm2-runtime start ecosystem.config.js --env production",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint:style": "stylelint \"**/*.{vue,css}\" --ignore-path .gitignore",
-    "lint": "npm run lint:js && npm run lint:style",
-    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
+    "lint": "yarn lint:js && yarn lint:style",
+    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
+    "test": "jest --runInBand"
   },
   "lint-staged": {
     "*.{js,vue}": "eslint",
@@ -42,7 +43,6 @@
     "mobile-detect": "^1.4.5",
     "mysql2": "^2.2.5",
     "normalize.css": "^8.0.1",
-    "npm": "^7.9.0",
     "nuxt": "^2.15.3",
     "pm2": "^4.5.5",
     "sequelize": "^6.6.1",
@@ -54,6 +54,7 @@
     "vue": "^2.6.12",
     "vue-awesome-swiper": "^4.1.1",
     "vue-gtag": "^1.16.1",
+    "vue-sanitize": "^0.2.1",
     "vue-slider-component": "^3.2.11",
     "xlsx": "^0.16.9"
   },
@@ -63,13 +64,20 @@
     "@nuxtjs/eslint-config": "^6.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/stylelint-module": "^4.0.0",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/vue": "^5.8.2",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^26",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.7.0",
     "husky": "^4.3.8",
+    "jest": "^26",
+    "jest-dom": "^4.0.0",
     "lint-staged": "^10.5.4",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
@@ -77,6 +85,7 @@
     "sass-loader": "^10.1.1",
     "stylelint": "^13.12.0",
     "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-standard": "^21.0.0"
+    "stylelint-config-standard": "^21.0.0",
+    "vue-jest": "^3"
   }
 }

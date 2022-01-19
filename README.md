@@ -1,22 +1,27 @@
-# periodium
+# Periodum: Türkçe ve İnteraktif Periyodik Tablo Projesi
+
+## Önemli Bağlantılar
+- **Periodum Periyodik Tablo (Güncel Versiyon):** https://periodum.com/
+- **Proje İhtiyaçları & Yol Haritası:** https://github.com/evrimagaci/periodum/projects/1
+- **Zeplin Tasarım Dosyası:** https://zpl.io/bopNyyM
 
 ## Kurulum Bilgileri
 
 ```bash
 # install dependencies
-$ npm install
+$ yarn install
 
 # copy .env.development as .env file and change database credentials
 
 # serve with hot reload at localhost:3000
-$ npm run dev
+$ yarn dev
 
 # build for production and launch server
-$ npm run build
-$ npm run start
+$ yarn build
+$ yarn start
 
 # generate static project
-$ npm run generate
+$ yarn generate
 ```
 
 Periodum Veritabanı buradan indirebilirsiniz. [db.sql.zip](https://evrimagaci.org/public/periodum/db.sql.zip)
@@ -93,6 +98,9 @@ Docker hatalarıyla ilgili bir çok sorunu aşağıdaki komutlarla halledebilirs
  - `docker-compose down` ile containerları durdurup, silebilirsiniz. `db` klasöründeki verileriniz gitmeyecektir.
  - ⚠ Temiz bir kurulum için her zaman güvenle `db` klasörünü silebilirsiniz. `rm -rf db` Ancak; bununla beraber MySQL container'inizin veritabanı ve ayarları da gidecektir.
  
-# Yol Haritası
+## Test
+Testlerimiz için [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library) kütüphanesini kullanıyoruz. Buradan [kopya kağıdına](https://testing-library.com/docs/vue-testing-library/cheatsheet) bakabilir ve [örnek testleri](https://testing-library.com/docs/vue-testing-library/examples) inceleyebilirsiniz. 
 
-**Projenin geliştirilmesine dahil olmak ve yol haritasını görmek için:** https://github.com/evrimagaci/periodum/projects/1
+Test düzeni ve formatı için [GitLab'ın test stili yönergeleri](https://docs.gitlab.com/ee/development/testing_guide/frontend_testing.html)ni takip ediyoruz.
+
+## [Katkı Yönergeleri](https://github.com/evrimagaci/periodum/blob/main/CONTRIBUTING.md)

@@ -464,3 +464,50 @@
   display: flex;
   align-items: center;
 }
+
+.el-dialog {
+  background-color: #272f3f !important;
+}
+
+.info-modal {
+  .el-dialog__header {
+    background-image: url('../../assets/images/rectangle.png');
+    background-repeat: no-repeat;
+    background-size: 100% 150px;
+    padding: 20px;
+  }
+  .el-dialog__body {
+    padding: 15px 20px;
+    height: 50vh;
+    overflow: auto;
+  }
+}
+
+.device-orientation {
+  .el-dialog__header {
+    height: 210px;
+    padding: 20px;
+  }
+  .el-dialog__body {
+    padding: 15px 20px;
+    height: 320px;
+    overflow: auto;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e7bc0b;
+  border-radius: 30px;
+}
+::-webkit-scrollbar-track {
+  background: none;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 0 #F0F0F0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffe476;
+}
