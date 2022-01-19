@@ -1,0 +1,23 @@
+name: FE Test
+on:
+  pull_request:
+    types:
+      - opened
+    paths:
+      - '**.js'
+      - '**.vue'
+  push:
+    types:
+      - opened
+    paths:
+      - '**.js'
+      - '**.vue'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Modülleri Yükle
+      run: yarn
+    - name: Testleri çalıştır
+      run: yarn test
