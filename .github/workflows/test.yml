@@ -1,8 +1,6 @@
 name: FE Test
 on:
   push:
-    types:
-      - opened
     paths:
       - '**.js'
       - '**.vue'
