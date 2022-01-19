@@ -1,6 +1,9 @@
 name: FE Test
 on:
-  push:
+  pull_request:
+    types:
+      - opened
+      - synchronize
     paths:
       - '**.js'
       - '**.vue'
