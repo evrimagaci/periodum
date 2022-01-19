@@ -48,7 +48,7 @@ describe('DeviceOrientation', () => {
         mocks: {
           $emit: emitMock,
         },
-      }).debug()
+      })
 
       const closeButton = screen.getByTestId('device-orientation').children.item(0)
       await fireEvent.click(closeButton)

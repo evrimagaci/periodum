@@ -4,6 +4,7 @@ module.exports = {
     '^~/(.*)$': '<rootDir>/$1',
     '^vue$': 'vue/dist/vue.common.js',
   },
+  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/*.+(spec|test).[jt]s?(x)'],
   moduleFileExtensions: ['js', 'vue', 'json'],
   transform: {
     '^.+\\.js$': 'babel-jest',
