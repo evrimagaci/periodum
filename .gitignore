@@ -92,3 +92,6 @@ sw.*
 *.swp
 
 ecosystem.config.js
+
+# SQL files
+db.sql
