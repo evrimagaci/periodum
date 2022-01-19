@@ -97,6 +97,7 @@ docker-compose --env-file ./dev.env up app
 Docker hatalarıyla ilgili bir çok sorunu aşağıdaki komutlarla halledebilirsiniz. Burayı zamanla geliştirebiliriz. Karşılaştığınız hataları bize bildirmeyi ihmal etmeyiniz, lütfen.
  - `docker-compose down` ile containerları durdurup, silebilirsiniz. `db` klasöründeki verileriniz gitmeyecektir.
  - ⚠ Temiz bir kurulum için her zaman güvenle `db` klasörünü silebilirsiniz. `rm -rf db` Ancak; bununla beraber MySQL container'inizin veritabanı ve ayarları da gidecektir.
+ - Projedeki köklü değişiklik olduğunda _docker container_'ının _image_'ını yeniden `build` etmek iyidir. up komutunu ilk çalıştırdığında sizin yapacaktır. Ancak _image_'ı yeniden oluşturmak için komutun sonuna (`service` isminden önce) --build ekleyebilirsiniz. Örnek: `docker-compose --env-file ./dev.env up --build app`
  
 ## Test
 Testlerimiz için [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library) kütüphanesini kullanıyoruz. Buradan [kopya kağıdına](https://testing-library.com/docs/vue-testing-library/cheatsheet) bakabilir ve [örnek testleri](https://testing-library.com/docs/vue-testing-library/examples) inceleyebilirsiniz. 
