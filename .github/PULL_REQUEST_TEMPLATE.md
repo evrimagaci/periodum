@@ -1,6 +1,6 @@
 # Açıklama
 
-Bu alanda değişiklerinizin ne işe yaradığını ayrıntılı bir biçimde anlatın.
+<!-- Bu alanda değişiklerinizin ne işe yaradığını ayrıntılı bir biçimde anlatın. -->
 
 **Alakalı Hata (Issue):** #
 
@@ -12,14 +12,14 @@ Bu alanda değişiklerinizin ne işe yaradığını ayrıntılı bir biçimde an
 
 ## Ekler
 
-Yaptığınız değişikliklerin önceki ve sonraki hallerini içeren ekran görüntüleri ve/veya videoları ekleyin.
+<!-- Yaptığınız değişikliklerin önceki ve sonraki hallerini içeren ekran görüntüleri ve/veya videoları ekleyin. -->
 
 # Nasıl Test Edilir?
 
-Lütfen bu alanda yaptığınız değişiklikler için yazılan testlerin, hangi kısımları test ettiğini yazın.
+<!-- Lütfen bu alanda yaptığınız değişiklikler için yazılan testlerin, hangi kısımları test ettiğini yazın.
 
 - [ ] Test A
-- [ ] Test B
+- [ ] Test B -->
 
 # Kontrol Listesi:
 

@@ -7,6 +7,7 @@
     :close-on-click-modal="false"
     :modal-append-to-body="false"
     width="90vw"
+    data-testid="device-orientation"
     style="padding: 10px"
   >
     <img src="../assets/icons/icons-close.svg" class="close-btn" @click="beforeClose" />
