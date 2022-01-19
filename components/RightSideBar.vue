@@ -234,23 +234,12 @@ export default {
       return this.$store.getters.elements.find((e) => e.symbol === symbol)
     },
     setElementsByFormula(formula) {
-      const formulaSymbols = this.parseCompoundFormula(formula)
-      const elements = []
-
-      for (const { symbol, count } of formulaSymbols) {
-        const element = this.getElementBySymbol(symbol)
-        if (element) {
-          elements.push({
-            count,
-            ...element,
-          })
-        } else {
-          console.error(`There is no element with the symbol "${symbol}".`)
-          return
+      this.elements = this.parseCompoundFormula(formula).map(({ symbol, count }) => {
+        return {
+          count,
+          ...this.getElementBySymbol(symbol),
         }
-      }
-
-      this.elements = elements
+      })
     },
     getAvailableElements(elements) {
       this.loadingInstance = Loading.service({ background: 'rgba(0, 0, 0, 0.7)', lock: true })
