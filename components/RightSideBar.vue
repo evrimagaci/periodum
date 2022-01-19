@@ -209,24 +209,48 @@ export default {
     this.$store.commit('SET_PROBABLE_ELEMENTS', [])
   },
   methods: {
+    parseCompoundFormula(formula) {
+      /**
+       * Group 1: The upper case letter of the symbol (e.g. "N" for Na). All symbols have
+       * 1 and only 1 upper case letter; which is always the first character.
+       * Group 2: The remaining lower case letter(s) if there are any.
+       * Group 3: Element count (if specified) (e.g. "2" for O2)
+       */
+      const regex = /([A-Z])([a-z]*)(\d*)/g
+      const compoundSymbols = []
+      let match
+
+      while ((match = regex.exec(formula)) !== null) {
+        const [, symbolUpperCaseChar, symbolLowerCaseChars, symbolCount] = match
+        compoundSymbols.push({
+          symbol: `${symbolUpperCaseChar}${symbolLowerCaseChars}`,
+          count: symbolCount ? Number(symbolCount) : 1,
+        })
+      }
+
+      return compoundSymbols
+    },
+    getElementBySymbol(symbol) {
+      return this.$store.getters.elements.find((e) => e.symbol === symbol)
+    },
     setElementsByFormula(formula) {
-      const formulaElements = Array.from(formula.matchAll(/[A-Z][a-z0-9]*/g)).map((match) => match[0])
-      const elements = this.$store.getters.elements
-      const compoundElements = []
+      const formulaSymbols = this.parseCompoundFormula(formula)
+      const elements = []
 
-      for (const formulaElement of formulaElements) {
-        const [, symbol, count] = formulaElement.match(/([A-Za-z]+)(\d*)/)
-        const element = elements.find((e) => e.symbol === symbol)
-
+      for (const { symbol, count } of formulaSymbols) {
+        const element = this.getElementBySymbol(symbol)
         if (element) {
-          compoundElements.push({
-            count: Number(count || 1),
+          elements.push({
+            count,
             ...element,
           })
+        } else {
+          console.error(`There is no element with the symbol "${symbol}".`)
+          return
         }
       }
 
-      this.elements = compoundElements
+      this.elements = elements
     },
     getAvailableElements(elements) {
       this.loadingInstance = Loading.service({ background: 'rgba(0, 0, 0, 0.7)', lock: true })
