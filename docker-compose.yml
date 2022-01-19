@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  app:
+    image: "periodum_app:${TAG}"
+    container_name: periodum_app_dev
+    build: .
+    volumes:
+      - ./:/usr/src/app # dislike to mount the whole volume
+    environment:
+      - DATABASE_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+      - MIN_POOL_SIZE=${MIN_POOL_SIZE}
+      - MAX_POOL_SIZE=${MAX_POOL_SIZE}
+    ports:
+      - "127.0.0.1:${NODEJS_PORT}:3000"
+    depends_on:
+      - db
+    restart: unless-stopped
+  db:
+    image: "mysql:${MYSQL_VERSION}"
+    platform: linux/x86_64 # This is a workaround for Apple's Silicon CPUs. M1 etc.
+    container_name: periodum_db
+    volumes:
+        - ./db/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    restart: unless-stopped
+  adminer:
+      image: adminer
+      container_name: periodum_db_adminer
+      ports:
+        - "127.0.0.1:${ADMINER_PORT}:8080"
+      restart: unless-stopped

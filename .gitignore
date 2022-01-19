@@ -61,6 +61,7 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+prod.env
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
@@ -90,3 +91,5 @@ sw.*
 
 # Vim swap files
 *.swp
+
+db
