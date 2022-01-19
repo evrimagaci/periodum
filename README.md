@@ -9,21 +9,26 @@
 
 ```bash
 # install dependencies
-$ npm install
+$ yarn install
 
 # copy .env.development as .env file and change database credentials
 
 # serve with hot reload at localhost:3000
-$ npm run dev
+$ yarn dev
 
 # build for production and launch server
-$ npm run build
-$ npm run start
+$ yarn build
+$ yarn start
 
 # generate static project
-$ npm run generate
+$ yarn generate
 ```
 
 download [db.sql.zip](https://evrimagaci.org/public/periodum/db.sql.zip)
+
+## Test
+Testlerimiz için [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library) kütüphanesini kullanıyoruz. Buradan [kopya kağıdına](https://testing-library.com/docs/vue-testing-library/cheatsheet) bakabilir ve [örnek testleri](https://testing-library.com/docs/vue-testing-library/examples) inceleyebilirsiniz. 
+
+Test düzeni ve formatı için [GitLab'ın test stili yönergeleri](https://docs.gitlab.com/ee/development/testing_guide/frontend_testing.html)ni takip ediyoruz.
 
 ## [Katkı Yönergeleri](https://github.com/evrimagaci/periodum/blob/main/CONTRIBUTING.md)
