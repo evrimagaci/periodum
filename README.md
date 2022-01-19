@@ -7,11 +7,17 @@
 
 ## Kurulum Bilgileri
 
+### Adımlar
+
+1. `mysql` kurulumunu [bu linkten](https://dev.mysql.com/doc/refman/8.0/en/installing.html) tamamlayın.
+2. [db.sql.zip](https://evrimagaci.org/public/periodum/db.sql.zip) veri tabanı dosyasını indirin.
+3. İndirilen dosyadaki `db.sql` dosyasını projenin ana dizinine çıkartın.
+4. Terminalden projenin ana dizinine giderek, `sh setup.sh` komutunu çalıştırın.
+
+### Komutlar
 ```bash
 # install dependencies
 $ yarn install
-
-# copy .env.development as .env file and change database credentials
 
 # serve with hot reload at localhost:3000
 $ yarn dev
@@ -23,8 +29,6 @@ $ yarn start
 # generate static project
 $ yarn generate
 ```
-
-download [db.sql.zip](https://evrimagaci.org/public/periodum/db.sql.zip)
 
 ## Test
 Testlerimiz için [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library) kütüphanesini kullanıyoruz. Buradan [kopya kağıdına](https://testing-library.com/docs/vue-testing-library/cheatsheet) bakabilir ve [örnek testleri](https://testing-library.com/docs/vue-testing-library/examples) inceleyebilirsiniz. 
