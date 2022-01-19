@@ -1,11 +1,5 @@
 name: FE Test
 on:
-  pull_request:
-    types:
-      - opened
-    paths:
-      - '**.js'
-      - '**.vue'
   push:
     types:
       - opened
