@@ -42,10 +42,13 @@ describe('DeviceOrientation', () => {
         propsData: {
           visible: true,
         },
+        stubs: {
+          'el-dialog': true,
+        },
         mocks: {
           $emit: emitMock,
         },
-      })
+      }).debug()
 
       const closeButton = screen.getByTestId('device-orientation').children.item(0)
       await fireEvent.click(closeButton)
