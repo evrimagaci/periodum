@@ -92,5 +92,8 @@ sw.*
 # Vim swap files
 *.swp
 
-ecosystem.config.js
+# Docker related db volumes
 db
+# SQL files
+db.sql
+

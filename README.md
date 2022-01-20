@@ -7,11 +7,17 @@
 
 ## Kurulum Bilgileri
 
+### Adımlar
+
+1. `mysql` kurulumunu [bu linkten](https://dev.mysql.com/doc/refman/8.0/en/installing.html) tamamlayın.
+2. [db.sql.zip](https://evrimagaci.org/public/periodum/db.sql.zip) veri tabanı dosyasını indirin.
+3. İndirilen dosyadaki `db.sql` dosyasını projenin ana dizinine çıkartın.
+4. Terminalden projenin ana dizinine giderek, `sh setup.sh` komutunu çalıştırın.
+
+### Komutlar
 ```bash
 # install dependencies
 $ yarn install
-
-# copy .env.development as .env file and change database credentials
 
 # serve with hot reload at localhost:3000
 $ yarn dev
@@ -23,8 +29,6 @@ $ yarn start
 # generate static project
 $ yarn generate
 ```
-
-Periodum Veritabanı buradan indirebilirsiniz. [db.sql.zip](https://evrimagaci.org/public/periodum/db.sql.zip)
 
 Her türlü soru, sorun ve destek için için: info@evrimagaci.org
 
@@ -38,6 +42,8 @@ Her türlü soru, sorun ve destek için için: info@evrimagaci.org
 Periodum'u yerel bilgisayarınızda ilgili ve gerekli teknoloji stacklerini yüklemeden sanal ortamda çalıştırmanız için [Docker](https://docker.com/) öneririz. 
 
 Dilerseniz de kendi makinenizde **MYSQL** ve **NodeJS** kurarak da geliştirme yapabilirsiniz.
+
+Periodum Veritabanı buradan indirebilirsiniz. [db.sql.zip](https://evrimagaci.org/public/periodum/db.sql.zip)
 
 ## Docker
 Bilgisayarınızda [Docker](https://docker.com/) kurulu değilse [buradan](https://docs.docker.com/engine/install/) yükleme önergelerini izleyerek kurabilirsiniz.
@@ -98,7 +104,7 @@ Docker hatalarıyla ilgili bir çok sorunu aşağıdaki komutlarla halledebilirs
  - `docker-compose down` ile containerları durdurup, silebilirsiniz. `db` klasöründeki verileriniz gitmeyecektir.
  - ⚠ Temiz bir kurulum için her zaman güvenle `db` klasörünü silebilirsiniz. `rm -rf db` Ancak; bununla beraber MySQL container'inizin veritabanı ve ayarları da gidecektir.
  - Projedeki köklü değişiklik olduğunda _docker container_'ının _image_'ını yeniden `build` etmek iyidir. up komutunu ilk çalıştırdığında sizin yapacaktır. Ancak _image_'ı yeniden oluşturmak için komutun sonuna (`service` isminden önce) --build ekleyebilirsiniz. Örnek: `docker-compose --env-file ./dev.env up --build app`
- 
+
 ## Test
 Testlerimiz için [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-library) kütüphanesini kullanıyoruz. Buradan [kopya kağıdına](https://testing-library.com/docs/vue-testing-library/cheatsheet) bakabilir ve [örnek testleri](https://testing-library.com/docs/vue-testing-library/examples) inceleyebilirsiniz. 
 
