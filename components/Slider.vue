@@ -57,7 +57,7 @@ export default {
       temperatureOptions: [
         { label: '°C', value: 'c' },
         { label: '°F', value: 'f' },
-        { label: '°K', value: 'k' },
+        { label: 'K', value: 'k' },
       ],
     }
   },
