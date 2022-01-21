@@ -9,7 +9,16 @@
     </div>
     <client-only>
       <div style="display: flex; margin-top: 8px" class="table-slider">
-        <vue-range-slider ref="slider" :value="viewTemperature" :tooltip="'none'" :min="minDegree" :max="7000" :drag-on-click="true" @change="onTemperatureChange" @dragging="onTemperatureChange" />
+        <vue-range-slider
+          ref="slider"
+          :value="viewTemperature"
+          :tooltip="'none'"
+          :min="minDegree"
+          :max="maxDegree"
+          :drag-on-click="true"
+          @change="onTemperatureChange"
+          @dragging="onTemperatureChange"
+        />
         <period-select :selected-value="$store.state.selectedTemperatureType" :options="temperatureOptions" :value="viewTemperature" @change="onTemperatureTypeChange" />
       </div>
     </client-only>
@@ -69,6 +78,15 @@ export default {
         return 0
       } else {
         return -459
+      }
+    },
+    maxDegree() {
+      if (this.$store.state.selectedTemperatureType === 'c') {
+        return 7000
+      } else if (this.$store.state.selectedTemperatureType === 'k') {
+        return 7273
+      } else {
+        return 12632
       }
     },
   },

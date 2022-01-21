@@ -94,7 +94,7 @@ export default {
       background: none;
       color: white;
       border: none;
-      width: 35px;
+      width: 41px;
       font-size: 12px;
     }
     .separator {
