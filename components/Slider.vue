@@ -14,26 +14,26 @@
       </div>
     </client-only>
     <div class="slider-box-wrapper">
-      <div>
-        <div class="slider-box purple">
+      <div @click="stateFilter('solid')">
+        <div class="slider-box purple" name="solid" :class="{ gray: filterState('solid') }">
           <img width="18" height="16" src="~/assets/icons/solid.svg" />
         </div>
         <div class="title">Katı</div>
       </div>
-      <div style="margin-left: 30px">
-        <div class="slider-box blue">
+      <div style="margin-left: 30px" @click="stateFilter('liquid')">
+        <div class="slider-box blue" name="liquid" :class="{ gray: filterState('liquid') }">
           <img width="20" height="19" src="~/assets/icons/liquid.svg" />
         </div>
         <div class="title">Sıvı</div>
       </div>
-      <div style="margin-left: 30px">
-        <div class="slider-box teal">
+      <div style="margin-left: 30px" @click="stateFilter('gas')">
+        <div class="slider-box teal" name="gas" :class="{ gray: filterState('gas') }">
           <img width="20" height="16" src="~/assets/icons/gas.svg" />
         </div>
         <div class="title">Gaz</div>
       </div>
-      <div style="margin-left: 30px">
-        <div class="slider-box orange">
+      <div style="margin-left: 30px" @click="stateFilter('unknown')">
+        <div class="slider-box orange" name="unkown" :class="{ gray: filterState('unknown') }">
           <img width="13" height="20" src="~/assets/icons/undefined.svg" />
         </div>
         <div class="title">Belirsiz</div>
@@ -69,6 +69,11 @@ export default {
         return 0
       } else {
         return -459
+      }
+    },
+    filterState() {
+      return (state) => {
+        return this.$store.state.selectedStateOfMatter !== state && this.$store.state.selectedStateOfMatter !== null
       }
     },
   },
@@ -120,6 +125,12 @@ export default {
     },
     triggerTimer() {
       this.$store.commit('DEACTIVATE_TEMPERATURE')
+    },
+    stateFilter(type) {
+      if (type === this.$store.state.selectedStateOfMatter) {
+        type = null
+      }
+      this.$store.commit('SET_STATE_OF_MATTER', type)
     },
   },
 }
@@ -174,6 +185,7 @@ export default {
   margin-top: 23px;
   text-align: center;
   .slider-box {
+    cursor: pointer;
     width: 2.3vw;
     height: 2.3vw;
     border-radius: 4px;
@@ -198,6 +210,10 @@ export default {
   .orange {
     box-shadow: 0 2px 40px 0 rgba(255, 175, 128, 0.4);
     background-image: linear-gradient(135deg, #ffaf80, #ed954b 100%);
+  }
+  .gray {
+    box-shadow: 0 2px 40px 0 rgba(55, 55, 55, 0.4) !important;
+    background-image: linear-gradient(135deg, #3a3a3a, #38322d 100%) !important;
   }
   .title {
     font-size: 10px;

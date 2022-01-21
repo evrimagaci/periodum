@@ -77,16 +77,16 @@ export default {
       const selectedTemperatureType = this.$store.state.selectedTemperatureType
       const temperature = this.$store.state.temperature
 
-      if (isTemperatureTriggered && this.element.number) {
-        let ref
-        if (selectedTemperatureType === 'c') {
-          ref = temperature + 273.15
-        } else if (selectedTemperatureType === 'f') {
-          ref = (temperature + 459.67) * 1.8
-        } else {
-          ref = temperature
-        }
+      let ref
+      if (selectedTemperatureType === 'c') {
+        ref = temperature + 273.15
+      } else if (selectedTemperatureType === 'f') {
+        ref = (temperature + 459.67) * 1.8
+      } else {
+        ref = temperature
+      }
 
+      if (isTemperatureTriggered && this.element.number) {
         if (this.element.boil_use === '' && this.element.melt_use === '') {
           return 'element-searched orange'
         }
@@ -104,7 +104,29 @@ export default {
           return 'element-searched purple'
         }
       }
-      if (this.isFoundOnSearch || this.element.block === this.selectedBlock || this.selectedCategory === this.element.type || this.$store.getters.probableElements.includes(this.element.symbol)) {
+
+      const selectedStateOfMatter = this.$store.state.selectedStateOfMatter
+      let isFilteredState = false
+      if (selectedStateOfMatter) {
+        let state = 'solid'
+        if (this.element.boil_use === '' && this.element.melt_use === '') {
+          state = 'unknown'
+        } else if (ref >= this.element.boil_use) {
+          state = 'gas'
+        } else if (ref >= this.element.melt_use) {
+          state = 'liquid'
+        }
+
+        isFilteredState = state === selectedStateOfMatter
+      }
+
+      if (
+        this.isFoundOnSearch ||
+        isFilteredState ||
+        this.element.block === this.selectedBlock ||
+        this.selectedCategory === this.element.type ||
+        this.$store.getters.probableElements.includes(this.element.symbol)
+      ) {
         return `element-searched ${this.element.searchClass}`
       } else if (this.isFoundOnSearch === false) {
         return 'search-not-found'

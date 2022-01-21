@@ -42,4 +42,7 @@ export default {
   SET_IS_ORIENTED(state, isOriented) {
     state.isOriented = isOriented
   },
+  SET_STATE_OF_MATTER(state, stateOfMatter) {
+    state.selectedStateOfMatter = stateOfMatter
+  },
 }
