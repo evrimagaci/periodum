@@ -36,3 +36,4 @@ Testlerimiz için [`@testing-library/vue`](https://testing-library.com/docs/vue-
 Test düzeni ve formatı için [GitLab'ın test stili yönergeleri](https://docs.gitlab.com/ee/development/testing_guide/frontend_testing.html)ni takip ediyoruz.
 
 ## [Katkı Yönergeleri](https://github.com/evrimagaci/periodum/blob/main/CONTRIBUTING.md)
+
