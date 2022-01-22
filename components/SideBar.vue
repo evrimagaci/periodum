@@ -1187,18 +1187,9 @@ export default {
 }
 
 @supports not (backdrop-filter: blur()) {
-  .sidebar {
-    background-color: rgba(10, 12, 16, 1);
-  }
-
-  .mobile-sidebar {
-    background-color: rgba(10, 12, 16, 1);
-  }
-
-  .oriented-sidebar {
-    background-color: rgba(10, 12, 16, 1);
-  }
-
+  .sidebar,
+  .mobile-sidebar,
+  .oriented-sidebar,
   .close-btn {
     background-color: rgba(10, 12, 16, 1);
   }
