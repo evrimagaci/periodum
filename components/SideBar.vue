@@ -1185,4 +1185,22 @@ export default {
   font-size: 12px;
   color: $white;
 }
+
+@supports not (backdrop-filter: blur()) {
+  .sidebar {
+    background-color: rgba(10, 12, 16, 1);
+  }
+
+  .mobile-sidebar {
+    background-color: rgba(10, 12, 16, 1);
+  }
+
+  .oriented-sidebar {
+    background-color: rgba(10, 12, 16, 1);
+  }
+
+  .close-btn {
+    background-color: rgba(10, 12, 16, 1);
+  }
+}
 </style>
