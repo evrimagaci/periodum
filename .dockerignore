@@ -1,3 +1,5 @@
 db
 node_modules
 npm-debug.log
+.nuxt
+dist

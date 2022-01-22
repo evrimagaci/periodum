@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development NUXT_HOST=0.0.0.0 nodemon server/index.js --watch server",
+    "dev": "cross-env NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider NUXT_HOST=0.0.0.0 nodemon server/index.js --watch server",
     "build": "NODE_ENV=production nuxt build",
     "heroku-postbuild": "yarn build",
     "start_": "nuxt start",

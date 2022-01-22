@@ -4,7 +4,11 @@ services:
   app:
     image: "periodum_app:${TAG}"
     container_name: periodum_app_dev
-    build: .
+    build:
+      context: .
+      args:
+        - NODEJS_VERSION=${NODEJS_VERSION}
+        - NODE_ENV=${NODE_ENV}
     volumes:
       - ./:/usr/src/app # dislike to mount the whole volume
     environment:
