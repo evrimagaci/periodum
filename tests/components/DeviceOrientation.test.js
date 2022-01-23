@@ -14,7 +14,6 @@ describe('DeviceOrientation', () => {
 
     const elDialog = screen.getByTestId('device-orientation')
     expect(elDialog).toBeInTheDocument()
-    expect(elDialog.getAttribute('class')).toBe('device-orientation')
     expect(elDialog.children.item(0).getAttribute('style')).toContain('display: none;')
     expect(screen.getByRole('dialog', { hidden: true }).getAttribute('style')).toContain('width: 90vw;')
     expect(elDialog.getAttribute('style')).toBe('padding: 10px;')
