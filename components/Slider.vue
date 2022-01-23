@@ -10,7 +10,14 @@
     <client-only>
       <div style="display: flex; margin-top: 8px" class="table-slider">
         <vue-range-slider ref="slider" :value="viewTemperature" :tooltip="'none'" :min="minDegree" :max="7000" :drag-on-click="true" @change="onTemperatureChange" @dragging="onTemperatureChange" />
-        <period-select :selected-value="$store.state.selectedTemperatureType" :options="temperatureOptions" :value="viewTemperature" @change="onTemperatureTypeChange" />
+        <period-select
+          :selected-value="$store.state.selectedTemperatureType"
+          :options="temperatureOptions"
+          :value="viewTemperature"
+          :minDegree="minDegree"
+          @change="onTemperatureTypeChange"
+          @changeVal="onTemperatureChange"
+        />
       </div>
     </client-only>
     <div class="slider-box-wrapper">
