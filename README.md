@@ -3,7 +3,7 @@
 ## Önemli Bağlantılar
 - **Periodum Periyodik Tablo (Güncel Versiyon):** https://periodum.com/
 - **Proje İhtiyaçları & Yol Haritası:** https://github.com/evrimagaci/periodum/projects/1
-- **Zeplin Tasarım Dosyası:** https://zpl.io/bopNyyM
+- **Adobe XD Tasarım Dosyası:** https://dar.vin/4Ksrj
 
 ## Kurulum Bilgileri
 
