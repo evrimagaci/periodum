@@ -3,7 +3,7 @@
 ## Önemli Bağlantılar
 - **Periodum Periyodik Tablo (Güncel Versiyon):** https://periodum.com/
 - **Proje İhtiyaçları & Yol Haritası:** https://github.com/evrimagaci/periodum/projects/1
-- **Adobe XD Tasarım Dosyası:** https://dar.vin/4Ksrj
+- **Tasarım Dosyası:** https://dar.vin/4Ksrj _Tasarım dosyasını [Sketch](https://www.sketch.com/) veya [Adobe XD](https://www.adobe.com/products/xd.html) ile açabilirsiniz._
 
 ## Kurulum Bilgileri
 
