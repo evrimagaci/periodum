@@ -106,10 +106,10 @@ router.get('/api/contents/:id', async function (req, res) {
   }
 })
 
-router.get('/api/credits', async function (req, res) {
+router.get('/api/credits', function (req, res) {
   try {
-    const result = await axios.get(`https://evrimagaci.org/api/v2/periodum/credits`)
-    res.status(200).send(result.data)
+    const result = require(`../credits.json`)
+    res.status(200).send(result)
   } catch (err) {
     res.status(500).send({ err: 'something went wrong' })
   }

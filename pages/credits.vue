@@ -24,6 +24,7 @@
                   <img v-if="link.type === 'instagram'" src="../assets/icons/instagram.svg" style="width: 2vw; height: 2vw" />
                   <img v-if="link.type === 'behance'" src="../assets/icons/behance.svg" style="width: 2vw; height: 2vw" />
                   <img v-if="link.type === 'linkedin'" src="../assets/icons/linkedin.svg" style="width: 2vw; height: 2vw" />
+                  <img v-if="link.type === 'github'" src="../assets/icons/github.svg" style="width: 2vw; height: 2vw" />
                 </a>
               </div>
             </div>
@@ -56,7 +57,7 @@ export default {
   data() {
     return {
       users: [],
-      colors: ['#80fffc', '#aa80ff', '#ffef80', '#ffef80', '#ffef80', '#ff80d4'],
+      colors: ['#80fffc', '#aa80ff', '#ffef80', '#ffef80', '#ffef80', '#ff80d4', '#A3FA53'],
     }
   },
 }
@@ -98,7 +99,7 @@ export default {
 
 .profile-background {
   width: 112px;
-  height: 154px;
+  height: 112px;
   object-fit: contain;
   border-radius: 12px;
 }
@@ -108,7 +109,7 @@ export default {
   top: 10px;
   left: -10px;
   width: 112px;
-  height: 154px;
+  height: 112px;
   border-radius: 12px;
 }
 .header-title {

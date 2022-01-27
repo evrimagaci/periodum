@@ -20,6 +20,9 @@
           <a href="https://bionluk.com" target="_blank">
             <img src="../assets/images/bilogo@3x.png" style="width: 40px; height: 40px; margin-left: 20px" />
           </a>
+          <a href="https://github.com/evrimagaci/periodum" target="_blank">
+            <img src="../assets/images/github@3x.png" style="width: 40px; height: 40px; margin-left: 20px" />
+          </a>
         </div>
         <div style="display: flex; color: white; font-size: 12px; font-weight: 800">
           <div style="cursor: pointer">
