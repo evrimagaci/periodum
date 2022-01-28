@@ -38,6 +38,7 @@
 <script>
 export default {
   name: 'About',
+  layout: 'info',
   asyncData({ error, params, app, store }) {
     return app.$axios
       .get(`/api/credits`)

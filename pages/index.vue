@@ -1,126 +1,103 @@
 <template>
-  <div style="display: flex">
-    <side-bar v-if="showSideBar && selectedElement" :element="selectedElement" @close="showSideBar = false" />
-    <div class="main">
-      <div style="margin: 35px 0 30px 40px; display: flex">
-        <div style="position: relative">
-          <slider style="position: absolute; top: 26px; left: 11.6vw" />
-          <div v-for="y in 9" :key="y" style="display: flex" :style="y === 8 ? 'margin-top: 10px' : null">
-            <p-element
-              v-for="x in 18"
-              :key="x"
-              :x="x"
-              :y="y"
-              :selected-block="selectedBlock"
-              :selected-category="selectedCategory"
-              :search-text="$store.state.searchText ? $store.state.searchText.toLowerCase() : null"
-              @selectElement="selectElement"
-              @dragstart="selectedElementForCompound = $event"
-            />
-          </div>
-          <div class="sample">
-            <div class="group-no">Anahtar</div>
-            <div class="wrapper">
-              <div class="number">Atom No</div>
-              <div class="symbol">Sembol</div>
-              <div class="name">İsim</div>
-              <div class="atomic-mass">Atom Ağırlığı</div>
-            </div>
-          </div>
+  <div class="main">
+    <div style="position: relative">
+      <slider style="position: absolute; top: 26px; left: 11.6vw" />
+      <div>
+        <div v-for="y in 9" :key="y" style="display: flex" :style="y === 8 ? 'margin-top: 10px' : null">
+          <p-element
+            v-for="x in 18"
+            :key="x"
+            :x="x"
+            :y="y"
+            :selected-block="selectedBlock"
+            :selected-category="selectedCategory"
+            :search-text="$store.state.searchText ? $store.state.searchText.toLowerCase() : null"
+            @selectElement="selectElement"
+            @dragstart="onDragStart"
+            @dragend.native="onDragEnd"
+          />
         </div>
-        <div style="margin: 60px 0 0 15px">
-          <div class="filter-title">Filtre</div>
-          <div class="filter-sub-title" style="margin-top: 23px">Bloğa Göre</div>
-          <div class="group-container" style="margin-top: 6px">
-            <img v-if="selectedBlock === 's'" src="~/assets/icons/s-block-active.svg" class="s-block" @click="selectBlock('s')" />
-            <img v-else src="~/assets/icons/s-block.svg" class="s-block" @click="selectBlock('s')" />
-            <img v-if="selectedBlock === 'd'" src="~/assets/icons/d-block-active.svg" class="d-block" @click="selectBlock('d')" />
-            <img v-else src="~/assets/icons/d-block.svg" class="d-block" @click="selectBlock('d')" />
-            <img v-if="selectedBlock === 'p'" src="~/assets/icons/p-block-active.svg" class="p-block" @click="selectBlock('p')" />
-            <img v-else src="~/assets/icons/p-block.svg" class="p-block" @click="selectBlock('p')" />
-            <img v-if="selectedBlock === 'f'" src="~/assets/icons/f-block-active.svg" class="f-block" @click="selectBlock('f')" />
-            <img v-else src="~/assets/icons/f-block.svg" class="f-block" @click="selectBlock('f')" />
-          </div>
-          <div class="filter-sub-title" style="margin-top: 20px">Kategoriye Göre</div>
-          <div class="filter-sub-title-smaller">Metaller</div>
-          <div class="category-type-filter-wrapper alkalineMetal" @click="selectCategory('alkalineMetal')">
-            <div class="round" />
-            <div class="category-type-filter" :class="selectedCategory === 'alkalineMetal' ? 'active' : null">Alkali Metaller</div>
-          </div>
-          <div class="category-type-filter-wrapper alkalineEarthMetal" @click="selectCategory('alkalineEarthMetal')">
-            <div class="round" />
-            <div class="category-type-filter" :class="selectedCategory === 'alkalineEarthMetal' ? 'active' : null">Toprak Alkali Metaller</div>
-          </div>
-          <div class="category-type-filter-wrapper transitionMetal" @click="selectCategory('transitionMetal')">
-            <div class="round" />
-            <div class="category-type-filter" :class="selectedCategory === 'transitionMetal' ? 'active' : null">Geçiş Metali</div>
-          </div>
-          <div class="category-type-filter-wrapper metal" @click="selectCategory('metal')">
-            <div class="round" />
-            <div class="category-type-filter" :class="selectedCategory === 'metal' ? 'active' : null">Geçiş Sonrası Metali</div>
-          </div>
-          <div class="category-type-filter-wrapper lanthanide" @click="selectCategory('lanthanide')">
-            <div class="round" />
-            <div class="category-type-filter" :class="selectedCategory === 'lanthanide' ? 'active' : null">Lantanitler</div>
-          </div>
-          <div class="category-type-filter-wrapper actinide" @click="selectCategory('actinide')">
-            <div class="round" />
-            <div class="category-type-filter" :class="selectedCategory === 'actinide' ? 'active' : null">Aktinitler</div>
-          </div>
-          <div class="filter-sub-title-smaller">Metalsiler</div>
-          <div class="category-type-filter-wrapper halfMetal" @click="selectCategory('halfMetal')">
-            <div class="round" />
-            <div class="category-type-filter" :class="selectedCategory === 'halfMetal' ? 'active' : null">Metalsi</div>
-          </div>
+      </div>
+      <div class="sample">
+        <div class="group-no">Anahtar</div>
+        <div class="wrapper">
+          <div class="number">Atom No</div>
+          <div class="symbol">Sembol</div>
+          <div class="name">İsim</div>
+          <div class="atomic-mass">Atom Ağırlığı</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin: 60px 0 0 15px">
+      <div class="filter-title">Filtre</div>
+      <div class="filter-sub-title" style="margin-top: 23px">Bloğa Göre</div>
+      <div class="group-container" style="margin-top: 6px">
+        <img v-if="selectedBlock === 's'" src="~/assets/icons/s-block-active.svg" class="s-block" @click="selectBlock('s')" />
+        <img v-else src="~/assets/icons/s-block.svg" class="s-block" @click="selectBlock('s')" />
+        <img v-if="selectedBlock === 'd'" src="~/assets/icons/d-block-active.svg" class="d-block" @click="selectBlock('d')" />
+        <img v-else src="~/assets/icons/d-block.svg" class="d-block" @click="selectBlock('d')" />
+        <img v-if="selectedBlock === 'p'" src="~/assets/icons/p-block-active.svg" class="p-block" @click="selectBlock('p')" />
+        <img v-else src="~/assets/icons/p-block.svg" class="p-block" @click="selectBlock('p')" />
+        <img v-if="selectedBlock === 'f'" src="~/assets/icons/f-block-active.svg" class="f-block" @click="selectBlock('f')" />
+        <img v-else src="~/assets/icons/f-block.svg" class="f-block" @click="selectBlock('f')" />
+      </div>
+      <div class="filter-sub-title" style="margin-top: 20px">Kategoriye Göre</div>
+      <div class="filter-sub-title-smaller">Metaller</div>
+      <div class="category-type-filter-wrapper alkalineMetal" @click="selectCategory('alkalineMetal')">
+        <div class="round" />
+        <div class="category-type-filter" :class="selectedCategory === 'alkalineMetal' ? 'active' : null">Alkali Metaller</div>
+      </div>
+      <div class="category-type-filter-wrapper alkalineEarthMetal" @click="selectCategory('alkalineEarthMetal')">
+        <div class="round" />
+        <div class="category-type-filter" :class="selectedCategory === 'alkalineEarthMetal' ? 'active' : null">Toprak Alkali Metaller</div>
+      </div>
+      <div class="category-type-filter-wrapper transitionMetal" @click="selectCategory('transitionMetal')">
+        <div class="round" />
+        <div class="category-type-filter" :class="selectedCategory === 'transitionMetal' ? 'active' : null">Geçiş Metali</div>
+      </div>
+      <div class="category-type-filter-wrapper metal" @click="selectCategory('metal')">
+        <div class="round" />
+        <div class="category-type-filter" :class="selectedCategory === 'metal' ? 'active' : null">Geçiş Sonrası Metali</div>
+      </div>
+      <div class="category-type-filter-wrapper lanthanide" @click="selectCategory('lanthanide')">
+        <div class="round" />
+        <div class="category-type-filter" :class="selectedCategory === 'lanthanide' ? 'active' : null">Lantanitler</div>
+      </div>
+      <div class="category-type-filter-wrapper actinide" @click="selectCategory('actinide')">
+        <div class="round" />
+        <div class="category-type-filter" :class="selectedCategory === 'actinide' ? 'active' : null">Aktinitler</div>
+      </div>
+      <div class="filter-sub-title-smaller">Metalsiler</div>
+      <div class="category-type-filter-wrapper halfMetal" @click="selectCategory('halfMetal')">
+        <div class="round" />
+        <div class="category-type-filter" :class="selectedCategory === 'halfMetal' ? 'active' : null">Metalsi</div>
+      </div>
 
-          <div class="filter-sub-title-smaller">Ametaller</div>
-          <div class="category-type-filter-wrapper nobleGas" @click="selectCategory('nobleGas')">
-            <div class="round" />
-            <div class="category-type-filter" :class="selectedCategory === 'nobleGas' ? 'active' : null">Soygazlar</div>
-          </div>
-          <div class="category-type-filter-wrapper nonmetallic" @click="selectCategory('nonmetallic')">
-            <div class="round" />
-            <div class="category-type-filter" :class="selectedCategory === 'nonmetallic' ? 'active' : null">Reaktif Ametal</div>
-          </div>
-          <div class="filter-sub-title-smaller">Diğer</div>
-          <div class="category-type-filter-wrapper other" @click="selectCategory('other')">
-            <div class="round" />
-            <div class="category-type-filter" :class="selectedCategory === 'other' ? 'active' : null">Bilinmiyor</div>
-          </div>
-        </div>
+      <div class="filter-sub-title-smaller">Ametaller</div>
+      <div class="category-type-filter-wrapper nobleGas" @click="selectCategory('nobleGas')">
+        <div class="round" />
+        <div class="category-type-filter" :class="selectedCategory === 'nobleGas' ? 'active' : null">Soygazlar</div>
+      </div>
+      <div class="category-type-filter-wrapper nonmetallic" @click="selectCategory('nonmetallic')">
+        <div class="round" />
+        <div class="category-type-filter" :class="selectedCategory === 'nonmetallic' ? 'active' : null">Reaktif Ametal</div>
+      </div>
+      <div class="filter-sub-title-smaller">Diğer</div>
+      <div class="category-type-filter-wrapper other" @click="selectCategory('other')">
+        <div class="round" />
+        <div class="category-type-filter" :class="selectedCategory === 'other' ? 'active' : null">Bilinmiyor</div>
       </div>
     </div>
-    <div v-if="!showRightSideBar" class="right-sidebar" @drop="onDrop" @dragover="$event.preventDefault()">
-      <div class="title" style="margin: 10px 0 0 0">Bileşikler</div>
-      <div style="margin-top: 222px">
-        <img style="margin-left: 7px" src="~/assets/icons/drop.svg" />
-      </div>
-      <div class="text-area" style="margin: 10px">Element sürükleyip bırakarak bileşikler üretin.</div>
-    </div>
-    <right-side-bar
-      v-else
-      :compound-elements="compoundElements"
-      @drop="onDrop"
-      @remove="onRemove"
-      @close="
-        showRightSideBar = false
-        compoundElements = []
-      "
-      @incOrDec="incOrDecCompoundElements"
-    />
   </div>
 </template>
 
 <script>
-import _ from 'lodash'
 import MobileDetect from 'mobile-detect'
 import PElement from '../components/Element'
 import Slider from '../components/Slider'
-import SideBar from '../components/SideBar'
-import RightSideBar from '../components/RightSideBar'
 
 export default {
-  components: { SideBar, RightSideBar, Slider, PElement },
+  components: { Slider, PElement },
   asyncData({ error, params, app, store, req }) {
     if (req) {
       const md = new MobileDetect(req.headers['user-agent'])
@@ -185,35 +162,20 @@ export default {
       })
   },
   methods: {
-    incOrDecCompoundElements(payload) {
-      this.compoundElements[payload.index].count += payload.value
-    },
-    selectElement($event) {
+    selectElement(event) {
       if (this.showSideBar) {
-        this.showSideBar = this.selectedElement && this.selectedElement.number !== $event.number
+        this.showSideBar = this.selectedElement && this.selectedElement.number !== event.number
       } else {
-        this.showSideBar = !!$event.number
+        this.showSideBar = !!event.number
       }
-      this.selectedElement = $event
+      this.selectedElement = event
     },
-    onRemove(index) {
-      this.compoundElements.splice(index, 1)
-      if (!this.compoundElements.length) {
-        this.showRightSideBar = false
-      }
+    onDragStart(element) {
+      this.selectedElementForCompound = element
+      this.$store.commit('SET_DRAG_START', true)
     },
-    onDrop(event) {
-      event.preventDefault()
-      const lastIndex = this.compoundElements.length - 1
-      if (lastIndex > -1 && this.compoundElements[lastIndex].number === this.selectedElementForCompound.number) {
-        this.compoundElements[lastIndex].count++
-      } else {
-        this.compoundElements.push({
-          count: 1,
-          ..._.cloneDeep(this.selectedElementForCompound),
-        })
-      }
-      this.showRightSideBar = true
+    onDragEnd() {
+      this.$store.commit('SET_DRAG_START', false)
     },
     selectBlock(block) {
       this.selectedBlock = this.selectedBlock === block ? null : block
@@ -282,8 +244,10 @@ export default {
 }
 
 .main {
-  width: 100%;
+  width: calc(100% - 200px);
   position: relative;
+  display: flex;
+  margin: 35px 0 30px 40px;
 }
 
 .logo {
@@ -370,30 +334,6 @@ export default {
     object-fit: contain;
     position: absolute;
     cursor: pointer;
-  }
-}
-
-.right-sidebar {
-  position: absolute;
-  right: 0;
-  width: 11vw;
-  height: calc(100% - 153px);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  background-color: rgba(10, 12, 16, 0.6);
-  text-align: center;
-
-  .title {
-    font-size: 0.6em;
-    font-weight: bold;
-    color: $white;
-    text-align: center;
-  }
-  .text-area {
-    font-size: 0.5em;
-    font-weight: normal;
-    text-align: center;
-    color: #bec1c6;
   }
 }
 </style>

@@ -17,7 +17,7 @@ module.exports = {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['~/assets/css/main.scss', 'normalize.css/normalize.css'],
+  css: ['~/assets/css/main.scss', 'normalize.css/normalize.css', '~/assets/css/main.css'],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/vue-range-slider', ssr: false },
@@ -35,6 +35,7 @@ module.exports = {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
+    '@nuxt/postcss8',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -49,5 +50,12 @@ module.exports = {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+      },
+    },
+  },
 }

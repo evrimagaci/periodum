@@ -14,4 +14,5 @@ export default () => ({
   searchText: null,
   isMobile: false,
   isOriented: false,
+  isDragStart: false,
 })

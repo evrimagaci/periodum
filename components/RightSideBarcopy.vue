@@ -1,139 +1,126 @@
 <template>
-  <el-aside
-    class="right-sidebar flex flex-col justify-center"
-    :class="{ 'dragging-over': $store.state.isDragStart || compoundElements.length }"
-    @drop.prevent.native="onDrop"
-    @dragover.prevent.native="() => {}"
-  >
-    <div class="title text-center">Bileşikler</div>
-    <div v-if="compoundElements.length">
-      <div class="close-btn" @click="$emit('close')">
-        <img src="../assets/icons/icons-close.svg" />
+  <div class="right-sidebar">
+    <div class="title">Bileşikler</div>
+    <div class="close-btn" @click="$emit('close')">
+      <img src="../assets/icons/icons-close.svg" />
+    </div>
+    <div class="element-area" @drop="onDrop" @dragover="$event.preventDefault()">
+      <div v-if="elements.length === 0" class="empty-element">
+        <div>
+          <img class="drop-icon" src="~/../assets/icons/drop.svg" />
+        </div>
       </div>
-      <div class="element-area" @drop="onDrop" @dragover.prevent="() => {}">
-        <div v-if="elements.length === 0" class="empty-element">
-          <div>
-            <img class="drop-icon" src="~/../assets/icons/drop.svg" />
+      <div v-if="elements.length === 1" class="one-element">
+        <div style="position: relative">
+          <p-element :x="elements[0].xpos" :y="elements[0].ypos" :is-table-element="false" />
+          <img class="remove-element-btn" src="~/../assets/icons/icons-close.svg" @click="$emit('remove', 0)" />
+          <div class="round-count">
+            <img v-if="elements[0].count === 1" src="~/assets/icons/icons-minus-gray.svg" class="minus-plus" />
+            <img v-else src="~/assets/icons/icons-minus-white.svg" class="minus-plus" @click="$emit('incOrDec', { index: 0, value: -1 })" />
+            <div class="count">
+              {{ elements[0].count }}
+            </div>
+            <img src="~/assets/icons/icons-plus.svg" class="minus-plus" @click="$emit('incOrDec', { index: 0, value: 1 })" />
           </div>
         </div>
-        <div v-if="elements.length === 1" class="one-element">
-          <div style="position: relative">
-            <p-element :x="elements[0].xpos" :y="elements[0].ypos" :is-table-element="false" />
-            <img class="remove-element-btn" src="~/../assets/icons/icons-close.svg" @click="remove(0)" />
-            <div class="round-count">
-              <img v-if="elements[0].count === 1" src="~/assets/icons/icons-minus-gray.svg" class="minus-plus" />
-              <img v-else src="~/assets/icons/icons-minus-white.svg" class="minus-plus" @click="$emit('incOrDec', { index: 0, value: -1 })" />
-              <div class="count">
-                {{ elements[0].count }}
-              </div>
-              <img src="~/assets/icons/icons-plus.svg" class="minus-plus" @click="$emit('incOrDec', { index: 0, value: 1 })" />
-            </div>
-          </div>
-          <img class="swiper-divider-plus" src="~/assets/icons/icons-plus.svg" />
-          <div>
-            <img class="drop-icon" style="margin-left: 5px" src="~/../assets/icons/drop.svg" />
+        <img class="swiper-divider-plus" src="~/assets/icons/icons-plus.svg" />
+        <div>
+          <img class="drop-icon" style="margin-left: 5px" src="~/../assets/icons/drop.svg" />
+        </div>
+      </div>
+      <div v-if="elements.length > 1" style="display: flex; position: relative">
+        <div class="shadow-left">
+          <div class="swiper-arrow-left">
+            <img src="~/../assets/icons/chevron-left.svg" @click="swiper.slidePrev()" />
           </div>
         </div>
-        <div v-if="elements.length > 1" style="display: flex; position: relative">
-          <div class="shadow-left">
-            <div class="swiper-arrow-left">
-              <img src="~/../assets/icons/chevron-left.svg" @click="swiper.slidePrev()" />
-            </div>
+        <div class="shadow-right">
+          <div class="swiper-arrow-right">
+            <img src="~/../assets/icons/chevron-right.svg" @click="swiper.slideNext()" />
           </div>
-          <div class="shadow-right">
-            <div class="swiper-arrow-right">
-              <img src="~/../assets/icons/chevron-right.svg" @click="swiper.slideNext()" />
-            </div>
-          </div>
-          <swiper ref="swiper" :options="swiperOptions" style="padding: 28px; margin-top: -28px">
-            <swiper-slide v-for="(element, index) in elements" :key="element.name_tr + index" style="display: flex" :style="index !== 0 ? 'margin-left: 0px' : null">
-              <div style="position: relative">
-                <p-element :x="element.xpos" :y="element.ypos" :is-table-element="false" />
-                <img class="remove-element-btn" src="~/../assets/icons/icons-close.svg" @click="remove(index)" />
-                <div class="round-count">
-                  <img v-if="element.count === 1" src="~/assets/icons/icons-minus-gray.svg" class="minus-plus" />
-                  <img v-else src="~/assets/icons/icons-minus-white.svg" class="minus-plus" @click="$emit('incOrDec', { index, value: -1 })" />
-                  <div class="count">
-                    {{ element.count }}
-                  </div>
-                  <img src="~/assets/icons/icons-plus.svg" class="minus-plus" @click="$emit('incOrDec', { index, value: 1 })" />
+        </div>
+        <swiper ref="swiper" :options="swiperOptions" style="padding: 28px; margin-top: -28px">
+          <swiper-slide v-for="(element, index) in elements" :key="element.name_tr + index" style="display: flex" :style="index !== 0 ? 'margin-left: 0px' : null">
+            <div style="position: relative">
+              <p-element :x="element.xpos" :y="element.ypos" :is-table-element="false" />
+              <img class="remove-element-btn" src="~/../assets/icons/icons-close.svg" @click="onRemove(index)" />
+              <div class="round-count">
+                <img v-if="element.count === 1" src="~/assets/icons/icons-minus-gray.svg" class="minus-plus" />
+                <img v-else src="~/assets/icons/icons-minus-white.svg" class="minus-plus" @click="$emit('incOrDec', { index, value: -1 })" />
+                <div class="count">
+                  {{ element.count }}
                 </div>
+                <img src="~/assets/icons/icons-plus.svg" class="minus-plus" @click="$emit('incOrDec', { index, value: 1 })" />
               </div>
-              <img class="swiper-divider-plus" style="margin-left: -3px" src="~/assets/icons/icons-plus.svg" />
-            </swiper-slide>
-            <swiper-slide>
+            </div>
+            <img class="swiper-divider-plus" style="margin-left: -3px" src="~/assets/icons/icons-plus.svg" />
+          </swiper-slide>
+          <swiper-slide>
+            <div>
+              <img class="drop-icon" src="~/../assets/icons/drop.svg" />
+            </div>
+          </swiper-slide>
+        </swiper>
+      </div>
+    </div>
+    <div v-if="foundCompound && foundCompound.formula" class="wrapper" style="color: white">
+      <canvas id="smiley" width="200" height="80"></canvas>
+      <div class="row">
+        <div class="wrapper">
+          <div class="menu-title">
+            <div>Moleküler Ağırlık</div>
+          </div>
+          <div class="menu-value">{{ foundCompound.molecular_weight }}</div>
+        </div>
+      </div>
+      <div v-if="foundCompound.dtp_names.length" class="row" style="cursor: pointer" :style="showDtpNames ? 'border-left: solid 3px #80fffc' : null" @click="showDtpNames = !showDtpNames">
+        <div class="wrapper">
+          <div class="menu-title" :style="showDtpNames ? 'margin-left: -3px' : null">
+            <div>DTP İsim ve Alternatifleri</div>
+          </div>
+          <div class="menu-value">
+            <img v-if="!showDtpNames" style="cursor: pointer" src="../assets/icons/icons-plus.svg" />
+            <img v-else style="cursor: pointer" src="../assets/icons/icons-minus.svg" />
+          </div>
+        </div>
+      </div>
+      <div v-if="showDtpNames" style="max-height: 200px; overflow: auto">
+        <div v-for="(name, index) in foundCompound.dtp_names" :key="index" class="dark-row">
+          <div class="wrapper">
+            <div class="menu-title">
               <div>
-                <img class="drop-icon" src="~/../assets/icons/drop.svg" />
-              </div>
-            </swiper-slide>
-          </swiper>
-        </div>
-      </div>
-      <div v-if="foundCompound && foundCompound.formula" class="wrapper" style="color: white">
-        <canvas id="smiley" width="200" height="80"></canvas>
-        <div class="row">
-          <div class="wrapper">
-            <div class="menu-title">
-              <div>Moleküler Ağırlık</div>
-            </div>
-            <div class="menu-value">{{ foundCompound.molecular_weight }}</div>
-          </div>
-        </div>
-        <div v-if="foundCompound.dtp_names.length" class="row" style="cursor: pointer" :style="showDtpNames ? 'border-left: solid 3px #80fffc' : null" @click="showDtpNames = !showDtpNames">
-          <div class="wrapper">
-            <div class="menu-title" :style="showDtpNames ? 'margin-left: -3px' : null">
-              <div>DTP İsim ve Alternatifleri</div>
-            </div>
-            <div class="menu-value">
-              <img v-if="!showDtpNames" style="cursor: pointer" src="../assets/icons/icons-plus.svg" />
-              <img v-else style="cursor: pointer" src="../assets/icons/icons-minus.svg" />
-            </div>
-          </div>
-        </div>
-        <div v-if="showDtpNames" style="max-height: 200px; overflow: auto">
-          <div v-for="(name, index) in foundCompound.dtp_names" :key="index" class="dark-row">
-            <div class="wrapper">
-              <div class="menu-title">
-                <div>
-                  {{ name }}
-                </div>
+                {{ name }}
               </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="wrapper">
-            <div class="menu-title">
-              <div>CAS Numarası</div>
-            </div>
-            <div class="menu-value">{{ foundCompound.cas_number }}</div>
+      </div>
+      <div class="row">
+        <div class="wrapper">
+          <div class="menu-title">
+            <div>CAS Numarası</div>
           </div>
+          <div class="menu-value">{{ foundCompound.cas_number }}</div>
         </div>
-        <div class="row">
-          <div class="wrapper">
-            <div class="menu-title">
-              <div>Atom Stereomerkez Sayısı</div>
-            </div>
-            <div class="menu-value">{{ foundCompound.number_of_atom_stereocenters }}</div>
+      </div>
+      <div class="row">
+        <div class="wrapper">
+          <div class="menu-title">
+            <div>Atom Stereomerkez Sayısı</div>
           </div>
+          <div class="menu-value">{{ foundCompound.number_of_atom_stereocenters }}</div>
         </div>
-        <div class="row">
-          <div class="wrapper">
-            <div class="menu-title">
-              <div>Bağ Stereomerkez Sayısı</div>
-            </div>
-            <div class="menu-value">{{ foundCompound.number_of_bond_stereocenters }}</div>
+      </div>
+      <div class="row">
+        <div class="wrapper">
+          <div class="menu-title">
+            <div>Bağ Stereomerkez Sayısı</div>
           </div>
+          <div class="menu-value">{{ foundCompound.number_of_bond_stereocenters }}</div>
         </div>
       </div>
     </div>
-    <div v-else class="h-full flex flex-col justify-center">
-      <div class="flex w-full flex flex-col items-center">
-        <img width="55" src="~/assets/icons/drop.svg" />
-        <div class="text-gray-500 text-center" style="margin: 10px">Element sürükleyip bırakarak bileşikler üretin.</div>
-      </div>
-    </div>
-  </el-aside>
+  </div>
 </template>
 
 <script>
@@ -143,11 +130,15 @@ import SmilesDrawer from 'smiles-drawer'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/swiper.scss'
 import PElement from './Element'
-import rightSideBarDropArea from '~/mixins/rightSideBarDropArea'
 export default {
   name: 'RightSideBar',
   components: { PElement, Swiper, SwiperSlide },
-  mixins: [rightSideBarDropArea],
+  props: {
+    compoundElements: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
       elements: [],
@@ -355,6 +346,15 @@ export default {
           this.loadingInstance.close()
         })
     },
+    onRemove(index) {
+      this.$nextTick(() => {
+        this.$emit('remove', index)
+      })
+    },
+    onDrop(event) {
+      event.preventDefault()
+      this.$emit('drop', event)
+    },
     closeDtpNames() {
       this.showDtpNames = false
     },
@@ -376,17 +376,13 @@ export default {
 .right-sidebar {
   position: absolute;
   right: 0;
-  top: 60px;
-  width: 200px !important;
-  height: calc(100% - 60px);
+  width: 20vw;
+  height: calc(100% - 153px);
   padding: 10px 0 36px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   background-color: rgba(10, 12, 16, 0.6);
-  &.dragging-over {
-    width: 320px !important;
-    transition: 0.1s ease-in-out width;
-  }
+  top: 53px;
   .title {
     font-size: 0.9vw;
     font-weight: bold;

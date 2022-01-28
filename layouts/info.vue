@@ -10,10 +10,9 @@
         </label>
       </div>
     </el-header>
-    <el-main style="padding: 0 200px 0 0">
+    <el-main>
       <Nuxt :search-text="searchText" />
     </el-main>
-    <right-side-bar />
     <el-footer height="auto" class="bottom-bar">
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-between">
@@ -24,25 +23,32 @@
             <img src="../assets/images/bilogo@3x.png" style="width: 40px; height: 40px; margin-left: 20px" />
           </a>
         </div>
-        <div class="text-sm flex flex-col justify-end">
-          <div class="flex font-extrabold ml-auto mb-1">
-            <router-link class="text-white no-underline" to="/about">
-              <div class="text-xs">Proje Hakkında</div>
-              <div style="border-radius: 2px; height: 3px; background-color: #80fffc; margin-top: 2px; width: 20px"></div>
-            </router-link>
-            <router-link class="text-white no-underline" to="/credits" style="margin-left: 50px">
-              <div class="text-xs">Künye</div>
+        <div style="display: flex; color: white; font-size: 12px; font-weight: 800">
+          <div style="cursor: pointer">
+            <router-link to="/about" style="color: inherit; text-decoration: none">
+              <div>Proje Hakkında</div>
               <div style="border-radius: 2px; height: 3px; background-color: #80fffc; margin-top: 2px; width: 20px"></div>
             </router-link>
           </div>
-          <div class="self-end text-custom-gray">Tüm hakları saklıdır. Ticari amaç gütmeksizin, eğitim amaçlı olarak özgürce kullanılabilir.</div>
+          <div style="margin-left: 50px; cursor: pointer">
+            <router-link to="/credits" style="color: inherit; text-decoration: none">
+              <div>Künye</div>
+              <div style="border-radius: 2px; height: 3px; background-color: #80fffc; margin-top: 2px; width: 20px"></div>
+            </router-link>
+          </div>
         </div>
+      </div>
+      <div class="flex items-center justify-end text-custom-gray">
+        <div>Tüm hakları saklıdır. Ticari amaç gütmeksizin, eğitim amaçlı olarak özgürce kullanılabilir.</div>
       </div>
     </el-footer>
   </el-container>
 </template>
 <script>
+// import InfoModal from '../components/InfoModal'
+// import DeviceOrientation from '../components/DeviceOrientation'
 export default {
+  // components: { DeviceOrientation, InfoModal },
   data() {
     return {
       showDeviceOrientationModal: false,
@@ -99,6 +105,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
   background-color: #1a1f2a;
 }
 
@@ -107,6 +114,12 @@ html {
 *::after {
   box-sizing: border-box;
   margin: 0;
+}
+.container {
+  // min-width: 1280px;
+  width: 100%;
+  position: relative;
+  font-size: 24px;
 }
 .top-bar {
   width: 100%;
@@ -154,13 +167,10 @@ html {
 }
 .bottom-bar {
   width: 100%;
-  padding: 15px 20px !important;
+  padding: 30px 30px 15px;
   opacity: 0.9;
   background-color: #0b0e13;
   z-index: 1;
-  position: absolute;
-  bottom: 0;
-  left: 0;
 }
 .text-custom-gray {
   color: $gray;
