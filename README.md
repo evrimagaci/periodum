@@ -5,6 +5,7 @@ This project started as a Turkish periodic table; however, we are now at a point
 - **Periodum Periodic Table (Latest Version):** https://periodum.com/
 - **Project Needs & Roadmap:** https://github.com/evrimagaci/periodum/projects/1
 - **Design File:** https://dar.vin/4Ksrj _You can access the design file using [Sketch](https://www.sketch.com/) or [Adobe XD](https://www.adobe.com/products/xd.html)._
+- **iPad and macOS Client:** https://github.com/umurgdk/periodum-apple
 
 ## Installation
 
