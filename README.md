@@ -9,7 +9,7 @@ This project started as a Turkish periodic table and evolved into an internation
 - **Design File:** https://dar.vin/4Ksrj _You can access the design file using [Sketch](https://www.sketch.com/) or [Adobe XD](https://www.adobe.com/products/xd.html)._
 
 ### Related Repos
-- **Back-End & Database:** https://github.com/evrimagaci/periodum-api
+- **Backend & API:** https://github.com/evrimagaci/periodum-api
 - **iPad and macOS Client:** https://github.com/evrimagaci/periodum-apple
 
 ## Installation
