@@ -1,10 +1,15 @@
 # Periodum: An Interactive Periodic Table Project
-This project started as a Turkish periodic table; however, we are now at a point where we want to go international by converting the project to English. We have a path forward and we are seeking programmers that are willing to take on the language expansion process. [Contribute to the project](https://github.com/evrimagaci/periodum/blob/main/CONTRIBUTING.md) if you're interested - and [feel free to ask any questions](https://github.com/evrimagaci/periodum/discussions) if you cannot figure out anything (because of language or for any other reason)!
+This project started as a Turkish periodic table and evolved into an international science project. We have a path forward and we are seeking programmers that are willing to take on the language expansion process. [Contribute to the project](https://github.com/evrimagaci/periodum/blob/main/CONTRIBUTING.md) if you're interested - and [feel free to ask any questions](https://github.com/evrimagaci/periodum/discussions) if you cannot figure out anything (because of language or for any other reason)!
 
 ## Important Links
 - **Periodum Periodic Table (Latest Version):** https://periodum.com/
+
+### Key Docs
 - **Project Needs & Roadmap:** https://github.com/evrimagaci/periodum/projects/1
 - **Design File:** https://dar.vin/4Ksrj _You can access the design file using [Sketch](https://www.sketch.com/) or [Adobe XD](https://www.adobe.com/products/xd.html)._
+
+### Related Repos
+- **Backend & API:** https://github.com/evrimagaci/periodum-api
 - **iPad and macOS Client:** https://github.com/evrimagaci/periodum-apple
 
 ## Installation
@@ -37,5 +42,5 @@ We use [`@testing-library/vue`](https://testing-library.com/docs/vue-testing-lib
 
 Please follow the [GitLab testing guide](https://docs.gitlab.com/ee/development/testing_guide/frontend_testing.html) for the testing structure and format.
 
-## [Contribution Guidelines](https://github.com/evrimagaci/periodum/blob/main/CONTRIBUTING.md)
-
+## Contribution Guidelines
+Please [click here](https://github.com/evrimagaci/periodum/blob/main/CONTRIBUTING.md) to learn more about how to contribute to Periodum project. 
