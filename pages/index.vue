@@ -106,6 +106,7 @@
         showRightSideBar = false
         compoundElements = []
       "
+      @selectElement="selectElement"
       @incOrDec="incOrDecCompoundElements"
     />
   </div>
