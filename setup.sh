@@ -4,55 +4,57 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 
 clear
-echo "Lütfen mysql root kullanıcı parolanızı girin"
+echo "Please enter your MySQL root password:"
 mysql_config_editor set --login-path=periodum --host=localhost --user=root --password --skip-warn >/dev/null
 
 clear
-echo "Bu işlem uzun sürebilir! Lütfen ${bold}'Kurulum tamamlandı!'${normal} yazısını görene kadar bekleyin!"
+echo "This process might take a while! Please wait until the line: ${bold}'Setup Complete!'${normal}"
 
 echo ''
 
-echo 'Kurulum yapılıyor...'
+echo 'Starting Setup...'
 
 echo ''
-echo 'Veritabanı oluşturuluyor...'
+echo 'Creating Database...'
 echo ''
-mysql --login-path=periodum -e "CREATE DATABASE periodum /*\!40100 DEFAULT CHARACTER SET utf8 */;" >/dev/null || { echo 'Veritabanı oluşturulamadı!' ; exit 1; }
-echo 'Veritabanı oluşturuldu.'
+mysql --login-path=periodum -e "CREATE DATABASE periodum /*\!40100 DEFAULT CHARACTER SET utf8 */;" >/dev/null || { echo 'Failed to create Database!' ; exit 1; }
+echo 'Database successfully created.'
 echo ''
-echo 'Veritabanı için kullanıcı oluşturuluyor...'
+echo 'Creating a new user for Database...'
 echo ''
-mysql --login-path=periodum -e "CREATE USER 'periodum'@'localhost' IDENTIFIED BY '1234Periodum';" >/dev/null || { echo 'Periodum kullanıcısı oluşturulamadı!' ; exit 1; }
-echo 'Kullanıcı oluşturuldu.'
+mysql --login-path=periodum -e "CREATE USER 'periodum'@'localhost' IDENTIFIED BY '1234Periodum';" >/dev/null || { echo 'Failed to create User!' ; exit 1; }
+echo 'User successfully created.'
 echo ''
-echo 'Veritabanı kullanıcısı yetkilendiriliyor...'
+echo 'Authorizing User...'
 echo ''
-mysql --login-path=periodum -e "GRANT ALL PRIVILEGES ON periodum.* TO 'periodum'@'localhost';" >/dev/null || { echo 'Kullanıcıya izinler sağlanamadı!' ; exit 1; }
-echo 'Kullanıcıya tüm izinler verildi.'
+mysql --login-path=periodum -e "GRANT ALL PRIVILEGES ON periodum.* TO 'periodum'@'localhost';" >/dev/null || { echo 'Failed to authorize User!' ; exit 1; }
+echo 'User successfully authorized.'
 echo ''
-echo 'Kullancının veritabanındaki izinleri ayarlanıyor...'
+echo 'Adding Database privileges to the User...'
 echo ''
-mysql --login-path=periodum -e "FLUSH PRIVILEGES;" >/dev/null || { echo 'Kullanıcı izinleri yüklenemedi!' ; exit 1; }
-echo 'Kullancının izinleri yeniden yüklendi.'
+mysql --login-path=periodum -e "FLUSH PRIVILEGES;" >/dev/null || { echo 'Failed to add privileges to the User!' ; exit 1; }
+echo 'Database privileges successfully added.'
 echo ''
-echo 'Veritabanına veriler yükleniyor...'
+echo 'Importing Data to Database...'
 echo ''
-mysql --login-path=periodum periodum < ./db.sql >/dev/null || { echo 'Veriler yüklenemedi!' ; exit 1; }
-echo 'Veritabanına veriler yüklendi.'
+mysql --login-path=periodum periodum < ./db.sql >/dev/null || { echo 'Failed to import Data!' ; exit 1; }
+echo 'Data successfully imported to Database.'
 echo ''
 
 # Environment Setup
-echo '.env dosyası oluşturuluyor...'
+echo 'Creating .env(Enviorement Variables) file...'
 echo ''
-cp ./.env.development ./.env >/dev/null || { echo '.env dosyası oluşturulamadı!' ; exit 1; }
-echo '.env dosyası oluşturuldu.'
+cp ./.env.development ./.env >/dev/null || { echo 'Failed to create .env file!' ; exit 1; }
+echo '.env file successfully created.'
 echo ''
 
 # Load packages
-echo 'Paketler yükleniyor...'
+echo 'Installing Packages...'
 echo ''
-yarn >/dev/null || { echo 'Paketler yüklenemedi!' ; exit 1; }
-echo 'Paketler yüklendi.'
+yarn >/dev/null || { echo 'Failed to install Packeges!' ; exit 1; }
+echo 'Packages successfully installed.'
 echo ''
 
-echo "${bold}Kurulum tamamlandı!${normal} Sonraki adımları takip edebilirsiniz."
+echo "${bold}Setup Complete!${normal}"
+echo ''
+echo 'Now you can follow the next steps.'
