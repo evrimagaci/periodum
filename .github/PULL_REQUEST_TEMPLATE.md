@@ -4,7 +4,7 @@
 
 **Related Issue:** #
 
-## Category of Thing You Changed:
+## Change Category:
 
 - [ ] Bug Fix
 - [ ] Feature
@@ -23,10 +23,10 @@
 
 # Checklist:
 
-- [ ] My code complies with this project's code format guidelines.
+- [ ] My code complies with this project's code formatting guidelines.
 - [ ] I reviewed my code.
-- [ ] I left code comments for areas that may be difficult to understand.
-- [ ] If necessary, I have updated the documentation.
-- [ ] Changes I made are not producing new issues.
+- [ ] I added comments especially in portions that may be difficult to understand.
+- [ ] If necessary, I updated the documentation.
+- [ ] Changes I made do not produce new issues.
 - [ ] I added or updated tests based on my changes.
-- [ ] If there's any, all changes related to my changes are already in main branch.
+- [ ] If any, all changes related to my changes are already present in the main branch.
