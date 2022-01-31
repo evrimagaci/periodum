@@ -144,8 +144,8 @@
         <div class="row">
           <div class="wrapper">
             <div class="menu-title">Kütle Numarası</div>
-            <div v-if="isotope.mass_uncertainty" class="menu-value">{{ isotope.mass_number }} ±{{ Number(isotope.mass_uncertainty).toExponential() }}</div>
-            <div v-else class="menu-value">{{ isotope.mass_number }} }}</div>
+            <div v-if="isotope.mass_uncertainty" class="menu-value">{{ isotope.mass_number }} ± {{ Number(isotope.mass_uncertainty).toExponential() }}</div>
+            <div v-else class="menu-value">{{ isotope.mass_number }}</div>
           </div>
         </div>
         <div class="row">
@@ -1184,5 +1184,14 @@ export default {
   top: 0;
   font-size: 12px;
   color: $white;
+}
+
+@supports not (backdrop-filter: blur()) {
+  .sidebar,
+  .mobile-sidebar,
+  .oriented-sidebar,
+  .close-btn {
+    background-color: rgba(10, 12, 16, 1);
+  }
 }
 </style>

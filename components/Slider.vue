@@ -9,7 +9,16 @@
     </div>
     <client-only>
       <div style="display: flex; margin-top: 8px" class="table-slider">
-        <vue-range-slider ref="slider" :value="viewTemperature" :tooltip="'none'" :min="minDegree" :max="7000" :drag-on-click="true" @change="onTemperatureChange" @dragging="onTemperatureChange" />
+        <vue-range-slider
+          ref="slider"
+          :value="viewTemperature"
+          :tooltip="'none'"
+          :min="minDegree"
+          :max="maxDegree"
+          :drag-on-click="true"
+          @change="onTemperatureChange"
+          @dragging="onTemperatureChange"
+        />
         <period-select :selected-value="$store.state.selectedTemperatureType" :options="temperatureOptions" :value="viewTemperature" @change="onTemperatureTypeChange" />
       </div>
     </client-only>
@@ -50,14 +59,14 @@ export default {
   components: { PeriodSelect },
   data() {
     return {
-      temperature: 25,
-      viewTemperature: 25,
+      temperature: this.$store.state.temperature,
+      viewTemperature: this.$store.state.temperature,
       timer: null,
       tempTimer: null,
       temperatureOptions: [
         { label: '°C', value: 'c' },
         { label: '°F', value: 'f' },
-        { label: '°K', value: 'k' },
+        { label: 'K', value: 'k' },
       ],
     }
   },
@@ -71,8 +80,24 @@ export default {
         return -459
       }
     },
+    maxDegree() {
+      if (this.$store.state.selectedTemperatureType === 'c') {
+        return 7000
+      } else if (this.$store.state.selectedTemperatureType === 'k') {
+        return 7273
+      } else {
+        return 12632
+      }
+    },
   },
   watch: {
+    '$store.state.temperature': {
+      handler() {
+        this.viewTemperature = this.$store.state.temperature
+        clearTimeout(this.timer)
+        this.timer = setTimeout(this.triggerTimer, 3000)
+      },
+    },
     temperature() {
       this.$store.commit('UPDATE_TEMPERATURE', this.temperature)
       clearTimeout(this.timer)
@@ -107,8 +132,8 @@ export default {
       if (type === 'k' && this.$store.state.selectedTemperatureType === 'f') {
         this.viewTemperature = Number(((this.viewTemperature - 273 - 32) / 1.8).toFixed(0))
       }
-
       this.$store.commit('SET_TEMPERATURE_TYPE', type)
+      this.$store.commit('UPDATE_VIEW_TEMPERATURE', Number(this.viewTemperature))
     },
     onTemperatureChange(val) {
       this.viewTemperature = val

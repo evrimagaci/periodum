@@ -90,7 +90,7 @@
         </div>
       </div>
     </div>
-    <div v-if="!showRightSideBar && !$store.getters.isMobile" class="right-sidebar" @drop="onDrop" @dragover="$event.preventDefault()">
+    <div v-if="!showRightSideBar" class="right-sidebar" @drop="onDrop" @dragover="$event.preventDefault()">
       <div class="title" style="margin: 10px 0 0 0">Bileşikler</div>
       <div style="margin-top: 222px">
         <img style="margin-left: 7px" src="~/assets/icons/drop.svg" />
@@ -98,7 +98,7 @@
       <div class="text-area" style="margin: 10px">Element sürükleyip bırakarak bileşikler üretin.</div>
     </div>
     <right-side-bar
-      v-else-if="!$store.getters.isMobile"
+      v-else
       :compound-elements="compoundElements"
       @drop="onDrop"
       @remove="onRemove"
@@ -106,6 +106,7 @@
         showRightSideBar = false
         compoundElements = []
       "
+      @selectElement="selectElement"
       @incOrDec="incOrDecCompoundElements"
     />
   </div>
