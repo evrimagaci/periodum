@@ -1,32 +1,32 @@
-# Açıklama
+# Explanation
 
-<!-- Bu alanda değişiklerinizin ne işe yaradığını ayrıntılı bir biçimde anlatın. -->
+<!-- Describe in detail what your changes do here. -->
 
-**Alakalı Hata (Issue):** #
+**Related Issue:** #
 
-## Değişiklik Tipi
+## Change Category:
 
-- [ ] Hata düzeltimi (belirli bir hatayı (issue) düzelten değişiklikler)
-- [ ] Yeni özellik (eklenmiş olan yeni fonksiyonel değişiklikler)
-- [ ] Döküman veya yapılandırma dosyaları değişiklikleri
+- [ ] Bug Fix
+- [ ] Feature
+- [ ] Documentation
 
-## Ekler
+## Aditional Information:
 
-<!-- Yaptığınız değişikliklerin önceki ve sonraki hallerini içeren ekran görüntüleri ve/veya videoları ekleyin. -->
+<!-- Include screenshots and/or videos with before and after changes you've made here. -->
 
-# Nasıl Test Edilir?
+# How to test?
 
-<!-- Lütfen bu alanda yaptığınız değişiklikler için yazılan testlerin, hangi kısımları test ettiğini yazın.
+<!--  Specify what tests you've done for the changes you've made here.
 
 - [ ] Test A
 - [ ] Test B -->
 
-# Kontrol Listesi:
+# Checklist:
 
-- [ ] Kodum bu projenin kod formatı kurallarına uygun.
-- [ ] Kodumu inceledim.
-- [ ] Özellikle anlaşılması güç olabilen alanlar için yorumlar bıraktım.
-- [ ] Gerekliyse, dökümanlari güncelledim.
-- [ ] Değişikliklerim yeni hatalara sebep olmuyor.
-- [ ] Değişiklerim doğrultusunda testler ekledim veya testleri güncelledim.
-- [ ] Varsa, değişikliklerime bağlı, diğer değişikliklerin tümü hali hazırda ana branch'te mevcut.
+- [ ] My code complies with this project's code formatting guidelines.
+- [ ] I reviewed my code.
+- [ ] I added comments especially in portions that may be difficult to understand.
+- [ ] If necessary, I updated the documentation.
+- [ ] Changes I made do not produce new issues.
+- [ ] I added or updated tests based on my changes.
+- [ ] If any, all changes related to my changes are already present in the main branch.
