@@ -95,3 +95,5 @@ ecosystem.config.js
 
 # SQL files
 db.sql
+
+.vscode/
