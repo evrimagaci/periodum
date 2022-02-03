@@ -1,5 +1,5 @@
 # Periodum: An Interactive Periodic Table Project
-This project started as a Turkish periodic table and evolved into an international science project. We have a path forward and we are seeking programmers that are willing to take on the language expansion process. [Contribute to the project](https://github.com/evrimagaci/periodum/blob/main/CONTRIBUTING.md) if you're interested - and [feel free to ask any questions](https://github.com/evrimagaci/periodum/discussions) if you cannot figure out anything (because of language or for any other reason)!
+This project started as a Turkish periodic table developed by [Evrim Ağacı](https://evrimagaci.org/) & [Bionluk](https://bionluk.com/), and then evolved into an open-source community project and then finally, an international science project. We have a path forward and we are seeking programmers that are willing to take on the language expansion process. [Contribute to the project](https://github.com/evrimagaci/periodum/blob/main/CONTRIBUTING.md) if you're interested - and [feel free to ask any questions](https://github.com/evrimagaci/periodum/discussions) if you cannot figure out anything (because of language or for any other reason)!
 
 ## Important Links
 - **Periodum Periodic Table (Latest Version):** https://periodum.com/
