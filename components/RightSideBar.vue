@@ -11,7 +11,7 @@
         </div>
       </div>
       <div v-if="elements.length === 1" class="one-element">
-        <div style="position: relative">
+        <div style="position: relative" @click="$emit('selectElement', elements[0])">
           <p-element :x="elements[0].xpos" :y="elements[0].ypos" :is-table-element="false" />
           <img class="remove-element-btn" src="~/../assets/icons/icons-close.svg" @click="$emit('remove', 0)" />
           <div class="round-count">
@@ -41,7 +41,7 @@
         </div>
         <swiper ref="swiper" :options="swiperOptions" style="padding: 28px; margin-top: -28px">
           <swiper-slide v-for="(element, index) in elements" :key="element.name_tr + index" style="display: flex" :style="index !== 0 ? 'margin-left: 0px' : null">
-            <div style="position: relative">
+            <div style="position: relative" @click="$emit('selectElement', element)">
               <p-element :x="element.xpos" :y="element.ypos" :is-table-element="false" />
               <img class="remove-element-btn" src="~/../assets/icons/icons-close.svg" @click="onRemove(index)" />
               <div class="round-count">

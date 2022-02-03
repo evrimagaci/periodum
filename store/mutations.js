@@ -3,6 +3,10 @@ export default {
     state.temperature = temperature
     state.isTemperatureTriggered = true
   },
+  UPDATE_VIEW_TEMPERATURE(state, temperature = 0) {
+    state.temperature = temperature
+    state.isTemperatureTriggered = true
+  },
   DEACTIVATE_TEMPERATURE(state) {
     state.isTemperatureTriggered = false
   },

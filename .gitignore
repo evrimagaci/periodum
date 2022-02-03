@@ -90,3 +90,8 @@ sw.*
 
 # Vim swap files
 *.swp
+
+ecosystem.config.js
+
+# SQL files
+db.sql

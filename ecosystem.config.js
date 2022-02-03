@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'periodium',
+      name: 'periodum',
       exec_mode: 'cluster',
       script: './server/index.js',
       instances: 0,
