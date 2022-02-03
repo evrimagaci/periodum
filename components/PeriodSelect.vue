@@ -1,20 +1,25 @@
 <template>
   <div class="slider-select-container" :style="isSelectOpened ? 'border-radius: 12px 12px 0 0' : 'border-radius: 12px'">
     <div class="wrapper">
-      <input v-model="temperature" class="input-value" />
+      <input v-model="temperature" class="input-value" type="number" :min="min" :max="max" @blur="checkEmpty" />
       <div class="separator" />
-      <div style="width: 30px; display: flex; cursor: pointer">
+      <div style="width: 30px; display: flex; cursor: pointer" @click="isSelectOpened = !isSelectOpened">
         <div class="slider-selected">{{ selected.label }}</div>
-        <img v-if="!isSelectOpened" style="width: 14px; height: 14px" src="~/assets/icons/chevron-down.svg" @click="isSelectOpened = !isSelectOpened" />
-        <img v-else style="width: 14px; height: 14px" src="~/assets/icons/chevron-up.svg" @click="isSelectOpened = !isSelectOpened" />
+        <img v-if="!isSelectOpened" class="icon" src="~/assets/icons/chevron-down.svg" />
+        <img v-else class="icon" src="~/assets/icons/chevron-up.svg" />
       </div>
     </div>
     <div v-if="isSelectOpened" class="option-container">
-      <div style="margin: 4px 6px">
-        <div v-for="(option, index) in options" :key="index" class="row">
-          <div></div>
-          <div class="option-value" style="width: 30px" @click="selectValue(option.value)">{{ option.label }}</div>
+      <div v-for="(option, index) in filteredOptions" :key="index" class="row option-value border-0" @click="selectValue(option.value)">
+        <div>
+          {{ unitCalculator(selected.value, temperature)[option.value] }}
         </div>
+        <span style="width: 43px" class="flex items-center">
+          <div class="separator" />
+          <span>
+            {{ option.label }}
+          </span>
+        </span>
       </div>
     </div>
   </div>
@@ -22,6 +27,7 @@
 
 <script>
 import _ from 'lodash'
+import unitCalculator from '~/utils/unitCalculator'
 export default {
   name: 'PeriodSelect',
   props: {
@@ -30,12 +36,20 @@ export default {
       default: () => 0,
     },
     selectedValue: {
-      type: [Number, String],
+      type: String,
       default: () => null,
     },
     options: {
       type: Array,
       default: () => [],
+    },
+    min: {
+      type: Number,
+      required: true,
+    },
+    max: {
+      type: Number,
+      required: true,
     },
   },
   data() {
@@ -45,19 +59,32 @@ export default {
       temperature: this.$store.state.temperature,
     }
   },
+  computed: {
+    filteredOptions() {
+      return _.filter(this.options, (option) => {
+        return option.value !== this.selectedValue
+      })
+    },
+  },
   watch: {
     '$store.state.temperature': {
       handler() {
         this.temperature = this.$store.state.temperature
       },
     },
-    '$store.state.selectedTemperatureType': {
+    '$store.state.unit': {
       handler() {
         this.temperature = this.$store.state.temperature
       },
     },
     temperature(value) {
-      this.$store.commit('UPDATE_TEMPERATURE', Number(value))
+      if (this.min > value) {
+        this.temperature = this.min
+      }
+      if (this.max < value) {
+        this.temperature = this.max
+      }
+      this.$emit('valueChange', this.temperature)
     },
     selectedValue() {
       this.selected = _.find(this.options, { value: this.selectedValue }) || {}
@@ -68,8 +95,14 @@ export default {
   },
   methods: {
     selectValue(value) {
-      this.$emit('change', value)
+      this.$emit('typeChange', value)
       this.isSelectOpened = false
+    },
+    unitCalculator,
+    checkEmpty() {
+      if (this.temperature === '') {
+        this.temperature = this.$store.state.unit === 'c' ? 25 : 77
+      }
     },
   },
 }
@@ -79,37 +112,44 @@ export default {
 @import '~@/assets/css/partials/variables';
 
 .slider-select-container {
-  width: 100px;
   border-radius: 12px;
   background-color: #0b0e13;
   margin-top: -8px;
   margin-left: 10px;
   z-index: 1;
   position: relative;
+  display: flex;
+  align-items: center;
   .wrapper {
-    margin: 4px 6px;
+    padding: 6px 12px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    .icon {
+      width: 14px;
+      height: 14px;
+      display: block;
+    }
     .input-value {
       background: none;
       color: white;
       border: none;
-      width: 41px;
+      width: 61px;
       font-size: 12px;
-    }
-    .separator {
-      width: 2px;
-      height: 14px;
-      opacity: 0.15;
-      border-radius: 1px;
-      background-color: $gray;
-      margin-left: 8px;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      &[type='number'] {
+        -moz-appearance: textfield;
+      }
     }
     .slider-selected {
       font-size: 12px;
       font-weight: 800;
       color: $gray;
-      margin-right: 4px;
+      margin-right: 8px;
       line-height: 16px;
       width: 12px;
     }
@@ -122,23 +162,41 @@ export default {
   }
 }
 
+.separator {
+  width: 2px;
+  height: 14px;
+  opacity: 0.15;
+  border-radius: 1px;
+  background-color: $gray;
+  margin-left: 8px;
+  margin-right: 3px;
+}
+
 .option-container {
-  width: 100px;
+  top: calc(100% - 3px);
+  width: 100%;
   position: absolute;
   background-color: #0b0e13;
   border-radius: 0 0 12px 12px;
+  padding: 0 12px 6px;
   .row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 18px;
     line-height: 18px;
-    cursor: pointer;
+    width: 100%;
+    margin-bottom: 3px;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
   .option-value {
+    cursor: pointer;
     color: $gray;
     font-size: 12px;
     line-height: 16px;
-    font-weight: 800;
+    font-weight: 600;
     &:hover {
       color: $white;
       background-color: rgba(102, 204, 202, 0.1);

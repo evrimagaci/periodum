@@ -11,7 +11,7 @@ export default {
     state.isTemperatureTriggered = false
   },
   SET_TEMPERATURE_TYPE(state, type) {
-    state.selectedTemperatureType = type
+    state.unit = type
   },
   SET_ELEMENTS(state, elements = []) {
     state.elements = elements
@@ -37,8 +37,38 @@ export default {
   SET_SELECTED_CONTENT_ID(state, id) {
     state.selectedContentId = id
   },
-  SET_SEARCH_TEXT(state, text) {
-    state.searchText = text ? text.target.value : null
+  SET_SELECTED_ELEMENT(state, element) {
+    state.selectedElement = element
+    state.selectedBlock = null
+    state.selectedCategory = null
+    state.searchResults = []
+    state.searchText = ''
+  },
+  SET_SELECTED_CATEGORY(state, category) {
+    state.selectedCategory = category === state.selectedCategory ? null : category
+    state.selectedBlock = null
+    state.selectedElement = null
+    state.searchResults = []
+    state.searchText = ''
+  },
+  SET_SELECTED_BLOCK(state, block) {
+    state.selectedBlock = block === state.selectedBlock ? null : block
+    state.selectedCategory = null
+    state.selectedElement = null
+    state.searchResults = []
+    state.searchText = ''
+  },
+  SET_SEARCH_TEXT(state, searchText) {
+    state.selectedBlock = null
+    state.selectedCategory = null
+    state.selectedElement = null
+    state.searchText = searchText
+  },
+  SET_SEARCH_ELEMENTS(state, elements) {
+    state.reducedElements = elements
+  },
+  SET_SEARCH_RESULTS(state, searchResults) {
+    state.searchResults = searchResults
   },
   SET_IS_MOBILE(state, isMobile) {
     state.isMobile = isMobile

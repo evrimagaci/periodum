@@ -6,6 +6,8 @@ export default {
     }))
   },
   temperature: (state) => state.temperature,
+  isTemperatureTriggered: (state) => state.isTemperatureTriggered,
+  unit: (state) => state.unit,
   compounds: (state) => state.compounds,
   isotopes: (state) => state.isotopes,
   probableElements: (state) => state.probableElements,
@@ -13,6 +15,11 @@ export default {
   isCompoundFetched: (state) => state.isCompoundFetched,
   isMobile: (state) => state.isMobile,
   isOriented: (state) => state.isOriented,
+  searchText: (state) => state.searchText,
+  searchResults: (state) => state.searchResults.map((element) => parseInt(element.number)),
+  selectedElement: (state) => state.selectedElement,
+  selectedCategory: (state) => state.selectedCategory,
+  selectedBlock: (state) => state.selectedBlock,
 }
 
 function calculatePropertiesByCategory(category) {

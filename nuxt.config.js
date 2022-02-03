@@ -11,7 +11,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Nunito&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap',
       },
     ],
   },
@@ -21,6 +21,8 @@ module.exports = {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/vue-range-slider', ssr: false },
+    { src: '~/plugins/vue-toggle-button', ssr: false },
+    { src: '~/plugins/vue-fuse', ssr: false },
     { src: '~/plugins/element-ui', ssr: false },
     { src: '~/plugins/vue-gtag.js', ssr: false, mode: 'client' },
     { src: '~/plugins/vue-sanitize', ssr: false },

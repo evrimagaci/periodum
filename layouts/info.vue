@@ -127,9 +127,6 @@ html {
   opacity: 0.9;
   z-index: 1;
   background-color: #050505;
-  .logo {
-    height: 100%;
-  }
   .search-box {
     width: 350px;
     height: 14px;

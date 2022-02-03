@@ -205,114 +205,124 @@
 }
 
 .hover-pink {
+  box-shadow: 0 1px 3px rgba(255, 133, 214, 0.4);
   &:hover {
-    box-shadow: 0 0 40px 0 rgba(255, 133, 214, 0.4);
+    box-shadow: 0 14px 28px rgba(255, 133, 214, 0.4);
   }
 }
 
 .hover-yellow {
+  box-shadow: 0 1px 3px rgba(223, 209, 112, 0.4);
   &:hover {
-    box-shadow: 0 0 40px 0 rgba(223, 209, 112, 0.4);
+    box-shadow: 0 14px 28px rgba(223, 209, 112, 0.4);
   }
 }
 
 .hover-blue {
+  box-shadow: 0 1px 3px rgba(136, 158, 255, 0.4);
   &:hover {
-    box-shadow: 0 2px 40px 0 rgba(136, 158, 255, 0.4);
+    box-shadow: 0 14px 28px rgba(136, 158, 255, 0.4);
   }
 }
 
 .hover-orange {
+  box-shadow: 0 1px 3px rgba(255, 175, 128, 0.4);
   &:hover {
-    box-shadow: 0 2px 40px 0 rgba(255, 175, 128, 0.4);
+    box-shadow: 0 14px 28px rgba(255, 175, 128, 0.4);
   }
 }
 
 .hover-darkteal {
+  box-shadow: 0 1px 3px rgba(153, 255, 252, 0.4);
   &:hover {
-    box-shadow: 0 2px 40px 0 rgba(153, 255, 252, 0.4);
+    box-shadow: 0 14px 28px rgba(153, 255, 252, 0.4);
   }
 }
 
 .hover-purple {
+  box-shadow: 0 1px 3px rgba(185, 148, 250, 0.4);
   &:hover {
-    box-shadow: 0 2px 40px 0 rgba(185, 148, 250, 0.4);
+    box-shadow: 0 14px 28px rgba(185, 148, 250, 0.4);
   }
 }
 
 .hover-green {
+  box-shadow: 0 1px 3px rgba(175, 239, 142, 0.4);
   &:hover {
-    box-shadow: 0 2px 40px 0 rgba(175, 239, 142, 0.4);
+    box-shadow: 0 14px 28px rgba(175, 239, 142, 0.4);
   }
 }
 
 .hover-teal {
+  box-shadow: 0 1px 3px rgba(153, 255, 252, 0.4);
   &:hover {
-    box-shadow: 0 2px 40px 0 rgba(153, 255, 252, 0.4);
+    box-shadow: 0 14px 28px rgba(153, 255, 252, 0.4);
   }
 }
 
 .hover-coldgreen {
+  box-shadow: 0 1px 3px rgba(195, 255, 128, 0.4);
   &:hover {
-    box-shadow: 0 2px 40px 0 rgba(195, 255, 128, 0.4);
+    box-shadow: 0 14px 28px rgba(195, 255, 128, 0.4);
   }
 }
 
 .hover-gray {
+  box-shadow: 0 1px 3px rgba(153, 255, 252, 0.4);
   &:hover {
-    box-shadow: 0 2px 40px 0 rgba(153, 255, 252, 0.4);
+    box-shadow: 0 14px 28px rgba(153, 255, 252, 0.4);
   }
 }
 
 
 .pink-active {
   box-shadow: 0 0 40px 0 rgba(255, 133, 214, 0.4);
-  background-image: linear-gradient(135deg, #ff97dc, #ff71cf 100%, #ff70ce 100%);
+  background-image: linear-gradient(135deg, #ff97dc, #ff71cf 100%, #ff70ce 100%) !important;
 }
 
 .yellow-active {
   box-shadow: 0 0 40px 0 rgba(223, 209, 112, 0.4);
-  background-image: linear-gradient(127deg, #ffef80 46%, #b3a75a 100%);
+  background-image: linear-gradient(127deg, #ffef80 46%, #b3a75a 100%) !important;
 }
 
 .blue-active {
   box-shadow: 0 2px 40px 0 rgba(136, 158, 255, 0.4);
-  background-image: linear-gradient(135deg, #acbdff, #8095ff);
+  background-image: linear-gradient(135deg, #acbdff, #8095ff) !important;
 }
 
 .orange-active {
   box-shadow: 0 2px 40px 0 rgba(255, 175, 128, 0.4);
-  background-image: linear-gradient(135deg, #ffaf80, #ed954b 100%);
+  background-image: linear-gradient(135deg, #ffaf80, #ed954b 100%) !important;
 }
 
 .darkteal-active {
   box-shadow: 0 2px 40px 0 rgba(153, 255, 252, 0.4);
-  background-image: linear-gradient(135deg, #80d5ff, #56d9d7);
+  background-image: linear-gradient(135deg, #80d5ff, #56d9d7) !important;
 }
 
 .purple-active {
   box-shadow: 0 2px 40px 0 rgba(185, 148, 250, 0.4);
-  background-image: linear-gradient(135deg, #d5b7ff, #aa80ff);
+  background-image: linear-gradient(135deg, #d5b7ff, #aa80ff) !important;
 }
 
 .green-active {
   box-shadow: 0 2px 40px 0 rgba(175, 239, 142, 0.4);
-  background-image: linear-gradient(136deg, #80ff8e 0%, #3bde4d 100%);
+  background-image: linear-gradient(136deg, #80ff8e 0%, #3bde4d 100%) !important;
 }
 
 .teal-active {
   box-shadow: 0 2px 40px 0 rgba(153, 255, 252, 0.4);
-  background-image: linear-gradient(135deg, #80fffc, #56d9d7);
+  background-image: linear-gradient(135deg, #80fffc, #56d9d7) !important;
 }
 
 .coldgreen-active {
   box-shadow: 0 2px 40px 0 rgba(195, 255, 128, 0.4);
-  background-image: linear-gradient(136deg, #c3ff80 0%, #8cd737 100%);
+  background-image: linear-gradient(136deg, #c3ff80 0%, #8cd737 100%) !important;
 }
 
 .gray-active {
   box-shadow: 0 2px 40px 0 rgba(153, 255, 252, 0.4);
-  background-image: linear-gradient(135deg, #dee5e7, #4b5050);
+  background-image: linear-gradient(135deg, #dee5e7, #4b5050) !important;
 }
 
 .element-searched {

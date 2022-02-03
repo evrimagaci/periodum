@@ -2,12 +2,10 @@
   <el-container>
     <el-header class="top-bar">
       <div class="flex items-center justify-between w-full h-full">
-        <router-link to="/" class="h-full">
+        <router-link to="/" class="flex items-center">
           <img class="logo" src="~/assets/icons/logo.png" />
         </router-link>
-        <label v-if="$route.path === '/'">
-          <input :value="$store.state.searchText" class="search-box" placeholder="Element adı, atom numarası veya bir özellikle arama" @input="onInput" />
-        </label>
+        <Search />
       </div>
     </el-header>
     <el-main style="padding: 0 200px 0 0">
@@ -42,7 +40,11 @@
   </el-container>
 </template>
 <script>
+import Search from '~/components/Search.vue'
 export default {
+  components: {
+    Search,
+  },
   data() {
     return {
       showDeviceOrientationModal: false,
@@ -69,18 +71,13 @@ export default {
   //     false
   //   )
   // },
-  methods: {
-    onInput($event) {
-      if (this.timer) {
-        clearTimeout(this.timer)
-      }
-      this.timer = setTimeout(() => {
-        this.$store.commit('SET_SEARCH_TEXT', $event)
-      }, 500)
-    },
-  },
 }
 </script>
+<style lang="scss" scoped>
+.logo {
+  height: 45px;
+}
+</style>
 <style lang="scss">
 @import '~@/assets/css/partials/variables';
 @font-face {
@@ -114,43 +111,6 @@ html {
   opacity: 0.9;
   z-index: 1;
   background-color: #050505;
-  .logo {
-    height: 100%;
-  }
-  .search-box {
-    width: 350px;
-    height: 14px;
-    padding: 0.9vw 0 0.9vw 1vw;
-    border-radius: 16px;
-    background-color: #0b0e13;
-    display: block;
-    font-size: 12px;
-    font-weight: 800;
-    color: $white;
-    border: none;
-    background-image: url('~@/assets/icons/search.svg');
-    background-repeat: no-repeat;
-    background-position: 320px;
-    &:focus {
-      outline: none;
-    }
-  }
-  ::-webkit-input-placeholder {
-    /* Chrome/Opera/Safari */
-    font-family: Nunito, sans-serif, 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-    font-size: 1em;
-    color: $gray;
-  }
-  ::-moz-placeholder {
-    /* Firefox 19+ */
-    font-size: 1em;
-    color: $gray;
-  }
-  ::-ms-input-placeholder {
-    /* IE 10+ */
-    font-size: 1em;
-    color: $gray;
-  }
 }
 .bottom-bar {
   width: 100%;
