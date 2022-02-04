@@ -7,7 +7,7 @@
       <div v-for="(user, index) in users" :key="index" :style="index > 0 ? 'margin-top: 62px' : null">
         <div style="display: flex">
           <div style="position: relative">
-            <div class="profile-background" :style="`background-color: ${colors[index]}`"></div>
+            <div class="profile-background" :style="`background-color: transparent`"></div>
             <img :src="user.avatarUrl" class="avatar" />
           </div>
           <div style="margin-left: 40px">
@@ -108,7 +108,6 @@ export default {
   top: 10px;
   left: -10px;
   width: 112px;
-  height: 154px;
   border-radius: 12px;
 }
 .header-title {
