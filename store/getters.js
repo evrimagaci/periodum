@@ -20,6 +20,7 @@ export default {
   selectedElement: (state) => state.selectedElement,
   selectedCategory: (state) => state.selectedCategory,
   selectedBlock: (state) => state.selectedBlock,
+  selectedContentId: (state) => state.selectedContentId,
 }
 
 function calculatePropertiesByCategory(category) {

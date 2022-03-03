@@ -1,8 +1,10 @@
 <template>
-  <div class="content" v-html="$sanitize(html)" />
+  <div class="content" v-html="sanitizeHtml(html)" />
 </template>
 
 <script>
+import sanitizeHtml from 'sanitize-html'
+
 export default {
   name: 'InfoModalContent',
   props: {
@@ -10,6 +12,9 @@ export default {
       type: String,
       default: '',
     },
+  },
+  methods: {
+    sanitizeHtml,
   },
 }
 </script>
@@ -26,6 +31,23 @@ export default {
   h5,
   h6 {
     margin-bottom: 15px;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4 {
+    font-size: 18px;
   }
 
   p,
@@ -37,6 +59,7 @@ export default {
   li {
     line-height: 24px;
     letter-spacing: 0.3px;
+    font-size: 16px;
   }
 
   li {

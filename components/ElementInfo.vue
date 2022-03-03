@@ -1,40 +1,40 @@
 <template>
-  <div v-if="element" class="wrapper">
-    <div class="element element-searched" :class="element.searchClass">
-      <div class="element-wrapper" :style="`color: ${element.color}`">
-        <div class="number">
-          {{ element.number }}
+  <div v-if="element" class="element-info">
+    <div class="element-info-header">
+      <div class="flex flex-row w-full items-center">
+        <div class="selected-element" :class="element.searchClass">
+          <div class="number">
+            {{ element.number }}
+          </div>
+          <div class="symbol">
+            <sup v-if="isIsotopeActive" class="isotope">
+              {{ knownIsotopeNumbers[selectedIsotopeIndex - 1] }}
+            </sup>
+            {{ element.symbol }}
+          </div>
+          <div class="name">
+            {{ element.name_tr }}
+          </div>
+          <div class="atomic-mass">
+            {{ isIsotopeActive ? knownIsotopeNumbers[selectedIsotopeIndex - 1] : element.atomic_mass }}
+          </div>
         </div>
-        <div class="symbol" :style="knownIsotopeNumbers[selectedIsotopeIndex - 1] > 99 ? 'letter-spacing: -3.4px' : null">
-          {{ isIsotopeActive ? knownIsotopeNumbers[selectedIsotopeIndex - 1] + element.symbol : element.symbol }}
-        </div>
-        <div class="name">
-          {{ element.name_tr }}
-        </div>
-        <div class="atomic-mass">
-          {{ isIsotopeActive ? element.atomic_mass : isotope.mass }}
-        </div>
+        <a class="flex items-center text-white ml-4 font-semibold" href="#" @click.prevent="activateInfoModal">
+          Detaylı Bilgi
+          <img class="ml-2" src="../assets/icons/chevron-right.svg" />
+        </a>
       </div>
-    </div>
-    <div style="display: flex; padding: 0 20px; margin-top: 15px; cursor: pointer" @click="activateInfoModal">
-      <div style="font-size: 10px; font-weight: bold; color: #fff; height: 17px; margin-top: auto">Detaylı Bilgi</div>
-      <div style="margin-left: 5px">
-        <img src="../assets/icons/chevron-right.svg" />
-      </div>
-    </div>
-    <div v-if="knownIsotopeNumbers.length" class="row" style="height: 80px; display: block !important">
-      <div style="display: flex; justify-content: space-between; padding: 0 20px">
-        <div class="menu-title">İzotoplar</div>
-        <div class="menu-value" style="display: flex; cursor: pointer; line-height: 40px" @click="selectedIsotopeIndex = 0">
-          <img src="../assets/icons/icons-yenile.svg" style="margin-right: 5px" />
-          <div style="font-size: 10px">Yenile</div>
+      <div v-if="knownIsotopeNumbers.length" class="p-3">
+        <div class="flex justify-between text-white items-center">
+          <div class="text-sm">İzotoplar</div>
+          <div class="menu-value" style="display: flex; cursor: pointer; line-height: 40px" @click="selectedIsotopeIndex = 0">
+            <img src="../assets/icons/icons-yenile.svg" style="margin-right: 5px" />
+            <div style="font-size: 10px">Yenile</div>
+          </div>
         </div>
-      </div>
-      <div style="padding: 0 20px">
         <vue-range-slider
           ref="slider"
           v-model="selectedIsotopeIndex"
-          :width="258"
           :tooltip="'none'"
           :min="0"
           :max="knownIsotopeNumbers.length"
@@ -42,146 +42,147 @@
           @change="onSliderChange"
           @dragging="onSliderChange"
         />
-      </div>
-      <div v-if="selectedIsotopeIndex" style="display: flex; justify-content: flex-end; padding: 0 20px; margin-top: 10px; text-align: right">
-        <div style="width: 48px; font-size: 10px; color: white">
-          <span style="font-weight: 900">{{ knownIsotopeNumbers[selectedIsotopeIndex - 1] }}</span>
-          <span style="color: #878c97; font-weight: bold">/ {{ knownIsotopeNumbers[knownIsotopeNumbers.length - 1] }}</span>
+        <div v-if="selectedIsotopeIndex" style="display: flex; justify-content: flex-end; padding: 0 20px; margin-top: 10px; text-align: right">
+          <div style="width: 48px; font-size: 10px; color: white">
+            <span style="font-weight: 900">{{ knownIsotopeNumbers[selectedIsotopeIndex - 1] }}</span>
+            <span style="color: #878c97; font-weight: bold">/ {{ knownIsotopeNumbers[knownIsotopeNumbers.length - 1] }}</span>
+          </div>
         </div>
       </div>
     </div>
-    <template v-if="!isIsotopeActive">
-      <template v-for="(info, index) in generalInfoKeys">
-        <div v-if="element[info.key]" :key="'generalInfo' + index" class="row">
-          <div class="wrapper">
-            <div class="menu-title" style="display: flex; flex-direction: column; justify-content: center">
-              <div>
-                {{ info.label }}
+    <div class="element-info-body">
+      <template v-if="!isIsotopeActive">
+        <template v-for="(info, index) in generalInfoKeys">
+          <div v-if="element[info.key]" :key="'generalInfo' + index" class="row">
+            <div class="wrapper">
+              <div class="menu-title" style="display: flex; flex-direction: column; justify-content: center">
+                <div>
+                  {{ info.label }}
+                </div>
               </div>
+              <div v-if="element[info.key] && element[info.key].length > textLimit" class="menu-value">
+                <el-tooltip popper-class="tooltip" effect="dark" :content="element[info.key]" placement="top">
+                  <span>{{ element[info.key].slice(0, textLimit) }}...</span>
+                </el-tooltip>
+              </div>
+              <div v-else class="menu-value">{{ element[info.key] }}</div>
             </div>
-            <div v-if="element[info.key] && element[info.key].length > textLimit" class="menu-value">
-              <el-tooltip popper-class="tooltip" effect="dark" :content="element[info.key]" placement="top">
-                <span>{{ element[info.key].slice(0, textLimit) }}...</span>
-              </el-tooltip>
+          </div>
+        </template>
+        <bar-item :element="element" :data="descriptiveNumberKeys" label="Tanımlayıcı Numaralar" />
+        <nested-bar-item-v2 :element="element" :data="massKeys" label="Kütle" />
+        <bar-item :element="element" :data="coordinateKeys" label="Koordinatlar" />
+        <bar-item :element="element" :data="classificationKeys" label="Sınıflandırma" />
+        <nested-bar-item-v2 :element="element" :data="abundanceLevels" label="Bulunma Sıklığı" />
+        <bar-item :element="element" :data="colorKeys" label="Renk" />
+        <bar-item :element="element" :data="radiusKeys" label="Atomik Yarıçap" />
+        <nested-bar-item-v2 :element="element" :data="temperatureLevels" label="Sıcaklık Özellikleri" />
+        <nested-bar-item-v2 :element="element" :data="densityLevels" label="Yoğunluk Özellikleri" />
+        <nested-bar-item-v2 :element="element" :data="heatLevels" label="Isı Özellikleri" />
+        <nested-bar-item-v2 :element="element" :data="speedOfSoundLevels" label="Ses Hızı Özellikleri" />
+        <nested-bar-item-v2 :element="element" :data="electricalResistivityLevels" label="Elektriksel Direnç" />
+        <nested-bar-item-v2 :element="element" :data="magneticLevels" label="Manyetik Özellikler" />
+        <nested-bar-item-v2 :element="element" :data="elasticLevels" label="Elastik Özellikler" />
+        <nested-bar-item-v2 :element="element" :data="hardnessLevels" label="Sertlik" />
+        <nested-bar-item :element="element" :data="etymologicalLevels" label="Etimolojik Özellikler" />
+        <nested-bar-item :element="element" :data="isolationLevels" label="Keşif & İzolasyon Özellikleri" />
+        <nested-bar-item :element="element" :data="sourcesAndUsesLevels" label="Üretim & Kullanım" />
+        <nested-bar-item :element="element" :data="radioactiveLevels" label="Radyoaktif Özellikler" />
+        <nested-bar-item-v2 :element="element" :data="electronAffinityLevels" label="Elektron İlgisi" />
+        <nested-bar-item :element="element" :data="dipolLevels" label="Dipol Kutuplanabilirliği" />
+        <nested-bar-item :element="element" :data="latticeLevels" label="Kafes Özellikleri" />
+        <nested-bar-item :element="element" :data="quantumLevels" label="Elektron & Kuantum Özellikleri" />
+        <div class="row">
+          <div class="wrapper">
+            <div class="menu-title">Monoizotopik mi?</div>
+            <div class="menu-value">{{ isMonoIsotopic ? 'Evet' : 'Hayır' }}</div>
+          </div>
+        </div>
+        <div v-if="knownIsotopes.length" class="row" :style="showKnownIsotopes ? 'border-left: solid 3px #80fffc' : null">
+          <div class="wrapper">
+            <div class="menu-title" :style="showKnownIsotopes ? 'margin-left: -3px' : null">Bilinen İzotoplar</div>
+            <div class="menu-value">
+              <img v-if="!showKnownIsotopes" style="cursor: pointer" src="../assets/icons/icons-plus.svg" @click="showKnownIsotopes = true" />
+              <img v-else style="cursor: pointer" src="../assets/icons/icons-minus.svg" @click="showKnownIsotopes = false" />
             </div>
-            <div v-else class="menu-value">{{ element[info.key] }}</div>
+          </div>
+        </div>
+        <div v-if="showKnownIsotopes" style="max-height: 200px; overflow: auto">
+          <div v-for="(knownIsotope, index) in knownIsotopes" :key="index" class="dark-row">
+            <div class="wrapper">
+              <div class="menu-title">{{ knownIsotope }}</div>
+            </div>
+          </div>
+        </div>
+        <div v-if="stableIsotopes.length" class="row" :style="showStableIsotopes ? 'border-left: solid 3px #80fffc' : null">
+          <div class="wrapper">
+            <div class="menu-title" :style="showStableIsotopes ? 'margin-left: -3px' : null">Stabil İzotoplar</div>
+            <div class="menu-value">
+              <img v-if="!showStableIsotopes" style="cursor: pointer" src="../assets/icons/icons-plus.svg" @click="showStableIsotopes = true" />
+              <img v-else style="cursor: pointer" src="../assets/icons/icons-minus.svg" @click="showStableIsotopes = false" />
+            </div>
+          </div>
+        </div>
+        <div v-if="showStableIsotopes" style="max-height: 200px; overflow: auto">
+          <div v-for="(stableIsotope, index) in stableIsotopes" :key="index" class="dark-row">
+            <div class="wrapper">
+              <div class="menu-title">{{ stableIsotope }}</div>
+            </div>
           </div>
         </div>
       </template>
-      <bar-item :element="element" :data="descriptiveNumberKeys" label="Tanımlayıcı Numaralar" />
-      <nested-bar-item-v2 :element="element" :data="massKeys" label="Kütle" />
-      <bar-item :element="element" :data="coordinateKeys" label="Koordinatlar" />
-      <bar-item :element="element" :data="classificationKeys" label="Sınıflandırma" />
-      <nested-bar-item-v2 :element="element" :data="abundanceLevels" label="Bulunma Sıklığı" />
-      <bar-item :element="element" :data="colorKeys" label="Renk" />
-      <bar-item :element="element" :data="radiusKeys" label="Atomik Yarıçap" />
-      <nested-bar-item-v2 :element="element" :data="temperatureLevels" label="Sıcaklık Özellikleri" />
-      <nested-bar-item-v2 :element="element" :data="densityLevels" label="Yoğunluk Özellikleri" />
-      <nested-bar-item-v2 :element="element" :data="heatLevels" label="Isı Özellikleri" />
-      <nested-bar-item-v2 :element="element" :data="speedOfSoundLevels" label="Ses Hızı Özellikleri" />
-      <nested-bar-item-v2 :element="element" :data="electricalResistivityLevels" label="Elektriksel Direnç" />
-      <nested-bar-item-v2 :element="element" :data="magneticLevels" label="Manyetik Özellikler" />
-      <nested-bar-item-v2 :element="element" :data="elasticLevels" label="Elastik Özellikler" />
-      <nested-bar-item-v2 :element="element" :data="hardnessLevels" label="Sertlik" />
-      <nested-bar-item :element="element" :data="etymologicalLevels" label="Etimolojik Özellikler" />
-      <nested-bar-item :element="element" :data="isolationLevels" label="Keşif & İzolasyon Özellikleri" />
-      <nested-bar-item :element="element" :data="sourcesAndUsesLevels" label="Üretim & Kullanım" />
-      <nested-bar-item :element="element" :data="radioactiveLevels" label="Radyoaktif Özellikler" />
-      <nested-bar-item-v2 :element="element" :data="electronAffinityLevels" label="Elektron İlgisi" />
-      <nested-bar-item :element="element" :data="dipolLevels" label="Dipol Kutuplanabilirliği" />
-      <nested-bar-item :element="element" :data="latticeLevels" label="Kafes Özellikleri" />
-      <nested-bar-item :element="element" :data="quantumLevels" label="Elektron & Kuantum Özellikleri" />
-      <div class="row">
-        <div class="wrapper">
-          <div class="menu-title">Monoizotopik mi?</div>
-          <div class="menu-value">{{ isMonoIsotopic ? 'Evet' : 'Hayır' }}</div>
-        </div>
-      </div>
-      <div v-if="knownIsotopes.length" class="row" :style="showKnownIsotopes ? 'border-left: solid 3px #80fffc' : null">
-        <div class="wrapper">
-          <div class="menu-title" :style="showKnownIsotopes ? 'margin-left: -3px' : null">Bilinen İzotoplar</div>
-          <div class="menu-value">
-            <img v-if="!showKnownIsotopes" style="cursor: pointer" src="../assets/icons/icons-plus.svg" @click="showKnownIsotopes = true" />
-            <img v-else style="cursor: pointer" src="../assets/icons/icons-minus.svg" @click="showKnownIsotopes = false" />
-          </div>
-        </div>
-      </div>
-      <div v-if="showKnownIsotopes" style="max-height: 200px; overflow: auto">
-        <div v-for="(knownIsotope, index) in knownIsotopes" :key="index" class="dark-row">
+      <template v-else>
+        <div class="row">
           <div class="wrapper">
-            <div class="menu-title">{{ knownIsotope }}</div>
+            <div class="menu-title">Bolluk</div>
+            <div class="menu-value">{{ (isotope.abundance * 100).toFixed(1) }}%</div>
           </div>
         </div>
-      </div>
-      <div v-if="stableIsotopes.length" class="row" :style="showStableIsotopes ? 'border-left: solid 3px #80fffc' : null">
-        <div class="wrapper">
-          <div class="menu-title" :style="showStableIsotopes ? 'margin-left: -3px' : null">Stabil İzotoplar</div>
-          <div class="menu-value">
-            <img v-if="!showStableIsotopes" style="cursor: pointer" src="../assets/icons/icons-plus.svg" @click="showStableIsotopes = true" />
-            <img v-else style="cursor: pointer" src="../assets/icons/icons-minus.svg" @click="showStableIsotopes = false" />
-          </div>
-        </div>
-      </div>
-      <div v-if="showStableIsotopes" style="max-height: 200px; overflow: auto">
-        <div v-for="(stableIsotope, index) in stableIsotopes" :key="index" class="dark-row">
+        <div class="row">
           <div class="wrapper">
-            <div class="menu-title">{{ stableIsotope }}</div>
+            <div class="menu-title">Kütle Numarası</div>
+            <div v-if="isotope.mass_uncertainty" class="menu-value">{{ isotope.mass_number }} ± {{ Number(isotope.mass_uncertainty).toExponential() }}</div>
+            <div v-else class="menu-value">{{ isotope.mass_number }}</div>
           </div>
         </div>
-      </div>
-    </template>
-    <template v-else>
-      <div class="row">
-        <div class="wrapper">
-          <div class="menu-title">Bolluk</div>
-          <div class="menu-value">{{ (isotope.abundance * 100).toFixed(1) }}%</div>
+        <div class="row">
+          <div class="wrapper">
+            <div class="menu-title">Radyoaktif mi</div>
+            <div class="menu-value">{{ isotope.is_radioactive ? 'Evet' : 'Hayır' }}</div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="wrapper">
-          <div class="menu-title">Kütle Numarası</div>
-          <div v-if="isotope.mass_uncertainty" class="menu-value">{{ isotope.mass_number }} ± {{ Number(isotope.mass_uncertainty).toExponential() }}</div>
-          <div v-else class="menu-value">{{ isotope.mass_number }}</div>
+        <div class="row">
+          <div class="wrapper">
+            <div class="menu-title">Yarı Ömrü</div>
+            <div class="menu-value">{{ isotope.half_life }}</div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="wrapper">
-          <div class="menu-title">Radyoaktif mi</div>
-          <div class="menu-value">{{ isotope.is_radioactive ? 'Evet' : 'Hayır' }}</div>
+        <div class="row">
+          <div class="wrapper">
+            <div class="menu-title">Spin</div>
+            <div class="menu-value">{{ isotope.spin }}</div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="wrapper">
-          <div class="menu-title">Yarı Ömrü</div>
-          <div class="menu-value">{{ isotope.half_life }}</div>
+        <div class="row">
+          <div class="wrapper">
+            <div class="menu-title">g Faktörü</div>
+            <div class="menu-value">{{ isotope.g_factor }}</div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="wrapper">
-          <div class="menu-title">Spin</div>
-          <div class="menu-value">{{ isotope.spin }}</div>
+        <div class="row">
+          <div class="wrapper">
+            <div class="menu-title">Kuadrupol Momenti</div>
+            <div class="menu-value">{{ isotope.quadrupole_moment }}</div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="wrapper">
-          <div class="menu-title">g Faktörü</div>
-          <div class="menu-value">{{ isotope.g_factor }}</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="wrapper">
-          <div class="menu-title">Kuadrupol Momenti</div>
-          <div class="menu-value">{{ isotope.quadrupole_moment }}</div>
-        </div>
-      </div>
-    </template>
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
 import _ from 'lodash'
 import { mapGetters } from 'vuex'
-import { Loading } from 'element-ui'
 export default {
   data() {
     return {
@@ -1000,11 +1001,10 @@ export default {
       stableIsotopes: [],
       selectedIsotopeIndex: 0,
       isotope: {},
-      loadingInstance: null,
     }
   },
   computed: {
-    ...mapGetters(['selectedElement', 'isoptopes', 'elements']),
+    ...mapGetters(['selectedElement', 'isotopes', 'elements']),
     element() {
       return this.elements.find((e) => e.number === this.selectedElement)
     },
@@ -1012,17 +1012,17 @@ export default {
       return this.selectedIsotopeIndex > 0
     },
   },
-  created() {
-    if (!this.$store.getters.isIsotopeFetched) {
-      this.loadingInstance = Loading.service({ background: 'rgba(0, 0, 0, 0.7)', lock: true })
-    } else {
-      this.init()
-    }
+  watch: {
+    selectedElement: {
+      immediate: true,
+      handler() {
+        this.element && this.init()
+      },
+    },
   },
   methods: {
     activateInfoModal() {
       this.$store.commit('SET_SELECTED_CONTENT_ID', this.element.ea_content_id)
-      this.$store.commit('SHOW_INFO_MODAL', true)
     },
     init() {
       this.reset()
@@ -1062,14 +1062,28 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/assets/css/partials/variables';
-.element {
+
+.element-info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  .element-info-header {
+    padding: 20px 10px;
+  }
+
+  .element-info-body {
+    align-self: stretch;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+.selected-element {
   width: $elementBoxSize * 1.5;
   height: $elementBoxSize * 1.5;
   border-radius: 12.5%;
-  padding: 6px;
-  .element-wrapper {
-    margin: 4px 3px;
-  }
+  padding: 6px 10px;
   .number {
     opacity: 0.6;
     font-size: 15px;

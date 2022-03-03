@@ -386,10 +386,6 @@
   background-image: linear-gradient(135deg, #ffaf80, #ed954b 100%);
 }
 
-.tooltip {
-  width: 200px;
-}
-
 .row {
   border-bottom: solid 1px rgba(135, 140, 151, 0.15);
   height: 40px;
@@ -397,15 +393,14 @@
   .wrapper {
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 10px;
     width: 100%;
   }
   .menu-title {
-    max-width: 108px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
     color: $gray;
   }
@@ -506,6 +501,50 @@
     a {color:#aa80ff};
   }
 }
+
+.vld-shown {
+  overflow: hidden;
+}
+
+.vld-overlay {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  align-items: center;
+  display: none;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 9999;
+  &.is-active {
+    display: flex;
+  }
+  &.is-full-page {
+    z-index: 9999;
+    position: fixed;
+  }
+  .vld-background {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #000;
+    opacity: 0.5;
+  }
+  .vld-icon {
+    position: relative;
+    svg {
+      stroke: #e7bc0b;
+    }
+  }
+}
+
+.vld-parent {
+  position: relative;
+}
+
 
 ::-webkit-scrollbar {
   width: 8px;

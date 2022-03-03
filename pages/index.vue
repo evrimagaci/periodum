@@ -22,57 +22,21 @@ export default {
         }))
         store.commit('SET_SEARCH_ELEMENTS', reducedList)
         store.commit('SET_ELEMENTS', data)
-        return {
-          selectedBlock: null,
-          selectedCategory: null,
-          showSideBar: false,
-          showRightSideBar: false,
-          selectedElement: null,
-          compoundElements: [],
-        }
       })
       .catch((err) => {
         return error({ statusCode: 404, message: err })
       })
   },
-  data() {
-    return {
-      visible: false,
-      selectedBlock: null,
-      selectedCategory: null,
-      showSideBar: false,
-      showRightSideBar: false,
-      selectedElement: null,
-      compoundElements: [],
-      selectedElementForCompound: null,
+  async created() {
+    try {
+      // const { data: compounds } = await this.$axios.get(`/api/compounds`)
+      const { data: isotopes } = await this.$axios.get(`/api/isotopes`)
+      // this.$store.commit('SET_COMPOUNDS', compounds)
+      this.$store.commit('SET_ISOTOPES', isotopes)
+    } finally {
+      this.$store.commit('SET_COMPOUNDS_FETCHED', true)
+      this.$store.commit('SET_ISOTOPES_FETCHED', true)
     }
-  },
-  watch: {
-    '$store.state.searchText'(newVal) {
-      if (newVal !== null) {
-        this.selectedBlock = null
-        this.selectedCategory = null
-      }
-    },
-  },
-  created() {
-    // this.$axios
-    //   .get(`/api/compounds`)
-    //   .then(({ data }) => {
-    //     this.$store.commit('SET_COMPOUNDS', data)
-    //   })
-    //   .finally(() => {
-    //     this.$store.commit('SET_COMPOUNDS_FETCHED', true)
-    //   })
-    this.$axios
-      .get(`/api/isotopes`)
-      .then(({ data }) => {
-        this.$store.commit('SET_ISOTOPES', data)
-      })
-      .finally(() => {
-        this.$store.commit('SET_COMPOUNDS_FETCHED', true)
-        this.$store.commit('SET_ISOTOPES_FETCHED', true)
-      })
   },
 }
 </script>

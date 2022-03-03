@@ -43,7 +43,7 @@
 import 'vue-slider-component/theme/antd.css'
 
 export default {
-  name: 'Slider',
+  name: 'Temperature',
   data() {
     return {
       active: false,
@@ -140,8 +140,8 @@ export default {
 @import '~@/assets/css/partials/variables';
 
 .slider {
-  grid-area: 1 / 3 / span 3 / span 10;
-  padding: 30px;
+  padding: 30px 50px;
+  margin: -20px;
 }
 
 .vue-slider {

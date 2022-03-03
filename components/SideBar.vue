@@ -43,10 +43,9 @@ export default {
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     background-color: rgba(10, 12, 16, 0.6);
-    .wrapper {
-      position: relative;
-      overflow: auto;
-      max-height: calc(100vh - 80px);
+    .el-drawer__header {
+      margin-bottom: 0;
+      max-height: 60px;
     }
   }
   .logo {
@@ -69,11 +68,6 @@ export default {
   position: absolute;
   top: 53px;
   left: 0;
-  .wrapper {
-    position: relative;
-    overflow: auto;
-    max-height: calc(100vh - 124px) !important;
-  }
 }
 
 .oriented-sidebar {

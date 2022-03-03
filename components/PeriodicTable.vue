@@ -1,6 +1,6 @@
 <template>
   <div class="periodic-table">
-    <Slider />
+    <PeriodicTableTabs />
     <ElementContainer v-for="element in elements" :key="element.number" :element="element" />
     <Sample />
     <Filters />
@@ -40,7 +40,6 @@ export default {
 <style lang="scss" scoped>
 .periodic-table {
   display: grid;
-  width: 100%;
   grid-template-areas:
     'col-1 . . . . . . . . . . . . . . . . col-18 col-19'
     'col-1 col-2 . . . . . . . . . . col-13 col-14 col-15 col-16 col-17 col-18 col-19'

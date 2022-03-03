@@ -8,10 +8,10 @@
         <Search />
       </div>
     </el-header>
-    <el-main style="padding: 0 200px 0 0">
+    <el-main>
       <Nuxt :search-text="searchText" />
     </el-main>
-    <right-side-bar />
+    <InfoModal />
     <el-footer height="auto" class="bottom-bar">
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-between">
@@ -117,10 +117,6 @@ html {
   padding: 15px 20px !important;
   opacity: 0.9;
   background-color: #0b0e13;
-  z-index: 1;
-  position: absolute;
-  bottom: 0;
-  left: 0;
 }
 .text-custom-gray {
   color: $gray;
