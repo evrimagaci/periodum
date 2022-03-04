@@ -109,6 +109,7 @@
       @selectElement="selectElement"
       @incOrDec="incOrDecCompoundElements"
     />
+    <Loading v-if="loading" />
   </div>
 </template>
 
@@ -157,6 +158,7 @@ export default {
       selectedElement: null,
       compoundElements: [],
       selectedElementForCompound: null,
+      loading: false,
     }
   },
   watch: {
@@ -167,23 +169,18 @@ export default {
       }
     },
   },
-  created() {
-    this.$axios
-      .get(`/api/compounds`)
-      .then(({ data }) => {
-        this.$store.commit('SET_COMPOUNDS', data)
-      })
-      .finally(() => {
-        this.$store.commit('SET_COMPOUNDS_FETCHED', true)
-      })
-    this.$axios
-      .get(`/api/isotopes`)
-      .then(({ data }) => {
-        this.$store.commit('SET_ISOTOPES', data)
-      })
-      .finally(() => {
-        this.$store.commit('SET_ISOTOPES_FETCHED', true)
-      })
+  async created() {
+    this.loading = true
+
+    const { data: compoundData } = await this.$axios.get(`/api/compounds`)
+    this.$store.commit('SET_COMPOUNDS', compoundData)
+    this.$store.commit('SET_COMPOUNDS_FETCHED', true)
+
+    const { data: isotopeData } = await this.$axios.get(`/api/isotopes`)
+    this.$store.commit('SET_ISOTOPES', isotopeData)
+    this.$store.commit('SET_ISOTOPES_FETCHED', true)
+
+    this.loading = false
   },
   methods: {
     incOrDecCompoundElements(payload) {
