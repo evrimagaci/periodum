@@ -1,6 +1,6 @@
 {
   "name": "periodum",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development NUXT_HOST=0.0.0.0 nodemon server/index.js --watch server",
