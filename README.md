@@ -44,3 +44,6 @@ Please follow the [GitLab testing guide](https://docs.gitlab.com/ee/development/
 
 ## Contribution Guidelines
 Please [click here](https://github.com/evrimagaci/periodum/blob/main/CONTRIBUTING.md) to learn more about how to contribute to Periodum project. 
+
+## Contact
+Feel free to join our Discord chat. After join [Evrim Ağaçı](https://discord.com/invite/evrimagaci)'s server, find us on [Periodum](https://discord.com/channels/490265973178499102/963708301051330630) channels. 
