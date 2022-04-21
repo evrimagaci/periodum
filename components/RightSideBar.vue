@@ -63,6 +63,11 @@
         </swiper>
       </div>
     </div>
+    <div v-if="suggestedCompounds.length > 0" class="suggestion-area">
+      <div v-for="compound in suggestedCompounds" :key="compound.formula" v-fcf class="compound-suggestion" @click="setElementsByFormula(compound.formula)">
+        {{ compound.formula }}
+      </div>
+    </div>
     <div v-if="foundCompound && foundCompound.formula" class="wrapper" style="color: white">
       <canvas id="smiley" width="200" height="80"></canvas>
       <div class="row">
@@ -157,6 +162,7 @@ export default {
       foundCompound: {
         dtp_names: [],
       },
+      suggestedCompounds: [],
       loadingInstance: null,
       timeoutCheck: null,
     }
@@ -203,6 +209,38 @@ export default {
     this.$store.commit('SET_PROBABLE_ELEMENTS', [])
   },
   methods: {
+    parseCompoundFormula(formula) {
+      /**
+       * Group 1: The upper case letter of the symbol (e.g. "N" for Na). All symbols have
+       * 1 and only 1 upper case letter; which is always the first character.
+       * Group 2: The remaining lower case letter(s) if there are any.
+       * Group 3: Element count (if specified) (e.g. "2" for O2)
+       */
+      const regex = /([A-Z])([a-z]*)(\d*)/g
+      const compoundSymbols = []
+      let match
+
+      while ((match = regex.exec(formula)) !== null) {
+        const [, symbolUpperCaseChar, symbolLowerCaseChars, symbolCount] = match
+        compoundSymbols.push({
+          symbol: `${symbolUpperCaseChar}${symbolLowerCaseChars}`,
+          count: symbolCount ? Number(symbolCount) : 1,
+        })
+      }
+
+      return compoundSymbols
+    },
+    getElementBySymbol(symbol) {
+      return this.$store.getters.elements.find((e) => e.symbol === symbol)
+    },
+    setElementsByFormula(formula) {
+      this.elements = this.parseCompoundFormula(formula).map(({ symbol, count }) => {
+        return {
+          count,
+          ...this.getElementBySymbol(symbol),
+        }
+      })
+    },
     getAvailableElements(elements) {
       this.loadingInstance = Loading.service({ background: 'rgba(0, 0, 0, 0.7)', lock: true })
       this.foundCompound = {
@@ -220,6 +258,52 @@ export default {
       const compounds = this.$store.getters.compounds
       const availableCompoundElements = []
       const finalized = []
+
+      // this holds the suggestions with exact count matches
+      const primaryCompoundSuggestions = new Map()
+
+      // this holds a loose match; will match the atoms (symbols) only
+      const secondaryCompoundSuggestions = new Map()
+
+      const primaryRegExps = elements.map((element) => {
+        if (element.count > 1) {
+          // if there are more than 1 atoms, filter the compounds accordingly
+          return new RegExp(`${element.symbol}${element.count}`)
+        }
+
+        // if there is only one atom, perform a negative look-ahead search to filter out compounds with multiple counts
+        return new RegExp(`${element.symbol}(?![a-f0-9])`)
+      })
+      const secondaryRegExps = elements.map((e) => new RegExp(`${e.symbol}${e.count === 1 ? '' : e.count}`))
+
+      const performMatch = (compound, regexps, map) => {
+        let compoundHasAllElements = true
+
+        for (const regex of regexps) {
+          if (!regex.test(compound.formula)) {
+            compoundHasAllElements = false
+            break
+          }
+        }
+
+        if (compoundHasAllElements) {
+          if (map.size < 5) {
+            map.set(compound.formula, compound)
+          } else {
+            let longestFormula = ''
+            for (const key of map.keys()) {
+              if (longestFormula.length < key.length) {
+                longestFormula = key
+              }
+            }
+
+            if (compound.formula.length < longestFormula.length) {
+              map.delete(longestFormula)
+              map.set(compound.formula, compound)
+            }
+          }
+        }
+      }
 
       compounds.forEach((compound) => {
         let symbol = ''
@@ -246,6 +330,14 @@ export default {
           pushAvailableElement(index)
         })
         availableCompoundElements.push(availableElements)
+
+        const forbidden = compound.formula.includes('?')
+
+        if (!forbidden) {
+          performMatch(compound, primaryRegExps, primaryCompoundSuggestions)
+          performMatch(compound, secondaryRegExps, secondaryCompoundSuggestions)
+        }
+
         function pushAvailableElement(index) {
           if (chars.length - 1 === index) {
             availableElements.push({
@@ -254,6 +346,31 @@ export default {
             })
           }
         }
+      })
+
+      while (primaryCompoundSuggestions.size < 5) {
+        const [key, value] = secondaryCompoundSuggestions.entries().next().value
+        secondaryCompoundSuggestions.delete(key)
+        primaryCompoundSuggestions.set(key, value)
+
+        if (secondaryCompoundSuggestions.size === 0) {
+          break
+        }
+      }
+
+      const suggestedCompounds = Array.from(primaryCompoundSuggestions.values())
+      suggestedCompounds.sort((a, b) => a.formula.length - b.formula.length)
+
+      // filter out the current compound formula from the suggestions (since it is already being shown)
+      this.suggestedCompounds = suggestedCompounds.filter((suggestion) => {
+        let { formula } = suggestion
+
+        for (const element of elements) {
+          const re = new RegExp(`[A-Z0-9]?${element.symbol}${element.count === 1 ? '' : element.count}`)
+          formula = formula.replace(re, '')
+        }
+
+        return formula.length
       })
 
       let exactCompound = null
@@ -508,6 +625,30 @@ export default {
       height: 1vw;
       align-self: center;
       margin-left: -3px;
+    }
+  }
+}
+
+.suggestion-area {
+  display: flex;
+  width: 20vw;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 30px;
+
+  .compound-suggestion {
+    background: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
+    padding: 7px 22px;
+    border-radius: 4px;
+    user-select: none;
+    cursor: pointer;
+    color: #fff;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 1;
     }
   }
 }

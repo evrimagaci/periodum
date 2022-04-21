@@ -1,5 +1,6 @@
 module.exports = {
   moduleNameMapper: {
+    '\\.(css|scss)$': '<rootDir>/tests/__mocks__/styleMock.js',
     '^@/(.*)$': '<rootDir>/$1',
     '^~/(.*)$': '<rootDir>/$1',
     '^vue$': 'vue/dist/vue.common.js',
