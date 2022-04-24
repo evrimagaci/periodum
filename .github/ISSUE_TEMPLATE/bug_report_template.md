@@ -1,7 +1,7 @@
 ---
-name: Issue Template
-about: Contribute to Periodum by creating an issue.
-title: ''
+name: Bug Report Template
+about: Contribute to Periodum by creating a bug report issue.
+title: 'Bug: '
 labels: bug
 assignees: ''
 
