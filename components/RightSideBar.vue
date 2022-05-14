@@ -305,7 +305,7 @@ export default {
         .then(({ data }) => {
           this.foundCompound = data.reduce((acc, current) => {
             if (!acc.formula) {
-              acc.dtp_names = current.dtp_names ? current.dtp_names.split('\n') : []
+              acc.dtp_names = current.dtp_names ? [...new Set(current.dtp_names.split('\n'))] : []
               acc.formula = current.formula
               acc.molecular_weight = current.molecular_weight
               acc.structure_evaluation = current.structure_evaluation
