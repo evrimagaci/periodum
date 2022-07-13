@@ -1,5 +1,5 @@
 <template>
-  <div class="loading" v-html="PeriodumLoadingSvg" />
+  <div scroll="no" class="loading" v-html="PeriodumLoadingSvg" />
 </template>
 
 <script>
@@ -23,6 +23,8 @@ export default {
   width: 100vw;
   height: 100vh;
   position: absolute;
+  overflow-x: hidden;
+  overflow-y: hidden;
   overflow: hidden;
   top: 0;
   left: 0;
