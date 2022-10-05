@@ -1,92 +1,47 @@
 {
   "name": "periodum",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development NUXT_HOST=0.0.0.0 nodemon server/index.js --watch server",
-    "build": "NODE_ENV=production nuxt build",
-    "heroku-postbuild": "yarn build",
-    "start_": "nuxt start",
-    "start": "cross-env pm2-runtime start ecosystem.config.js --env production",
-    "generate": "nuxt generate",
-    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
-    "lint:style": "stylelint \"**/*.{vue,css}\" --ignore-path .gitignore",
-    "lint": "yarn lint:js && yarn lint:style",
-    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
-    "test": "jest --runInBand"
-  },
-  "lint-staged": {
-    "*.{js,vue}": "eslint",
-    "*.{css,vue}": "stylelint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.13.1",
-    "axios": "^0.21.1",
-    "body-parser": "^1.19.0",
-    "connect-timeout": "^1.9.0",
-    "consola": "^2.15.3",
-    "core-js": "^3.9.1",
-    "cross-env": "^7.0.3",
-    "dotenv": "^8.2.0",
-    "element-ui": "^2.15.1",
-    "express": "^4.17.1",
-    "fuse.js": "^6.4.6",
-    "helmet": "^4.4.1",
-    "install": "^0.13.0",
-    "lodash": "^4.17.21",
-    "memory-cache": "^0.2.0",
-    "mobile-detect": "^1.4.5",
-    "mysql2": "^2.2.5",
-    "normalize.css": "^8.0.1",
-    "nuxt": "^2.15.3",
-    "pm2": "^4.5.5",
-    "sequelize": "^6.6.1",
-    "shrink-ray-current": "^4.1.2",
-    "smiles-drawer": "^1.2.0",
-    "swiper": "^5.4.5",
-    "uuid": "^3.4.0",
-    "v-tooltip": "^2.1.3",
-    "vue": "^2.6.12",
-    "vue-awesome-swiper": "^4.1.1",
-    "vue-gtag": "^1.16.1",
-    "vue-sanitize": "^0.2.1",
-    "vue-slider-component": "^3.2.11",
-    "xlsx": "^0.16.9"
+    "axios": "^0.27.2",
+    "core-js": "^3.8.3",
+    "vue": "^3.2.13",
+    "vue-router": "4"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.0.1",
-    "@commitlint/config-conventional": "^12.0.1",
-    "@nuxtjs/eslint-config": "^6.0.0",
-    "@nuxtjs/eslint-module": "^3.0.2",
-    "@nuxtjs/stylelint-module": "^4.0.0",
-    "@nuxtjs/svg": "^0.4.0",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/user-event": "^13.5.0",
-    "@testing-library/vue": "^5.8.2",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^26",
-    "eslint": "^7.22.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-nuxt": "^2.0.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^7.7.0",
-    "husky": "^4.3.8",
-    "jest": "^26",
-    "jest-dom": "^4.0.0",
-    "lint-staged": "^10.5.4",
-    "nodemon": "^2.0.7",
-    "prettier": "^2.2.1",
-    "sass": "^1.32.8",
-    "sass-loader": "^10.1.1",
-    "stylelint": "^13.12.0",
-    "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-standard": "^21.0.0",
-    "vue-jest": "^3"
-  }
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "sass": "^1.54.9",
+    "sass-loader": "^10.3.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
 }
