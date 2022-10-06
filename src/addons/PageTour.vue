@@ -457,7 +457,7 @@ export default {
   }
 
   .next-button {
-    position: absolute;
+    position: fixed;
     font-size: 1vw;
     padding: .5vw 1vw;
 
@@ -471,9 +471,9 @@ export default {
     border-radius: .3rem;
     border: 1px solid #e5bb09;
 
-    left: 50%;
+    left: 70%;
     transform: translateX(-50%);
-    top: 2.5vw;
+    bottom: 5vw;
 
 		z-index: 2;
 

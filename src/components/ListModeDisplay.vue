@@ -266,8 +266,9 @@ export default {
         document.querySelector('.circleSettings').classList.add('activated')
         
         PREVIEW.style.position = 'absolute'
-        PREVIEW.style.width = '95%'
+        PREVIEW.style.width = '91vw'
         PREVIEW.style.marginTop = '5rem'
+        
         
         // document.body.classList.add('active_modal');
     // position: absolute;
@@ -558,7 +559,7 @@ export default {
   }
   #listSearch {
     margin-top: 3rem;
-    width: 408px;
+    width: 85vw;
     font-size: 2.5vw;
     border: 0;
     border-bottom: 1px solid #e5bb09;
@@ -569,6 +570,8 @@ export default {
       width: 3rem;
       height: 4rem;
     }
+
+    width: 100%;
     position: absolute;
     margin-top: -2.5rem;
     // margin-bottom: 2rem;
@@ -629,14 +632,15 @@ export default {
     padding: 0 1rem;
     border: 1px solid #e5bb09;
     
-    width: 100.5vw;
+    width: 108vw;
     height: 25rem;
     max-height: 25rem;
     
     bottom: -20rem;
     // test
     // bottom: -1rem;
-    left: -.3vw;
+    left: -4vw;
+    // transform: translateX(-1%);
 
     background-image: linear-gradient(0deg, #272f3f, #1c222e);
 
@@ -655,11 +659,13 @@ export default {
       margin-top: 1rem;
       padding: 0 1rem;
 
+      transform: translateX(5%);
+
       #heatinput {
         width: 5rem;
         margin-right: .3rem;
         align-self: center;
-        font-size: 2vh;
+        font-size: 1rem;
         // border: 1px solid #343f54;
         border: none;
       }
@@ -768,7 +774,7 @@ export default {
       appearance: none;
       // height: 1.35vmin;
       margin-top: 3.5rem;
-      width: 408px;
+      width: 82vw;
       height: 2rem;
       background: #343f54;
       border-radius: .3rem;
@@ -820,12 +826,14 @@ export default {
 
   .leanLeft {
     font-family: sans-serif;
+    font-size: .8rem;
     align-self: flex-start;
     left: 1rem;
   }
   
   .leanRight {
     font-family: sans-serif;
+    font-size: .8rem;
     align-self: flex-start;
     right: 1rem;
   }

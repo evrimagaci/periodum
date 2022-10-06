@@ -114,12 +114,12 @@ export default {
     .table { display: none; }
     .list {
       display: block;
-      width: 25rem;
+      width: 85vw;
     }
 
     // list modunda en alttaki element görünsün diye
     .margin { // margin -> Periodum.vue
-      padding-bottom: 15vw;
+      padding-bottom: 30vw;
       // margin-top: -2rem;
     }
   }

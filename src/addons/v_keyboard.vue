@@ -132,7 +132,7 @@ export default {
     grid-template-rows: repeat(5, 1fr);
     padding: 0 1rem;
     position:relative;
-    width: 440px;
+    width: 95vw;
     height: 15rem;
     grid-gap: .3rem;
     // background: $main;
