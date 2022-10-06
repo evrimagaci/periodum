@@ -8,7 +8,7 @@
     }">
     <div class="item noselect">
       <div class="number flex-between fade" v-if="infoViewable === false">
-        <p>{{ element.number }}</p>
+        <p class="number_List">{{ element.number }}</p>
         <h2 class="labels atomic muted">Atomik kütle: {{ element.atomic_mass }}</h2>
         <!-- <img v-show="heat_view" class="heatState" :src="displayHeatState(element)" /> -->
       </div>

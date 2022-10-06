@@ -156,10 +156,10 @@
     background: rgb(39,47,63);
     background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
     /* color: whitesmoke; */
-    padding: .5vh;
+    padding: .3vw;
     
     justify-self: flex-start;
-    margin-top: -.2vh;
+    margin-top: -.13vw;
 
     filter: drop-shadow(0 0 1px rgba($color: #000000, $alpha: .5));
 

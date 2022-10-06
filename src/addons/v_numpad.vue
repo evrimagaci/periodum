@@ -147,7 +147,7 @@ export default {
     display: inline-block;
     position: fixed;
     // position: inherit;
-    bottom: -.14rem;
+    bottom: .5rem;
     width: auto;
     height: auto;
   }

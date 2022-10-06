@@ -2,21 +2,28 @@
   <div class="fade container">
     <div class="content">
       <h3 class="text-primary">Periodum Nedir?</h3>
-      <hr class="divider">
       <p>Periodum, Evrim Ağacı ve bionluk işbirliğiyle hazırlanan bir kimya platformudur. Platform hakkında daha fazla bilgi <a href="https://evrimagaci.org/periodum-turkiyenin-periyodik-tablosu-simdi-yayinda-11356">buradan</a> alınabilir.</p>
       <p>Sitenin amacı, merkezine periyodik tabloyu alan ve giderek kapsamı genişleyen bir kimya platformuna dönüşmektir.</p>
     </div>
 
     <div class="content">
       <h3 class="text-primary">Periodum periyodik tablonun temelleri, 2 grubun işbirliği ile atılmıştır:</h3>
-      <hr class="divider">
         <li><a href="https://evrimagaci.org/">Evrim Ağacı</a>, Türkiye’nin en büyük ve en çok ziyaret edilen popüler bilim oluşumudur.</li>
         <li><a href="https://bionluk.com/">bionluk</a>; yetenekli, tecrübeli ve yaratıcı freelancer’larla, yenilikçi ve girişimci start-up’ları, kullanışlı ve kolay işleyen online bir platformda bir araya getirerek birlikte çalışmalarına olanak sağlayan bir platformdur.</li>
     </div>
 
     <div class="content" id="updates">
-        <h3 class="text-primary">Güncellemeler (v{{ versionNumber }})</h3>
-      <hr class="divider">
+      <h3 class="versionNumber">v{{ versionNumber }}</h3>
+        
+      <h3>Görünüş</h3>
+      <li>Ufak problemler düzeltildi.</li>
+      <li>Tablo ve Liste görünüşleri değiştirildi.</li>
+      <h3>Teknolojik</h3>
+      <li>Arama özelliği geliştirildi.</li>
+      <li>Detaylı bilgi penceresine Evrim Ağacı Makale kısayolu eklendi.</li>
+      <li>Künyeye Evrim Ağacı Profil bağlantıları eklendi.</li>
+      <li>Öğretici tur geliştirildi.</li>
+      <h3 class="versionNumber">v2.0.0</h3>
       <h3>Görünüş</h3>
       <li>Hem bilgisayar hem de mobil cihaz ekranlarına uyumlu, iki mod (liste ve tablo) tasarlandı.</li>
       <li>Detaylı element bilgi penceresi tasarımı güncellendi.</li>
@@ -83,16 +90,29 @@
 
     list-style:disc;
     background-color: #232936;
-    border-radius: .5rem;
-    padding: 3rem;
+    border-radius: .3rem;
+    padding: 2rem 3rem;
+    h3 {
+      margin-bottom: .5rem;
+    }
   }
   #updates {
     h3 {
+      margin-top: 1rem;
       color: #e5bb09;
+    }
+    .versionNumber {
+      padding: .2rem .5rem;
+      background-color: #e5bb09;
+      width:max-content;
+      border-radius: .3rem;
+      font-size: smaller;
+
+      color: black;
     }
   }
   .divider {
-    margin: .5vw 0;
+    margin: .2rem 0;
   }
   li {
     margin-bottom: .3vw;

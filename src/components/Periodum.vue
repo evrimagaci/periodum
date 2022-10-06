@@ -1,18 +1,13 @@
 <template>
   <div class="fade margin">
     <div class="header">
-      <div class="navLeft" @click="pageChange(true)"> <router-link to="/"> 
+      <div class="navLeft"> <router-link to="/"> 
         <img  alt="Periodum Logo" src="../resources/img/periodum.svg" height="40"> 
        
       </router-link> </div>
-      <!-- <div class="navCenter">
-        <div v-if="homepage" class="search table">
-          <input type="search" name="search" id="tableSearch" placeholder="Element adı, atom numarası, atomik kütlesi..." autocomplete="off" @input="tableSearching($event)">
-        </div>
-      </div> -->
       <div class="navRight"> 
-        <router-link @click="pageChange(false)" to="/kunye" class="navIcon">künye</router-link>
-        <router-link @click="pageChange(false)" to="/hakkinda" class="navIcon">hakkında</router-link>
+        <router-link to="/kunye" class="navIcon">künye</router-link>
+        <router-link to="/hakkinda" class="navIcon">hakkında</router-link>
         <a href="https://evrimagaci.org/destekol" target="_blank" class="navIcon">destek</a>
       </div>
     </div>
@@ -36,11 +31,10 @@
     <TOUR />
   </div>
 
-  <footer>
-    <a href="https://dar.vin/eadiscord_periodum" v-if="!homepage" class="social">
+  <footer v-if="!homepage">
+    <a href="https://dar.vin/eadiscord_periodum" class="social">
       <img :src="social.discord" alt="discord logosu">Evrim Ağacı Discord Sunucusuna Katıl
     </a>
-      
   </footer>
 </template>
 
@@ -84,6 +78,9 @@ export default {
         // document.body.classList.remove('active_modal');
         document.body.removeAttribute('class')
 
+        //Arama kutusunu temizle
+        document.querySelector('#modalSearch').value = ''
+
         this.modalViewable = false;
         return
       }
@@ -91,9 +88,9 @@ export default {
 
       this.modalViewable = !this.modalViewable
     },
-    pageChange(state) {
-      this.appView = state
-    },
+    // pageChange(state) {
+    //   this.appView = state
+    // },
     toggleTablePanel() {
       document.querySelector('.tabbedNav').classList.remove('inactive')
       document.querySelector('.modules').classList.remove('inactive')
@@ -107,55 +104,51 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-  .table {
-    display: block; 
-    justify-content: center;
-    
-  //  .search {
-  //     // grid-row-start: 1; grid-column-start: 13; grid-column-end: 18;
-  //     min-height: 1.5rem;
-  //     #tableSearch {
-  //       font-size: 1vw;
-  //     }
-  //     z-index: 1;
-  //   }
+  .table  { 
+    display: block;
+    height: fit-content;
   }
-  .list { display: none; }
+  .list   { display: none;  }
+
   @media screen and (max-width: 720px) {
     .table { display: none; }
     .list {
-      display: block; 
-      justify-content: center;
+      display: block;
       width: 25rem;
     }
 
     // list modunda en alttaki element görünsün diye
     .margin { // margin -> Periodum.vue
       padding-bottom: 15vw;
+      // margin-top: -2rem;
     }
   }
 
   .margin {
     margin-bottom: 5vw;
-
-    // margin-left: 2.5rem;
-    // margin-right: 2.5rem;
   }
+
   .header {
     display: flex;
     justify-content: space-between;
-    padding-bottom: .5rem;
+    margin-bottom: 2.5vw;
+    margin-top: 1rem;
+
+    width: 100%;
     
     align-items: center;
     
     @media screen and (max-width: 720px) {
       flex-direction: column;
+      margin-top: 1rem;
+      padding-bottom: .5rem;
     }
   }
+
   span {
     font-size: 4rem;
   }
+
   .title {
     color:white
   }
@@ -166,32 +159,31 @@ export default {
         max-width: 17rem;
       }
     }
-    &:hover {
-      img {
-        filter: grayscale(1) brightness(5);
-      }
-    }
+    // &:hover {
+    //   img {
+    //     filter: grayscale(1) brightness(5);
+    //   }
+    // }
   }
   .navRight {
     border-radius: .5rem;
     right: 0;
     
-    
     @media screen and (max-width: 720px) {
-      padding: .3rem 0;
+      padding: 1rem 0;
     }
   }
   .navIcon {
     color: #e5bb09;
     font-size: 1rem;
-    margin: .2rem .2rem;
+    margin: 0 .2rem;
     transition: all 100ms ease-in-out;
 
-    // background-color: #1a1f2a;
-    // border: 1px solid #232a38;
-    // border-radius: .3rem;
+    background-color: #1a1f2a;
+    border: 1px solid #232a38;
+    border-radius: .3rem;
 
-    padding: .1rem .3rem;
+    padding: .5rem .6rem;
     &:hover {
       text-decoration: underline;
       color: white;
@@ -239,7 +231,6 @@ export default {
       &:hover {
         opacity: 1;
         word-break:break-all;
-        border: 2px dashed #1a1f2a;
       }
     }
     margin: 2rem 0;

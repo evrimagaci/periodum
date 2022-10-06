@@ -122,7 +122,7 @@ export default {
     display: inline-block;
     position: fixed;
     // position: inherit;
-    bottom: -1.7rem;
+    bottom: -1rem;
     width: auto;
     height: auto;
   }

@@ -85,7 +85,7 @@
       <img class="arrow" id="upArrow" :src="arrows.up">
         <div class="text">
           <h2>Derece Ayarı</h2>
-          <h4>Sıcaklığı, varsayılan ölçü birimi Kelvin üzerinden değiştirebilirsin.</h4>
+          <h4>Sıcaklığı, Kelvin, Celcius ve Fahrenheit üzerinden değiştirebilirsin.</h4>
         </div>
       </section>
       <section id="section-heat-statebuttons">
@@ -144,9 +144,9 @@ export default {
         // document.querySelector('#tableSearch').style.boxShadow = '0 0 10px white'
         
         this.highlight({
-          x: '47.5vmax',
+          x: '47.7vmax',
           y: '-21.3vw',
-          w: '22.2vw',
+          w: '22.5vw',
           h: '2.8vw'
         })
         // Arama kutusuna girdiyi engelle
@@ -165,7 +165,7 @@ export default {
 
         
         this.highlight({
-          x: '29.9vmax',
+          x: '30.1vmax',
           y: '-5.2vw',
           w: '5vw',
           h: '5vw'
@@ -215,11 +215,11 @@ export default {
 
         document.querySelector('.close-modal').style.borderRadius = '.3rem'
         document.querySelector('.close-modal').style.backgroundColor = '#e5bb09'
-        document.querySelector('.close-modal').style.padding = '0 1rem'
+        document.querySelector('.close-modal').style.paddingLeft = '1rem'
         document.querySelector('.close-modal').style.color = 'black'
 
         const MODAL_EXIT_INFOTEXT = document.createElement('div')
-        MODAL_EXIT_INFOTEXT.textContent = '< Buraya tıklayarak pencereyi kapatabilirsin.'
+        MODAL_EXIT_INFOTEXT.textContent = "X'e tıklayarak pencereyi kapatabilirsin."
         MODAL_EXIT_INFOTEXT.id = 'temp_modal_result_info'
         stylize_item(MODAL_EXIT_INFOTEXT)
         MODAL_EXIT_INFOTEXT.style.fontSize = '1vw'
@@ -242,8 +242,9 @@ export default {
         // document.querySelector('.close-modal').style.boxShadow = 'none
         document.querySelector('.close-modal').style.borderRadius = '0'
         document.querySelector('.close-modal').style.backgroundColor = 'transparent'
-        document.querySelector('.close-modal').style.padding = '0'
+        document.querySelector('.close-modal').style.paddingLeft = '0'
         document.querySelector('.close-modal').style.color = 'white'
+        document.querySelector('#temp_modal_result_info').remove()
 
         // ARAMA KUTUSUNU TEMİZLE ve GİRDİ ENGELİNİ KALDIR
         document.querySelector('#tableSearch').disabled = false

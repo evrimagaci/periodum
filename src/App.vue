@@ -21,20 +21,17 @@ export default {
     margin:0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  html, body {
-    margin: 0;
-    margin-top: -1.4rem;
+    // outline: 1px solid #f00 !important;
   }
 
   .active_modal {
     overflow: hidden;
   }
-  
+
   body {
     display:flex;
-    place-items: center;
+    // place-items: center;
+    
     justify-content: center;
     background-color: #1A1F2A;
     color: #f6f9fa;
@@ -84,8 +81,7 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: left;
-    color: #2c3e50;
-    margin-top: 60px;
+    // margin-top: 60px;
   }
   
   .noselect {

@@ -31,6 +31,7 @@
 				<div v-if="element.appearance !== ''"><ElementItem title="Görünüm" :value="element.appearance" /></div>
 				<div v-if="element.refractive_index !== ''"><ElementItem title="Kırılma İndisi" :value="element.refractive_index" /></div>
 				<div v-if="element.phase_at_stp !== ''"><ElementItem title="Faz (NŞA)" :value="element.phase_at_stp" /></div>
+				<div style="justify-self: center; margin-top: 1rem;"><a :href="'http://evrimagaci.org/s/'+ element.ea_content_id" target="_blank">Evrim Ağacı Makalesi</a></div>
 			</div>
 			
 

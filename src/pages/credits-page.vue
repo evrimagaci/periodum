@@ -10,6 +10,7 @@
         <p class="about">Üniversite öğrencisi, grafik tasarımcı ve yazılımcı.</p>
       
         <div class="social">
+          <a href="https://evrimagaci.org/arin" target=”_blank”><img :src="this.social.evrimagaci" alt="Evrim Ağacı logo" /></a>
           <a href="https://www.linkedin.com/in/arın-özkınay-747708221/" target=”_blank”><img :src="this.social.linkedin" alt="linkedin logo" /></a>
           <a href="https://twitter.com/arinozk" target=”_blank”><img :src="this.social.twitter" alt="twiiter logo" /></a>
           <a href="https://instagram.com/arinozkinay" target=”_blank”><img :src="this.social.instagram" alt="instagram logo" /></a>
@@ -23,6 +24,7 @@
         <p class="about">Yazılımcı, skeptik ve popüler bilim takipçisidir. 2017'den beri Evrim Ağacı'nın teknik sorumlusu olarak görev almaktadır. Evrim Ağacı'nın altyapısından, geliştirilmesinden ve teknik projelerinden sorumludur.</p>
       
         <div class="social">
+          <a href="https://evrimagaci.org/eyupcanakman" target=”_blank”><img :src="this.social.evrimagaci" alt="Evrim Ağacı logo" /></a>
           <a href="https://www.linkedin.com/in/eyupcanakman" target=”_blank”><img :src="this.social.linkedin" alt="linkedin logo" /></a>
           <a href="https://twitter.com/eyupcanakman" target=”_blank”><img :src="this.social.twitter" alt="twiiter logo" /></a>
         </div>
@@ -35,6 +37,7 @@
         <p class="about">Evrim Ağacı’nın kurucusu ve idari sorumlusu. Lisansını 2013 yılında ODTÜ’de, doktorasını 2018 yılında Texas Tech Üniversitesi’nde tamamladı. Ayrıca çok sayıda popüler bilim kitabının yazarı ve/veya editörü. Bilim iletişimi alanındaki çalışmalarına devam ediyor.</p>
       
         <div class="social">
+          <a href="https://evrimagaci.org/cagrimertbakirci" target=”_blank”><img :src="this.social.evrimagaci" alt="Evrim Ağacı logo" /></a>
           <a href="https://www.linkedin.com/in/cagrimertbakirci" target=”_blank”><img :src="this.social.linkedin" alt="linkedin logo" /></a>
           <a href="https://twitter.com/cagrimbakirci" target=”_blank”><img :src="this.social.twitter" alt="twiiter logo" /></a>
         </div>
@@ -114,6 +117,7 @@
           behance: require("../resources/img/credits/behance.svg"),
           instagram: require("../resources/img/credits/instagram.svg"),
           bionluk: require("../resources/img/credits/bionluk.png"),
+          evrimagaci: require("../resources/img/credits/evrimagaci.svg"),
         }
       }
     }
@@ -136,8 +140,8 @@
     margin-bottom: .5rem;
 
     background-color: #232936;
-    border-radius: .5rem;
-    padding: 2rem;
+    border-radius: .3rem;
+    padding: 1rem 2rem;
     
     color:#ffce07;
     font-size: large;
@@ -151,14 +155,14 @@
     min-height: 226px;
 
     background-color: #232936;
-    border-radius: .5rem;
+    border-radius: .3rem;
     padding: 2rem;
   }
   .image {
     position: relative;
     width: 10rem;
     height: 10rem;
-    border-radius: .5rem;
+    border-radius: .3rem;
     margin-right: 2vw;
   }
   
@@ -176,6 +180,7 @@
   }
 
   .social {
+    display: flex;
     img {
       height: 32px; width: 32px;
       margin-top: .3rem;
@@ -187,6 +192,11 @@
         // filter: drop-shadow(0 0 2px black);
         cursor: pointer;
       }
+    }
+    justify-items: center;
+    & > a {
+      margin-right: .5rem;
+      filter: drop-shadow(0 0 2px rgba(0,0,0,.7));
     }
   }
 

@@ -11,9 +11,8 @@
     <div class="bottomMenuPreviews">
       <!-- Arama Önizleme -->
       <section class="previewSection flex-between" v-if="searchView_List">
-        <div class="leanLeft" id="searchInput_List">
-        </div>
-        <div class="leanRight" id="searchResultCount_List"></div>
+        <div class="leanLeft" id="searchResultCount_List">Element sayısı: {{ visibleElementCount }}</div>
+        <div class="leanRight" id="searchInput_List"></div>
       </section>
 
       <!-- Sıcaklık Önizleme -->
@@ -294,16 +293,21 @@ export default {
       const KEY = document.querySelector('.keyElement')
       
       const CONDITIONS = function(el) {
-        const searchIn = [
-          el.querySelector('.number').textContent,
-          el.querySelector('.names').textContent,
-          el.querySelector('.labels').textContent,
-          el.querySelector('.atomic').textContent,
-        ].join('').toLowerCase()
+        let searchIn = []
+        if (!INPUT.includes('.')) {
+          searchIn = [
+            el.querySelector('.number_List').textContent,
+            el.querySelector('.names').textContent,
+            el.querySelector('.symbol').textContent,
+            el.querySelector('.atomic').textContent.split('.')[0],
+          ].join('').toLowerCase()
+        } else {
+          searchIn = [
+            el.querySelector('.atomic').textContent
+          ].join('').toLowerCase()
+        }
         
         return INPUT !== ''
-        && !el.classList.contains('block_List')
-        && !el.classList.contains('category_List')
         && searchIn.includes(INPUT)
       }
 
@@ -328,9 +332,9 @@ export default {
       this.visibleElementCount = document.querySelectorAll('.list-element:not(.inactive)').length
       
       // Menü önizleme kısmı
-      // const PREVIEW_INFO = document.querySelector('#searchInput_List')
+      const PREVIEW_INFO = document.querySelector('#searchInput_List')
       // Menü önizleme kısmını güncelle
-      // PREVIEW_INFO.textContent = `${INPUT}`
+      PREVIEW_INFO.textContent = `${INPUT}`
     },
     filterByState_List($event) {
       if (!this.heatView_List) return
@@ -540,7 +544,7 @@ export default {
   .thanks {
     width: 25rem;
       
-    margin-top: 2vw;
+    margin-top: 3vw;
     #thanks-bionluk {
       width: 10vw;
       margin-right: 2vw;
@@ -550,6 +554,7 @@ export default {
       font-size: 1rem;
       color: white;
     }
+    z-index: -555;
   }
   #listSearch {
     margin-top: 3rem;
@@ -579,6 +584,8 @@ export default {
 
     transition: all 100ms linear;
 
+    z-index: 1;
+
     &:hover {
       img{
         filter: drop-shadow(0 0 1rem #e5bb09);
@@ -593,8 +600,6 @@ export default {
       transform: translateY(9px);
       font-size: 3rem;
     }
-
-    z-index: 10;
   }
 
   .activated {
@@ -624,16 +629,18 @@ export default {
     padding: 0 1rem;
     border: 1px solid #e5bb09;
     
-    width: 100.3vw;
+    width: 100.5vw;
     height: 25rem;
     max-height: 25rem;
     
     bottom: -20rem;
     // test
     // bottom: -1rem;
-    left: -.2vw;
+    left: -.3vw;
 
     background-image: linear-gradient(0deg, #272f3f, #1c222e);
+
+    z-index: 1;
     
     .tabbedNav {
       padding: 1rem 2vw;

@@ -557,13 +557,20 @@ export default {
       const KEY = document.querySelector('.keyElement')
       
       const CONDITIONS = function(el) {
-        const searchIn = [
-          el.querySelector('.number').textContent,
-          el.querySelector('.symbol').textContent,
-          el.querySelector('.name').textContent,
-          el.querySelector('.atomic').textContent,
-          el.querySelector('.name_en').textContent
-        ].join('').toLowerCase()
+        let searchIn = []
+        if (!INPUT.includes('.')) {
+          searchIn = [
+            el.querySelector('.number').textContent,
+            el.querySelector('.symbol').textContent,
+            el.querySelector('.name').textContent,
+            el.querySelector('.atomic').textContent.split('.')[0],
+            el.querySelector('.name_en').textContent
+          ].join('').toLowerCase()
+        } else {
+          searchIn = [
+            el.querySelector('.atomic').textContent
+          ].join('').toLowerCase()
+        }
         
         return INPUT !== ''
         && !el.classList.contains('block')
@@ -598,7 +605,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  
   
   .thanks {
     position: relative;
@@ -640,11 +646,7 @@ export default {
   }
 
   .element {
-    padding: .1vw;
-  }
-
-  #drag.dragging {
-    position: absolute;
+    padding: .113vw;
   }
 
   .grid {
