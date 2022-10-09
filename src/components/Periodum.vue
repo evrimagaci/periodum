@@ -3,26 +3,34 @@
     <div class="header">
       <div class="navLeft"> <router-link to="/"> 
         <img  alt="Periodum Logo" src="../resources/img/periodum.svg" height="40"> 
-       
       </router-link> </div>
+
       <div class="navRight"> 
-        <router-link to="/kunye" class="navIcon">künye</router-link>
-        <router-link to="/hakkinda" class="navIcon">hakkında</router-link>
-        <a href="https://evrimagaci.org/destekol" target="_blank" class="navIcon">destek</a>
+        <router-link to="/kunye" class="navIcon">
+          {{ loc.pages.credits.title }}
+        </router-link>
+        <router-link to="/hakkinda" class="navIcon">
+          {{ loc.pages.about.title }}
+        </router-link>
+        <a :href="loc.pages.support.link_to" target="_blank" class="navIcon">
+          {{ loc.pages.support.title }}
+        </a>
+        
+        <button @click="languageSwitch()" class="navIcon" id="languageSwitcher"><img src="" alt=""></button>
       </div>
     </div>
     
-    <router-view v-if="!homepage" />
+    <router-view :loc="loc" v-if="!homepage" />
     <div v-if="homepage">
-      <div class="fade list"> <ListDisplay :elements="elements" @getElement="setElement" /> </div>
-      <div class="fade table"> <TableDisplay :elements="elements" @getElement="setElement" /> </div>
+      <div class="fade list"> <ListDisplay :locale="loc" :elements="elements" @getElement="setElement" @changeLanguage="changeLanguage" /> </div>
+      <div class="fade table"> <TableDisplay :locale="loc" :elements="elements" @getElement="setElement" @changeLanguage="changeLanguage" /> </div>
     </div>
   
     <div @click="toggleModal" class="modal" id="element_modal">
       <div :class="{
       'modal active': modalViewable === true,
       'modal inactive': modalViewable === false}">
-        <ElementModal :element="currentElement"></ElementModal>
+        <ElementModal :locale="localization" :element="currentElement"></ElementModal>
       </div>
     </div>
   </div>
@@ -42,31 +50,122 @@
 import ListDisplay from '@/components/ListModeDisplay.vue'
 import TableDisplay from '@/components/TableModeDisplay.vue'
 import ElementModal from '@/components/ElementModal.vue';
-import ELEMENT from '@/resources/elements.json'
 import TOUR from '@/addons/PageTour.vue'
+
+import ELEMENT from '@/resources/elements_main.json'
+
+const ELEMENT_LANGUAGE = require("../resources/locale/tr/elements_text.json");
+const CONTENT_LANGUAGE = require("../resources/locale/tr/general.json");
+
+const _ = require("lodash");
+const objectsById = {};
+// Store json1 objects by id.
+for (const obj1 of ELEMENT) {
+    objectsById[obj1.number] = obj1;
+}
+
+for (const obj2 of ELEMENT_LANGUAGE) {
+    const id = obj2.number;
+
+    if (objectsById[id]) {
+        // Object already exists, need to merge.
+        // Using lodash's merge because it works for deep properties, unlike object.assign.
+        objectsById[id] = _.merge(objectsById[id], obj2)
+    } else {
+        // Object doesn't exist in merged, add it.
+        objectsById[id] = obj2;
+    }
+}
+
+// All objects have been merged or added. Convert our map to an array.
+const ELEMENTS = Object.values(objectsById);
 
 export default {
   components: { ListDisplay, TableDisplay, ElementModal, TOUR },
   name: 'PeriodumPage',
   data() {
     return {
-      elements: ELEMENT,
-      currentElement: ELEMENT[0],
+      elements: ELEMENTS,
+      currentElement: ELEMENTS[0],
+      loc: CONTENT_LANGUAGE,
       modalViewable: false,
       social: {
         discord: require("../resources/img/credits/discord.svg")
-      }
+      },
+      locale: {
+        tr: require("../resources/locale/tr/general.json"),
+        en: require("../resources/locale/en/general.json")
+      },
+      elementLanguage: {
+        tr:       require("../resources/locale/tr/elements_text.json"),
+        tr_flag:  require("../resources/locale/flags/tr.svg"),
+        en:       require("../resources/locale/en/elements_text.json"),
+        en_flag:  require("../resources/locale/flags/en.svg"),
+      },
+      language: 'en'
     }
   },
   computed: {
     homepage() {
       return this.$route.name === 'home'
+    },
+    localization() {
+      return this.loc
     }
   },
   props: {
     mode: String
   },
   methods: {
+    changeLanguage(lang) {
+      //#region Elements
+      const objectsById = {};
+      
+      for (const obj1 of ELEMENTS) {
+          objectsById[obj1.number] = obj1;
+      }
+
+      const LANGUAGE_FILE = this.elementLanguage[lang]
+
+      for (const obj2 of LANGUAGE_FILE) {
+          const id = obj2.number;
+
+          if (objectsById[id]) {
+              objectsById[id] = _.merge(objectsById[id], obj2)
+          } else {
+              objectsById[id] = obj2;
+          }
+      }
+
+      this.elements = Object.values(objectsById);
+      this.currentElement = ELEMENTS[118]
+      //#endregion
+
+      //#region Content
+      this.loc = this.locale[lang]
+    },
+    languageSwitch() {
+      if (this.language === 'en') {
+        this.language = 'tr'
+        document.querySelector('#languageSwitcher').innerHTML = `<img src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">`
+        this.changeLanguage('tr')
+        document.querySelector('#langmenu_list').innerHTML = `<img style="width: 1.5rem;" src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">` + " Türkçe"
+        return
+      }
+      else {
+        this.language = 'en'
+        document.querySelector('#languageSwitcher').innerHTML = `<img src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">`
+        this.changeLanguage('en')
+        document.querySelector('#langmenu_list').innerHTML = `<img style="width: 1.5rem;" src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">` + " English"
+        return
+      }
+    },
+    getUserLanguage() {
+      this.language = navigator.language.split('-')[0]
+      document.querySelector('#languageSwitcher').innerHTML = `<img src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">`
+      this.changeLanguage(this.language)
+      return this.language
+    },
     setElement(el) {
       this.modalViewable = !this.modalViewable
       this.currentElement = el
@@ -99,11 +198,51 @@ export default {
     visitedBefore() {
       return localStorage.getItem('visited_before')
     }
+  },
+  mounted() {
+    this.getUserLanguage()
+    // const _loc = navigator.language.split('-')[0]
+    
+    // const objectsById = {};
+    
+    // for (const obj1 of ELEMENTS) {
+    //     objectsById[obj1.number] = obj1;
+    // }
+
+
+    // const LANGUAGE_FILE = this.elementLanguage[_loc]
+
+    // for (const obj2 of LANGUAGE_FILE) {
+    //     const id = obj2.number;
+
+    //     if (objectsById[id]) {
+    //         objectsById[id] = _.merge(objectsById[id], obj2)
+    //     } else {
+    //         objectsById[id] = obj2;
+    //     }
+    // }
+
+    // this.elements = Object.values(objectsById);
+    
+    // //#region Content
+    // this.loc = this.locale[_loc]
   }
 }
 </script>
 
 <style lang="scss" scoped>
+#languageSwitcher {
+  min-height: 2.5rem;
+  min-width: 2.5rem;
+  align-items: center;
+}
+  .flags {
+    img {
+      height: 2vw;
+      min-width: 1.2vw;
+      margin-right: 1vw;
+    }
+  }
   .table  { 
     display: block;
     height: fit-content;
@@ -114,7 +253,8 @@ export default {
     .table { display: none; }
     .list {
       display: block;
-      width: 85vw;
+      width: 90vw;
+      // width: 85vw;
     }
 
     // list modunda en alttaki element görünsün diye
@@ -134,7 +274,7 @@ export default {
     margin-bottom: 2.5vw;
     margin-top: 1rem;
 
-    width: 100%;
+    width: 85vw;
     
     align-items: center;
     

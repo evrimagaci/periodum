@@ -20,10 +20,10 @@
     </div>
     
     <div class="symbol" :class="{'colored': heat_view === false}">{{ element.symbol }}</div>
-    <div class="name" :class="{'colored': heat_view === false}"> {{ element.name_tr }} </div>
+    <div class="name" :class="{'colored': heat_view === false}"> {{ element.name }} </div>
     <div class="atomic" :class="{'colored': heat_view === false}">{{ element.atomic_mass }}</div>
     <span class="block inactive">{{ element.block }}</span>
-    <span class="category inactive">{{ element.category }}</span>
+    <span class="category inactive">{{ element.category_code }}</span>
     <span class="name_en inactive">{{ element.name_en }}</span>
   </div>
 </template>
@@ -32,37 +32,37 @@
   export default {
     props: { element: Object, heat_value: [Number, String], heat_changed: Boolean, heat_view: Boolean },
     data() {
-      const elementCategory = this.element.category
+      const elementCategory = this.element.category_code
       const categoryColors = {
-        'alkali metal': '#ffaf80',          // turuncu
-        'alkali metal_shade': '#ef9851',
+        'alkaline_metals': '#ffaf80',          // turuncu
+        'alkaline_metals_shade': '#ef9851',
 
-        'toprak alkali metal': '#80ff8e',   // yeşi
-        'toprak alkali metal_shade': '#44e053',
+        'alkaline_earth_metal': '#80ff8e',   // yeşi
+        'alkaline_earth_metal_shade': '#44e053',
 
-        'geçiş metali': '#ffef80',          // sarı
-        'geçiş metali_shade': '#c1b45f',
+        'transition_metal': '#ffef80',          // sarı
+        'transition_metal_shade': '#c1b45f',
 
-        'geçiş sonrası metali': '#80d5ff',  // mavi
-        'geçiş sonrası metali_shade': '#52c5fe',
+        'post_transition_metal': '#80d5ff',  // mavi
+        'post_transition_metal_shade': '#52c5fe',
 
-        'metalsi': '#8095ff',               // slate
-        'metalsi_shade': '#526efe',
+        'metalloid': '#8095ff',               // slate
+        'metalloid_shade': '#526efe',
 
-        'reaktif ametal': '#ff80d4',        // pembe
-        'reaktif ametal_shade': '#fe52c4',
+        'reactive_nonmetal': '#ff80d4',        // pembe
+        'reactive_nonmetal_shade': '#fe52c4',
 
-        'soy gaz': '#aa80ff',               // lila
-        'soy gaz_shade': '#8b52fe',
+        'noble_gas': '#aa80ff',               // lila
+        'noble_gas_shade': '#8b52fe',
 
-        'lantanit': '#c3ff80',              // yeşil
-        'lantanit_shade': '#adfe52',
+        'lanthanides': '#c3ff80',              // yeşil
+        'lanthanides_shade': '#adfe52',
 
-        'aktinit': '#80fffc',               // teal
-        'aktinit_shade': '#52fefa',
+        'actinides': '#80fffc',               // teal
+        'actinides_shade': '#52fefa',
 
-        'bilinmiyor': '#fff',               // beyaz
-        'bilinmiyor_shade': '#e0e0e0'
+        'unknown': '#fff',               // beyaz
+        'unknown_shade': '#e0e0e0'
       }
       return {
         modalViewable: false,

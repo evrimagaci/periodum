@@ -387,18 +387,13 @@ input:checked + .slider:before {
 
 
 
-
-
-
-
-  
 /* Style The Dropdown Button */
 .dropdown-button {
   background-color: rgba($color: #000, $alpha: .1);;
   color: #fff;
 	padding: .1rem .5rem;
 	height: 2.3rem;
-	min-width: 5rem;
+	min-width: 4rem;
 	border-radius: .3rem;
   font-size: 1rem;
   border: none;
@@ -431,10 +426,10 @@ input:checked + .slider:before {
 	right: 0vw;
   position: absolute;
   background-color: rgba($color: #232a38, $alpha: .9);
-	min-width: 5rem;
   box-shadow: 0 0 1rem rgba(0,0,0,.8);
 	height: 10rem;
 	border-radius: .3rem;
+	min-width: 4rem;
 
 	overflow: scroll;
 	

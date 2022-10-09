@@ -5,7 +5,8 @@
 			<span class="modalTitle noselect muted">{{ title }}</span>
 		</div>
 		<div class="flex-between">
-			<p class="value" :style="value.length > 40  ? { 'font-size': '1rem' } : ''">
+			<p
+				class="value" :style="value.length > 40  ? { 'font-size': '1rem' } : ''">
 				{{ typeof value !== 'string' ? value : upperFirstLetter(value) }}
 			</p>
 			<div v-if="unitKey !== ''" class="dropdown">

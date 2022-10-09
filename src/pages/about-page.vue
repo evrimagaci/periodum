@@ -1,34 +1,45 @@
 <template>
   <div class="fade container">
     <div class="content">
-      <h3 class="text-primary">Periodum Nedir?</h3>
-      <p>Periodum, Evrim Ağacı ve bionluk işbirliğiyle hazırlanan bir kimya platformudur. Platform hakkında daha fazla bilgi <a href="https://evrimagaci.org/periodum-turkiyenin-periyodik-tablosu-simdi-yayinda-11356">buradan</a> alınabilir.</p>
-      <p>Sitenin amacı, merkezine periyodik tabloyu alan ve giderek kapsamı genişleyen bir kimya platformuna dönüşmektir.</p>
+      <h3 class="text-primary">{{ loc.pages.about.what_is.title }}</h3>      
+      <div v-for="text in loc.pages.about.what_is.content" :key="text[0]">
+        <p>{{ text }}</p>
+      </div>
     </div>
 
     <div class="content">
-      <h3 class="text-primary">Periodum periyodik tablonun temelleri, 2 grubun işbirliği ile atılmıştır:</h3>
-        <li><a href="https://evrimagaci.org/">Evrim Ağacı</a>, Türkiye’nin en büyük ve en çok ziyaret edilen popüler bilim oluşumudur.</li>
-        <li><a href="https://bionluk.com/">bionluk</a>; yetenekli, tecrübeli ve yaratıcı freelancer’larla, yenilikçi ve girişimci start-up’ları, kullanışlı ve kolay işleyen online bir platformda bir araya getirerek birlikte çalışmalarına olanak sağlayan bir platformdur.</li>
+      <h3 class="text-primary">{{ loc.pages.about.brief_info.title }}</h3>
+      <div v-for="text in loc.pages.about.brief_info.content" :key="text[0]">
+        <p>{{ text }}</p>
+      </div>
     </div>
 
     <div class="content" id="updates">
       <h3 class="versionNumber">v{{ versionNumber }}</h3>
         
-      <h3>Görünüş</h3>
+      <h3>{{ loc.pages.about.updates.visual }}</h3>
+      <li>İngilizce desteği eklendi.</li>
+      <li>Tablo ve Liste görünümündeki bazı sorunlar düzeltildi.</li>
+      <h3>{{ loc.pages.about.updates.tech }}</h3>
+      <li>Menüye dil değiştirme özelliği eklendi.</li>
+      <li>İngilizce version: Detaylı bilgi penceresine Wikipedia kısayolu eklendi.</li>
+
+      <h3 class="versionNumber">v2.0.1</h3>
+      <h3>{{ loc.pages.about.updates.visual }}</h3>
       <li>Ufak problemler düzeltildi.</li>
       <li>Tablo ve Liste görünüşleri değiştirildi.</li>
-      <h3>Teknolojik</h3>
+      <h3>{{ loc.pages.about.updates.tech }}</h3>
       <li>Arama özelliği geliştirildi.</li>
       <li>Detaylı bilgi penceresine Evrim Ağacı Makale kısayolu eklendi.</li>
       <li>Künyeye Evrim Ağacı Profil bağlantıları eklendi.</li>
       <li>Öğretici tur geliştirildi.</li>
+
       <h3 class="versionNumber">v2.0.0</h3>
-      <h3>Görünüş</h3>
+      <h3>{{ loc.pages.about.updates.visual }}</h3>
       <li>Hem bilgisayar hem de mobil cihaz ekranlarına uyumlu, iki mod (liste ve tablo) tasarlandı.</li>
       <li>Detaylı element bilgi penceresi tasarımı güncellendi.</li>
       
-      <h3>Teknolojik</h3>
+      <h3>{{ loc.pages.about.updates.tech }}</h3>
       <li>Tablo modunda Modüler sistem geliştirildi. Grup ve Sıcaklık modülleri eklendi.</li>
       <li>Grup Modülü: Blok veya kategori bilgisine göre elementleri filtreleme özelliği.</li>
       <li>Sıcaklık Modülü: Kelvin, Celcius ve Fahrenheit üzerinden sıcaklık belirlenip, elementlerin durumlarını görselleştiren mod.</li>
@@ -36,9 +47,10 @@
       <li>Tablo ve Liste modunda arama özelliği eklendi.</li>
       <li>Mobil modda sıcaklık ve arama özellikleri için sanal klavyeler eklendi.</li>
       <li>Sıcaklık filtre özelliği geliştirildi ve varsayılan sıcaklık 25C° (77F°, 298.15K) olarak belirlendi.</li>
+
       <div class="flex-between">
         <div></div>
-        <a id="mail" href="mailto:info@evrimagaci.org">Öneri/Sorun Bildir</a>
+        <a id="mail" href="mailto:info@evrimagaci.org">{{ loc.pages.about.updates.report }}</a>
         <div></div>
       </div>
     </div>
@@ -56,6 +68,9 @@
 <script>
   import { version } from "../../package.json";
   export default {
+    props: {
+      loc: Object
+    },
     computed: {
       versionNumber() {
         return version

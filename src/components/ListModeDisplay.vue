@@ -1,7 +1,7 @@
 <template>
 
   <div class="list-element" v-for="element in elements" :key="element.number">
-    <div :id="'list'+element.number" @click.prevent="toggleModal($event, element)"> <ListItem :heat_view="heatView_List" :heat_value="kelvin_setByUser" :element="element">{{ element }}</ListItem> </div>
+    <div :id="'list'+element.number" @click.prevent="toggleModal($event, element)"> <ListItem :locale="locale" :heat_view="heatView_List" :heat_value="kelvin_setByUser" :element="element">{{ element }}</ListItem> </div>
   </div>
   
   <div class="bottomMenu noselect">
@@ -11,8 +11,8 @@
     <div class="bottomMenuPreviews">
       <!-- Arama Önizleme -->
       <section class="previewSection flex-between" v-if="searchView_List">
-        <div class="leanLeft" id="searchResultCount_List">Element sayısı: {{ visibleElementCount }}</div>
-        <div class="leanRight" id="searchInput_List"></div>
+        <div class="leanLeft" id="searchResultCount_List">{{ this.locale.sub_menu.el_count }} {{ visibleElementCount }}</div>
+        <div class="leanRight" id="languageSelection_List"></div>
       </section>
 
       <!-- Sıcaklık Önizleme -->
@@ -45,7 +45,7 @@
       <!-- Grup Önizleme -->
       <section class="previewSection flex-between" v-if="groupView_List">
         <div class="leanLeft">
-          Element sayısı: {{ visibleElementCount }}
+          {{ this.locale.sub_menu.el_count }} {{ visibleElementCount }}
         </div>
         <div class="leanRight" id="currentFilter">
           {{ lastChosenFilter_List }}
@@ -67,10 +67,10 @@
   
     <div class="bottomMenuContent inactive">
       <div class="tabbedNav fade flex-between">
-          <button class="tab btn" id="search_list"    :style="[searchView_List  ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]" @click="toggleTablePanel('search')">Arama</button>
-          <button class="tab btn" id="heatmode_list"  :style="[heatView_List    ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]" @click="toggleTablePanel('heat')">Sıcaklık</button>
-          <button class="tab btn" id="groupmode_list" :style="[groupView_List   ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]" @click="toggleTablePanel('group')">Grup</button>
-          <button class="tab btn" id="infomode_list"  :style="[infoView_List    ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]" @click="toggleTablePanel('info')">Yardım</button>
+          <button class="tab btn" id="search_list"    :style="[searchView_List  ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]" @click="toggleTablePanel('search')">{{ this.locale.sub_menu.search }}</button>
+          <button class="tab btn" id="heatmode_list"  :style="[heatView_List    ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]" @click="toggleTablePanel('heat')">{{ this.locale.sub_menu.heat }}</button>
+          <button class="tab btn" id="groupmode_list" :style="[groupView_List   ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]" @click="toggleTablePanel('group')">{{ this.locale.sub_menu.group }}</button>
+          <button class="tab btn" id="infomode_list"  :style="[infoView_List    ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]" @click="toggleTablePanel('info')">{{ this.locale.sub_menu.help }}</button>
           <!-- <button class="btn" id="compoundmode" @click="toggleTablePanel('compound')">Bileşik</button> -->
       </div>
       
@@ -78,7 +78,7 @@
         <!-- Arama Modülü -->
         <div v-show="searchView_List">
             <div class="search">
-              <input type="text" name="search" id="listSearch" placeholder="Element adı, atom numarası, atomik kütlesi..." autocomplete="off"
+              <input type="text" name="search" id="listSearch" :placeholder="this.locale.misc.elementSearch_text" autocomplete="off"
                 @input="listSearching($event)"
                 @focus="disableKeyboard()"
                 @click="disableKeyboard()">
@@ -97,26 +97,26 @@
         <div v-show="groupView_List">
           <section @click="viewFilter($event)" class="advancedFilter text-white">
             <ul class="advancedFilterList float">
-              <h6 class="listTitle">Metaller</h6>
-              <li id="alkali-metal">Alkali Metaller</li>
-              <li id="toprak-alkali-metal">Toprak Alkali Metaller</li>
-              <li id="geçiş-metali">Geçiş Metali</li>
-              <li id="geçiş-sonrası-metali">Geçiş Sonrası Metali</li>
-              <li id="lantanit">Lantanitler</li>
-              <li id="aktinit">Aktinitler</li>
+              <h6 class="listTitle">{{ locale.elements.categories.metals.main }}</h6>
+              <li id="alkaline_metals">{{ locale.elements.categories.metals.alkaline_metal }}</li>
+              <li id="alkaline_earth_metal">{{ locale.elements.categories.metals.alkaline_earth_metal }}</li>
+              <li id="transition_metal">{{ locale.elements.categories.metals.transition_metal }}</li>
+              <li id="post_transition_metal">{{ locale.elements.categories.metals.post_transition_metal }}</li>
+              <li id="lanthanides">{{ locale.elements.categories.metals.lanthanides }}</li>
+              <li id="actinides">{{ locale.elements.categories.metals.actinides }}</li>
             </ul>
             <ul class="advancedFilterList">
-              <h6 class="listTitle">Metalsiler</h6>
-              <li id="metalsi">Metalsi</li>
+              <h6 class="listTitle">{{ locale.elements.categories.metalloid.main }}</h6>
+              <li id="metalloid">{{ locale.elements.categories.metalloid.metalloid }}</li>
             </ul>
             <ul class="advancedFilterList">
-              <h6 class="listTitle">Ametaller</h6>
-              <li id="soy-gaz">Soygazlar</li>
-              <li id="reaktif-ametal">Reaktif Ametal</li>
+              <h6 class="listTitle">{{ locale.elements.categories.nonmetals.main }}</h6>
+              <li id="noble_gas">{{ locale.elements.categories.nonmetals.noble_gases }}</li>
+              <li id="reactive_nonmetal">{{ locale.elements.categories.nonmetals.reactive_nonmetals }}</li>
             </ul>
             <ul class="advancedFilterList">
-              <h6 class="listTitle">Diğer</h6>
-              <li id="bilinmiyor">Bilinmiyor</li>
+              <h6 class="listTitle">{{ locale.elements.categories.other.main }}</h6>
+              <li id="unknown">{{ locale.elements.categories.other.unknown }}</li>
             </ul>
           </section>
           <section @click="viewGroup($event)" class="groupSVGs">
@@ -170,7 +170,7 @@ import Numpad from '@/addons/v_numpad.vue'
 export default {
   components: { ListItem, Keyboard, Numpad },
   emits: ["getElement"],
-  props: { elements: Array },
+  props: { elements: Object, locale: Object },
   data() {
     return {
       searchView_List: true,
@@ -209,6 +209,10 @@ export default {
       metricConvertion: {
         C: 'unit => unit-273.15',
         F: 'unit => 9/5*unit-459.67'
+      },
+      flag: {
+        tr:  require("../resources/locale/flags/tr.svg"),
+        en:  require("../resources/locale/flags/en.svg"),
       }
     }
   },
@@ -260,7 +264,7 @@ export default {
       const PANEL = document.querySelector('.bottomMenu');
       const PREVIEW = document.querySelector('.bottomMenuPreviews')
       if (!this.panelView_List) {
-        PANEL.style.bottom = '-.1rem'
+        PANEL.style.bottom = '0rem'
         this.panelView_List = true
         document.querySelector('.bottomMenuContent').classList.remove('inactive')
         document.querySelector('.circleSettings').classList.add('activated')
@@ -283,7 +287,7 @@ export default {
         document.querySelector('.circleSettings').classList.remove('activated')
         
         PREVIEW.style.position = null
-        PREVIEW.style.width = null
+        PREVIEW.style.width = '98vw'
         PREVIEW.style.marginTop = '1rem'
         // document.querySelector('.bottomMenu').appendChild(PREVIEW)
         // document.body.classList.remove('active_modal');
@@ -332,10 +336,10 @@ export default {
       })
       this.visibleElementCount = document.querySelectorAll('.list-element:not(.inactive)').length
       
-      // Menü önizleme kısmı
-      const PREVIEW_INFO = document.querySelector('#searchInput_List')
-      // Menü önizleme kısmını güncelle
-      PREVIEW_INFO.textContent = `${INPUT}`
+      // // Menü önizleme kısmı
+      // const PREVIEW_INFO = document.querySelector('#searchInput_List')
+      // // Menü önizleme kısmını güncelle
+      // PREVIEW_INFO.textContent = `${INPUT}`
     },
     filterByState_List($event) {
       if (!this.heatView_List) return
@@ -427,15 +431,35 @@ export default {
     viewGroupStylizer() {
       // const FILTERS = document.querySelector('.advancedFilter')
       const categoryColors = {
-        'alkali metal': '#ffaf80',          // turuncu
-        'toprak alkali metal': '#80ff8e',   // yeşi
-        'geçiş metali': '#ffef80',          // sarı
-        'geçiş sonrası metali': '#80d5ff',  // mavi
-        'metalsi': '#8095ff',               // slate
-        'reaktif ametal': '#ff80d4',        // pembe
-        'soy gaz': '#aa80ff',               // lila
-        'lantanit': '#c3ff80',              // yeşil
-        'aktinit': '#80fffc'                // teal
+        'alkaline_metals': '#ffaf80',          // turuncu
+        'alkaline_metals_shade': '#ef9851',
+
+        'alkaline_earth_metal': '#80ff8e',   // yeşi
+        'alkaline_earth_metal_shade': '#44e053',
+
+        'transition_metal': '#ffef80',          // sarı
+        'transition_metal_shade': '#c1b45f',
+
+        'post_transition_metal': '#80d5ff',  // mavi
+        'post_transition_metal_shade': '#52c5fe',
+
+        'metalloid': '#8095ff',               // slate
+        'metalloid_shade': '#526efe',
+
+        'reactive_nonmetal': '#ff80d4',        // pembe
+        'reactive_nonmetal_shade': '#fe52c4',
+
+        'noble_gas': '#aa80ff',               // lila
+        'noble_gas_shade': '#8b52fe',
+
+        'lanthanides': '#c3ff80',              // yeşil
+        'lanthanides_shade': '#adfe52',
+
+        'actinides': '#80fffc',               // teal
+        'actinides_shade': '#52fefa',
+
+        'unknown': '#fff',               // beyaz
+        'unknown_shade': '#e0e0e0'
       }
       document.querySelectorAll('li').forEach(function(item) {
         item.style.color = categoryColors[item.id.replaceAll('-', ' ')]
@@ -458,7 +482,7 @@ export default {
 
         document.querySelector('#currentFilter').textContent = ''
         return
-      } document.querySelector('#currentFilter').textContent = 'Filtre: ' + CLICKED.replaceAll('-', ' ')
+      } document.querySelector('#currentFilter').textContent = `${this.locale.modules.group}: ` + $event.target.textContent
 
       document.querySelectorAll('.list-element').forEach(function(el) {
         const ELEMENT = el.querySelector('.container_List');
@@ -543,19 +567,19 @@ export default {
 <style lang="scss" scoped>
   
   .thanks {
-    width: 25rem;
+    width: 90vw;
       
     margin-top: 3vw;
     #thanks-bionluk {
       width: 10vw;
-      margin-right: 2vw;
+      margin-right: 5vw;
     }
 
     span {
       font-size: 1rem;
       color: white;
     }
-    z-index: -555;
+    z-index: -1;
   }
   #listSearch {
     margin-top: 3rem;
@@ -567,13 +591,12 @@ export default {
   .circleSettings {
     #bottomPanelIcon {
       transform: translateY(15%);
-      width: 3rem;
-      height: 4rem;
+      width: 2rem;
+      height: 3rem;
     }
 
-    width: 100%;
     position: absolute;
-    margin-top: -2.5rem;
+    margin-top: -2rem;
     // margin-bottom: 2rem;
     background: rgb(39,47,63);
     background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
@@ -582,8 +605,8 @@ export default {
     border-radius: 100%;
     text-align: center;
     align-self: center;
-    height: 5rem;
-    width: 5rem;
+    height: 4rem;
+    width: 4rem;
 
     transition: all 100ms linear;
 
@@ -608,10 +631,10 @@ export default {
   .activated {
     height: 3rem;
     width: 3rem;
-    transform: translateY(.9rem);
+    transform: translateY(.10rem);
     
     #bottomPanelIcon {
-      transform: translateY(15%);
+      // transform: translateY(15%);
       width: 2rem;
       height: 2.2rem;
     }
@@ -630,50 +653,67 @@ export default {
     flex-direction: column;
 
     padding: 0 1rem;
-    border: 1px solid #e5bb09;
+    // border: 1px solid #e5bb09;
+    border-top: 1px solid #e5bb09;
     
-    width: 108vw;
+    // width: 108vw;
+    width: 100%;
     height: 25rem;
     max-height: 25rem;
     
     bottom: -20rem;
     // test
     // bottom: -1rem;
-    left: -4vw;
+    // left: -4vw;
+    left: 0;
     // transform: translateX(-1%);
 
     background-image: linear-gradient(0deg, #272f3f, #1c222e);
 
-    z-index: 1;
+    z-index: 2;
     
     .tabbedNav {
-      padding: 1rem 2vw;
+      padding: 1rem;
       // margin-top: 1rem;
       background-color: #1d232f;
 
       // background-color: #181d27;
       // border-radius: .3rem;
+      .btn {
+        border-radius: 10rem;
+        padding: .5vw;
+
+        margin: .3rem;
+        font-size: 3.4vw;
+        min-width: 15vw;
+        float:left;
+
+        cursor: pointer;
+        &:active {
+          box-shadow: 0 0 .2vw black;
+        }
+      }
     }
     
     .bottomMenuPreviews {
       margin-top: 1rem;
       padding: 0 1rem;
-
-      transform: translateX(5%);
+      width: 80vw;
+      // transform: translateX(5%);
 
       #heatinput {
         width: 5rem;
-        margin-right: .3rem;
+        margin-right: .2vw;
         align-self: center;
         font-size: 1rem;
         // border: 1px solid #343f54;
         border: none;
       }
       
+      z-index: 3;
       .btn {
-        border-radius: .3rem;
-        min-width: 2.2rem;
-        max-width: 2.2rem;
+        border-radius: 1vw;
+        min-width: 6.7vw;
       }
     }
     
@@ -790,9 +830,9 @@ export default {
       height: 20rem;
 
       margin-bottom: 3rem;
-      // span {
-      //   text-align: center;
-      // }
+      span {
+        text-align: center;
+      }
       p {
         color: white;
       }
@@ -818,7 +858,7 @@ export default {
     }
     
     img {
-      height: 1.1rem; width: 1.1rem;
+      height: .9rem; width: .9rem;
       top: -1rem;
       right: .1rem;
     }
@@ -838,9 +878,29 @@ export default {
     right: 1rem;
   }
 
+  #langmenu_list {
+    // color: #e5bb09;
+    img {
+      width: 1rem;
+    }
+  }
+  
+  .dropdown-content {
+    bottom: 2.2rem;
+    height: 6rem;
+    width: 4rem;
+    img {
+      width: 1rem;
+    }
+  }
 
-.dropdown-content {
-  bottom: 2.2rem;
-	height: 6rem;
-}
+  .dropdown-button {
+    min-width: 4rem;
+    &::before {
+      // content: "⮟ ";
+      content: "";
+      
+      color: #e5bb09;
+    }
+  }
 </style>

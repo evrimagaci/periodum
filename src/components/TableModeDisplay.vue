@@ -1,16 +1,23 @@
 <template>
+  <!-- <div class="dropdown" id="tableLanguagemenu">
+    <button class="dropdown-button" id="langmenu_table"><img :src="flag[getUserLanguage()]" :alt="getUserLanguage() + 'Flag'"></button>
+    <div class="dropdown-content">
+      <a @click="changeLanguage($event, 'en')" href="#"><img :src="flag.en" alt="US Flag">English</a>
+      <a @click="changeLanguage($event, 'tr')" href="#"><img :src="flag.tr" alt="TR Bayrağı">Türkçe</a>
+    </div>
+  </div> -->
   <div class="grid">
     <!-- <input placeholder="Arama yap..." class="arama" type="search" name="searchBox" id=""> -->
     <div v-show="panelView" class="tabbedNav fade">
-      <button class="btn" :style="[filterView ? { border: 'solid 1px #e5bb09' }   : {color: '#e5bb09'}]" id="filtermode"   @click="toggleTablePanel('filter')">Grup</button>
-      <button class="btn" :style="[heatView ? { border: 'solid 1px #e5bb09' }     : {color: '#e5bb09'}]" id="heatmode"     @click="toggleTablePanel('heat')">Sıcaklık</button>
+      <button class="btn" :style="[filterView ? { border: 'solid 1px #e5bb09' }   : {color: '#e5bb09'}]" id="filtermode"   @click="toggleTablePanel('filter')">{{ locale.modules.group }}</button>
+      <button class="btn" :style="[heatView ? { border: 'solid 1px #e5bb09' }     : {color: '#e5bb09'}]" id="heatmode"     @click="toggleTablePanel('heat')">{{ locale.modules.heat }}</button>
       <!-- <button class="btn" :style="[articleView ? { border: 'solid 1px #e5bb09' }  : {color: '#e5bb09'}]" id="articlemode"  @click="toggleTablePanel('article')">Makale</button> -->
       <!-- <button class="btn" :style="[compoundView ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]" id="compoundmode" @click="toggleTablePanel('compound')">Bileşik</button> -->
       <!-- <button class="btn" :style="[summaryView ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]"  id="summarymode"  @click="toggleTablePanel('summary')">Özet</button> -->
     </div>
 
     <div class="search table">
-      <input type="search" name="search" id="tableSearch" placeholder="Element adı, atom numarası, atomik kütlesi..." autocomplete="off" @input="tableSearching($event)">
+      <input type="search" name="search" id="tableSearch" :placeholder="this.locale.misc.elementSearch_text" autocomplete="off" @input="tableSearching($event)">
     </div>
 
     <label class="switch">
@@ -21,7 +28,6 @@
       />
       <span class="slider round"></span>
     </label>
-
 
     <div v-show="panelView" id="modulePanel" class="modules fade">
       <!-- Özet Modülü -->
@@ -64,7 +70,7 @@
       </div>
       
       <!-- Filtre Modülü -->
-      <div v-show="filterView" class="h-100 flex-between flex-column fade noselect">
+      <div v-show="filterView" class="h-100 flex-between flex-column fade">
         <div class="groupFilter" @click.prevent="viewGroup($event)">
           <img :src="groups.s" id="s" class="s-block">
           <img :src="groups.d" id="d" class="d-block">
@@ -73,27 +79,26 @@
         </div>
         <div @click="viewFilter($event)" class="advancedFilter text-white fit-content">
           <ul class="advancedFilterList float">
-            <li class="mainFilter" id="metaller">Metaller</li>
-            <li id="alkali-metal">Alkali Metaller</li>
-            <li id="toprak-alkali-metal">Toprak Alkali Metaller</li>
-            <li id="geçiş-metali">Geçiş Metali</li>
-            <li id="geçiş-sonrası-metali">Geçiş Sonrası Metali</li>
-            <li id="lantanit">Lantanitler</li>
-            <li id="aktinit">Aktinitler</li>
+            <li class="mainFilter" id="metaller">{{ locale.elements.categories.metals.main }}</li>
+            <li id="alkaline_metals">{{ locale.elements.categories.metals.alkaline_metal }}</li>
+            <li id="alkaline_earth_metal">{{ locale.elements.categories.metals.alkaline_earth_metal }}</li>
+            <li id="transition_metal">{{ locale.elements.categories.metals.transition_metal }}</li>
+            <li id="post_transition_metal">{{ locale.elements.categories.metals.post_transition_metal }}</li>
+            <li id="lanthanides">{{ locale.elements.categories.metals.lanthanides }}</li>
+            <li id="actinides">{{ locale.elements.categories.metals.actinides }}</li>
           </ul>
           <ul class="advancedFilterList">
-            <li class="mainFilter" id="metalsiler">Metalsiler</li>
-            <!-- <h6 class="listTitle">Metalsiler</h6> -->
-            <li id="metalsi">Metalsi</li>
+            <li class="mainFilter" id="metalsiler">{{ locale.elements.categories.metalloid.main }}</li>
+            <li id="metalloid">{{ locale.elements.categories.metalloid.metalloid }}</li>
           </ul>
           <ul class="advancedFilterList">
-            <li class="mainFilter" id="ametaller">Ametaller</li>
-            <li id="soy-gaz">Soygazlar</li>
-            <li id="reaktif-ametal">Reaktif Ametal</li>
+            <li class="mainFilter" id="ametaller">{{ locale.elements.categories.nonmetals.main }}</li>
+            <li id="noble_gas">{{ locale.elements.categories.nonmetals.noble_gases }}</li>
+            <li id="reactive_nonmetal">{{ locale.elements.categories.nonmetals.reactive_nonmetals }}</li>
           </ul>
           <ul class="advancedFilterList">
-            <li class="mainFilter" id="diger">Diğer</li>
-            <li id="bilinmiyor">Bilinmiyor</li>
+            <li class="mainFilter" id="diger">{{ locale.elements.categories.other.main }}</li>
+            <li id="unknown">{{ locale.elements.categories.other.unknown }}</li>
           </ul>
         </div>
       </div>
@@ -114,10 +119,10 @@
 
   <div class="keyElement">
     <div class="block">
-      <div class="number"><p>Atom No</p></div>
-      <div class="symbol" >Sembol</div>
-      <div class="name"> İsim </div>
-      <h2 class="block atomic">Atom Ağırlığı</h2>
+      <div class="number"><p> {{ locale.misc.sample_element.atomic_number }} </p></div>
+      <div class="symbol" >{{ locale.misc.sample_element.symbol }}</div>
+      <div class="name"> {{ locale.misc.sample_element.name }} </div>
+      <h2 class="block atomic">{{ locale.misc.sample_element.atomic_mass }}</h2>
     </div>
   </div>
   
@@ -134,7 +139,7 @@ import TableItem from '@/components/TableModeItem.vue'
 
 export default {
   components: { TableItem },
-  props: { elements: Array },
+  props: { elements: Object, locale: Object },
   emits: ["getElement", "checkStatus"],
   data() {
     return {
@@ -179,6 +184,11 @@ export default {
         F: 'unit => (unit+459.67)*5/9'
       },
       heat_toDisplay_table: 298.15,
+      flag: {
+        tr:  require("../resources/locale/flags/tr.svg"),
+        en:  require("../resources/locale/flags/en.svg"),
+      },
+      language: 'en'
     }
   },
   methods: {
@@ -402,15 +412,35 @@ export default {
     viewGroupStylizer() {
       // const FILTERS = document.querySelector('.advancedFilter')
       const categoryColors = {
-        'alkali metal': '#ffaf80',          // turuncu
-        'toprak alkali metal': '#80ff8e',   // yeşi
-        'geçiş metali': '#ffef80',          // sarı
-        'geçiş sonrası metali': '#80d5ff',  // mavi
-        'metalsi': '#8095ff',               // slate
-        'reaktif ametal': '#ff80d4',        // pembe
-        'soy gaz': '#aa80ff',               // lila
-        'lantanit': '#c3ff80',              // yeşil
-        'aktinit': '#80fffc'                // teal
+        'alkaline_metals': '#ffaf80',          // turuncu
+        'alkaline_metals_shade': '#ef9851',
+
+        'alkaline_earth_metal': '#80ff8e',   // yeşi
+        'alkaline_earth_metal_shade': '#44e053',
+
+        'transition_metal': '#ffef80',          // sarı
+        'transition_metal_shade': '#c1b45f',
+
+        'post_transition_metal': '#80d5ff',  // mavi
+        'post_transition_metal_shade': '#52c5fe',
+
+        'metalloid': '#8095ff',               // slate
+        'metalloid_shade': '#526efe',
+
+        'reactive_nonmetal': '#ff80d4',        // pembe
+        'reactive_nonmetal_shade': '#fe52c4',
+
+        'noble_gas': '#aa80ff',               // lila
+        'noble_gas_shade': '#8b52fe',
+
+        'lanthanides': '#c3ff80',              // yeşil
+        'lanthanides_shade': '#adfe52',
+
+        'actinides': '#80fffc',               // teal
+        'actinides_shade': '#52fefa',
+
+        'unknown': '#fff',               // beyaz
+        'unknown_shade': '#e0e0e0'
       }
       document.querySelectorAll('li').forEach(function(item) {
         item.style.color = categoryColors[item.id.replaceAll('-', ' ')]
@@ -600,12 +630,12 @@ export default {
   },
   mounted() {
     this.viewGroupStylizer()
+    // document.querySelector('.navRight').appendChild(document.querySelector('#languageSwitcher'))
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  
   .thanks {
     position: relative;
     margin-top: .7vw;
@@ -894,6 +924,51 @@ export default {
 
   .dropdown-content {
     bottom: 2.2rem;
-    height: 6rem;
+    height: 5rem;
+    width: 1.5rem;
+    img {
+      width: 1.5rem;
+    }
   }
+
+
+  #tableLanguagemenu {
+    
+    position: absolute;
+    display: inline-block;
+    top: 5vw;
+    left: 50vw;
+    transform: translateX(-50%);
+    .dropdown-button {
+      background-color: rgba($color: #000, $alpha: .1);;
+      color: #fff;
+      padding: .1rem .5rem;
+      height: auto;
+      min-width: 5rem;
+      border-radius: .3rem;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    #langmenu_table {
+      // grid-row-start: 1; grid-row-end: 4; grid-column-start: 3; grid-column-end: 13;
+
+      margin-left: 2rem;
+      // color: #e5bb09;
+      align-self: center;
+      img {
+        width: 2vw;
+      }
+      
+      min-width: 1.5vw;
+      &::before {
+        // content: "⮟ ";
+        content: "";
+        
+        color: #e5bb09;
+      }
+    }
+  }
+  
 </style>
