@@ -274,7 +274,6 @@ export default {
     margin-bottom: 2.5vw;
     margin-top: 1rem;
 
-    width: 85vw;
     
     align-items: center;
     
