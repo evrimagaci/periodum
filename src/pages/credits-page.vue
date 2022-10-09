@@ -1,5 +1,5 @@
 <template>
-  <div class="fade container">
+  <div class="fade container flex-column">
     <div class="header">
       <h3>{{ loc.pages.credits.project_leaders }}</h3>
     </div>
@@ -136,7 +136,7 @@
     display: grid;
     color: whitesmoke;
     align-items: center;
-    width: 25rem;
+    width: 90vw;
   }
   .header {
     position: relative;
@@ -203,9 +203,9 @@
     }
   }
 
-  @media screen and (min-width: 650px) {
+  @media screen and (min-width: 720px) {
     .container {
-      width: 60vw;
+      width: 70vw;
     }
     .person {
       display: flex;

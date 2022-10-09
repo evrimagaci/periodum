@@ -1,5 +1,5 @@
 <template>
-  <div class="fade container">
+  <div class="fade container flex-column">
     <div class="content">
       <h3 class="text-primary">{{ loc.pages.about.what_is.title }}</h3>      
       <div v-for="text in loc.pages.about.what_is.content" :key="text[0]">
@@ -91,13 +91,12 @@
     margin-right: 1rem;
   }
   .container {
-    display: grid;
     color: whitesmoke;
     align-items: center;
-    width: 60vw;
+    width: 70vw;
 
-    @media screen and (max-width: 650px) {
-      width: 25rem;
+    @media screen and (max-width: 720px) {
+      width: 90vw;
     }
   }
   .content {
