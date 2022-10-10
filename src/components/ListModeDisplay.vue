@@ -158,7 +158,7 @@
     <a class="fade" href="https://bionluk.com" target="_blank">
     <img id="thanks-bionluk" src="../resources/img/bionluk.png" alt="bionluk logo">
     </a>
-    <span>Proje geliştirme sürecindeki yardımlarından ötürü bionluk'a teşekkürler.</span>
+    <span>{{ locale.misc.thanks }}</span>
   </div>
 </template>
 

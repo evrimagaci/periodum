@@ -261,6 +261,7 @@
     },
     "elementSearch_text": "Element name, atomic number, atomic mass...",
     "modalSearch_text": "Title, subtitle, content...",
-    "details": "Details"
+    "details": "Details",
+    "thanks": "A special thanks to bionluk for their contribution during the development of this project."
   }
 }
