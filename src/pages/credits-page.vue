@@ -137,6 +137,10 @@
     color: whitesmoke;
     align-items: center;
     width: 90vw;
+    
+    @media screen and (min-width: 720px) {
+      width: 70vw;
+    }
   }
   .header {
     position: relative;
@@ -160,6 +164,9 @@
     background-color: #232936;
     border-radius: .3rem;
     padding: 2rem;
+    @media screen and (min-width: 720px) {
+      display: flex;
+    }
   }
   .image {
     position: relative;
@@ -173,6 +180,10 @@
     color:#ffce07;
     margin-top: 1rem;
     font-size: large;
+    
+    @media screen and (min-width: 720px) {
+        margin-top: 0;
+    }
   }
   .tag {
     color:gray;
@@ -200,18 +211,6 @@
     & > a {
       margin-right: .5rem;
       filter: drop-shadow(0 0 2px rgba(0,0,0,.7));
-    }
-  }
-
-  @media screen and (min-width: 720px) {
-    .container {
-      width: 70vw;
-    }
-    .person {
-      display: flex;
-    }
-    .name {
-      margin-top: 0;
     }
   }
 </style>

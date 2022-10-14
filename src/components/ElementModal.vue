@@ -9,7 +9,7 @@
 			</div>
 			<a v-show="eaContentView" href="#">Detaylar</a>
 		</div> -->
-		<div class="search">
+		<div class="modal_search">
 			<input type="search" name="search" id="modalSearch" :placeholder="this.locale.misc.modalSearch_text" autocomplete="off" @input="modalSearching($event)">
 		</div>
 		<!-- Element Bilgileri -->
@@ -31,14 +31,14 @@
 				<div v-if="element.appearance"><ElementItem :title="this.locale.elements.modal_content.appearance" :value="element.appearance" /></div>
 				<div v-if="element.refractive_index"><ElementItem :title="this.locale.elements.modal_content.refractive_index" :value="element.refractive_index" /></div>
 				<div v-if="element.phase_at_stp"><ElementItem :title="this.locale.elements.modal_content.phase_at_stp" :value="element.phase_at_stp" /></div>
-				<div style="justify-self: center; margin-top: 1rem;"><a :href="this.locale.elements.modal_content.article !== 'Wikipedia' ? 'http://evrimagaci.org/s/'+ element.ea_content_id : element.wikipedia" target="_blank"> {{ this.locale.elements.modal_content.article }}</a></div>
+				<div id="modal_link" style="justify-self: center; margin-top: 1rem;"><a :href="this.locale.elements.modal_content.article !== 'Wikipedia' ? 'http://evrimagaci.org/s/'+ element.ea_content_id : element.wikipedia" target="_blank"> {{ this.locale.elements.modal_content.article }}</a></div>
 			</div>
 			
 
 			<!-- Tanımlayıcı Numaralar -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.descriptive_numbers }}</summary>
-				<div v-if="element.cas_number"><ElementItem :title="this.locale.elements.modal_content.cas_number" :value="element.cas_number" /></div>
+				<summary id="modal_descriptive_numbers">{{ this.locale.elements.modal_content.descriptive_numbers }}</summary>
+				<div v-if="handle(element.cas_number)"><ElementItem :title="this.locale.elements.modal_content.cas_number" :value="element.cas_number" /></div>
 				<div v-if="element.cid_number"><ElementItem :title="this.locale.elements.modal_content.cid_number" :value="element.cid_number" /></div>
 				<div v-if="element.dot_number"><ElementItem :title="this.locale.elements.modal_content.dot_number" :value="element.dot_number" /></div>
 				<div v-if="element.rtecs_number"><ElementItem :title="this.locale.elements.modal_content.rtecs_number" :value="element.rtecs_number" /></div>
@@ -47,14 +47,14 @@
 
 			<!-- Kütle -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.mass }}</summary>
+				<summary id="modal_mass">{{ this.locale.elements.modal_content.mass }}</summary>
 				<div v-if="element.atomic_mass"><ElementItem :title="this.locale.elements.modal_content.atomic_mass" :value="element.atomic_mass" :unitKey="'Da'" /></div>
 				<div v-if="element.atomic_mass_uncertainty"><ElementItem :title="this.locale.elements.modal_content.atomic_mass_uncertainty" :value="element.atomic_mass_uncertainty" :unitKey="'Da'" /></div>
 			</details>
 			
 			<!-- Koordinatlar -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.coordinates }}</summary>
+				<summary id="modal_coordinates">{{ this.locale.elements.modal_content.coordinates }}</summary>
 				<div v-if="element.xpos"><ElementItem :title="this.locale.elements.modal_content.xpos" :value="element.xpos" /></div>
 				<div v-if="element.ypos"><ElementItem :title="this.locale.elements.modal_content.ypos" :value="element.ypos" /></div>
 				<div v-if="element.period"><ElementItem :title="this.locale.elements.modal_content.period" :value="element.period" /></div>
@@ -63,7 +63,7 @@
 			
 			<!-- Sınıflandırma -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.classification }}</summary>
+				<summary id="modal_classification">{{ this.locale.elements.modal_content.classification }}</summary>
 				<div v-if="element.block"><ElementItem :title="this.locale.elements.modal_content.block" :value="element.block" /></div>
 				<div v-if="element.category"><ElementItem :title="this.locale.elements.modal_content.category" :value="element.category" /></div>
 				<div v-if="element.electrical_type"><ElementItem :title="this.locale.elements.modal_content.electrical_type" :value="element.electrical_type" /></div>
@@ -73,19 +73,19 @@
 
 			<!-- Bulunma Sıklığı -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.frequency_of_presence }}</summary>
+				<summary id="modal_frequency_of_presence">{{ this.locale.elements.modal_content.frequency_of_presence }}</summary>
 				<div v-if="element.abundance_urban_soil"><ElementItem :title="this.locale.elements.modal_content.abundance_urban_soil" :value="element.abundance_urban_soil" :unitFixed="'kg/kg'" /></div>
 				<div v-if="element.abundance_seawater_w1"><ElementItem :title="this.locale.elements.modal_content.abundance_seawater_w1" :value="element.abundance_seawater_w1" :unitFixed="'kg/L'" /></div>
-				<div v-if="element.abundance_sun_s1"><ElementItem :title="this.locale.elements.modal_content.abundance_sun_s1" :value="element.abundance_sun_s1" :unitFixed="'silisyuma göre mol oranı'" /></div>
+				<div v-if="element.abundance_sun_s1"><ElementItem :title="this.locale.elements.modal_content.abundance_sun_s1" :value="element.abundance_sun_s1" :unitFixed="this.locale.elements.modal_content.metrics.mol_ratio" /></div>
 				<div v-if="element.abundance_in_earth_crust_c1"><ElementItem :title="this.locale.elements.modal_content.abundance_in_earth_crust_c1" :value="element.abundance_in_earth_crust_c1" :unitFixed="'kg/kg'" /></div>
 				<div v-if="element.abundance_humans"><ElementItem :title="this.locale.elements.modal_content.abundance_humans" :value="element.abundance_humans" :unitFixed="'%'" /></div>
-				<div v-if="element.abundance_solar_system_y1"><ElementItem :title="this.locale.elements.modal_content.abundance_solar_system_y1" :value="element.abundance_solar_system_y1" :unitFixed="'silisyuma göre mol oranı'" /></div>
+				<div v-if="element.abundance_solar_system_y1"><ElementItem :title="this.locale.elements.modal_content.abundance_solar_system_y1" :value="element.abundance_solar_system_y1" :unitFixed="this.locale.elements.modal_content.metrics.mol_ratio" /></div>
 				<div v-if="element.abundance_meteorite"><ElementItem :title="this.locale.elements.modal_content.abundance_meteorite" :value="element.abundance_meteorite" :unitFixed="'%'" /></div> 
 			</details>
 			
 			<!-- Renk -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.color }}</summary>
+				<summary id="modal_color">{{ this.locale.elements.modal_content.color }}</summary>
 				<div v-if="element.jmol_color"><ElementItem :title="this.locale.elements.modal_content.jmol_color" :value="'⬤ #' + element.jmol_color" :color="'#' + element.jmol_color" /></div>
 				<div v-if="element.molcas_gv_color"><ElementItem :title="this.locale.elements.modal_content.molcas_gv_color" :value="'⬤ #' + element.molcas_gv_color" :color="'#' + element.molcas_gv_color" /></div>
 				<div v-if="element.cpk_color"><ElementItem :title="this.locale.elements.modal_content.cpk_color" :value="'⬤ #' + element.cpk_color" :color="'#' + element.cpk_color" /></div>
@@ -93,7 +93,7 @@
 			
 			<!-- Atomik Yarıçap -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.atomic_radius }}</summary>
+				<summary id="modal_atomic_radius">{{ this.locale.elements.modal_content.atomic_radius }}</summary>
 				<div v-if="element.atomic_radius_empirical"><ElementItem :title="this.locale.elements.modal_content.atomic_radius_empirical" :value="element.atomic_radius_empirical" /></div>
 				<div v-if="element.atomic_radius_calculated"><ElementItem :title="this.locale.elements.modal_content.atomic_radius_calculated" :value="element.atomic_radius_calculated" /></div>
 				<div v-if="element.atomic_radius_vanderwaals"><ElementItem :title="this.locale.elements.modal_content.atomic_radius_vanderwaals" :value="element.atomic_radius_vanderwaals" /></div>
@@ -118,7 +118,7 @@
 			
 			<!-- Sıcaklık Özellikleri -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.temperature_features }}</summary>
+				<summary id="modal_temperature_features">{{ this.locale.elements.modal_content.temperature_features }}</summary>
 				<div v-if="element.melt_use"><ElementItem :title="this.locale.elements.modal_content.melt_use" :value="element.melt_use" :unitKey="'K'" /></div>
 				<div v-if="element.boil_use"><ElementItem :title="this.locale.elements.modal_content.boil_use" :value="element.boil_use" :unitKey="'K'" /></div>
 				<div v-if="element.critical_temperature"><ElementItem :title="this.locale.elements.modal_content.critical_temperature" :value="element.critical_temperature" :unitKey="'K'" /></div>
@@ -129,10 +129,10 @@
 
 			<!-- Yoğunluk Özellikleri -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.density_features }}</summary>
+				<summary id="modal_density_features">{{ this.locale.elements.modal_content.density_features }}</summary>
 				
 				<details>
-					<summary class="details">{{ this.locale.elements.modal_content.solid_density }}</summary>
+					<summary class="details" id="modal_">{{ this.locale.elements.modal_content.solid_density }}</summary>
 					<div v-if="element.density_solid_WEL"><ElementItem :title="this.locale.elements.modal_content.density_solid_WEL" :value="element.density_solid_WEL" :unitKey="'kg/m3'" /></div>
 					<div v-if="element.density_solid_LNG"><ElementItem :title="this.locale.elements.modal_content.density_solid_LNG" :value="element.density_solid_LNG" :unitKey="'kg/m3'" /></div>
 					<div v-if="element.density_solid_CRC"><ElementItem :title="this.locale.elements.modal_content.density_solid_CRC" :value="element.density_solid_CRC" :unitKey="'kg/m3'" /></div>
@@ -143,19 +143,19 @@
 			
 			<!-- Isı Özellikleri -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.heat_features }}</summary>
+				<summary id="modal_heat_features">{{ this.locale.elements.modal_content.heat_features }}</summary>
 				<div v-if="element.molar_volume"><ElementItem :title="this.locale.elements.modal_content.molar_volume" :value="element.molar_volume" :unitFixed="'cm3/mol'" /></div>
 				<div v-if="element.atomic_volume"><ElementItem :title="this.locale.elements.modal_content.atomic_volume" :value="element.atomic_volume" :unitKey="'cm3'" /></div>
 				<div v-if="element.enthalpy_of_fusion"><ElementItem :title="this.locale.elements.modal_content.enthalpy_of_fusion" :value="element.enthalpy_of_fusion" :unitKey="'kJ/mol'" /></div>
 				
 				<details>
-					<summary class="details">{{ this.locale.elements.modal_content.fusion_heat }}</summary>
+					<summary class="details" id="modal_fusion_heat">{{ this.locale.elements.modal_content.fusion_heat }}</summary>
 					<div v-if="element.heat_of_fusion_crc"><ElementItem :title="this.locale.elements.modal_content.heat_of_fusion_crc" :value="element.heat_of_fusion_crc" :unitKey="'kJ/mol'" /></div>
 					<div v-if="element.heat_of_fusion_lng"><ElementItem :title="this.locale.elements.modal_content.heat_of_fusion_lng" :value="element.heat_of_fusion_lng" :unitKey="'kJ/mol'" /></div>
 					<div v-if="element.heat_of_fusion_wel"><ElementItem :title="this.locale.elements.modal_content.heat_of_fusion_wel" :value="element.heat_of_fusion_wel" :unitKey="'kJ/mol'" /></div>
 				</details>	
 				<details>
-					<summary class="details">{{ this.locale.elements.modal_content.evaporation_heat }}</summary>
+					<summary class="details" id="modal_evaporation_heat">{{ this.locale.elements.modal_content.evaporation_heat }}</summary>
 					<div v-if="element.evaporation_heat"><ElementItem :title="this.locale.elements.modal_content.evaporation_heat" :value="element.evaporation_heat" /></div>
 					<div v-if="element.heat_of_vaporization_crc"><ElementItem :title="this.locale.elements.modal_content.heat_of_vaporization_crc" :value="element.heat_of_vaporization_crc" :unitKey="'kJ/mol'" /></div>
 					<div v-if="element.heat_of_vaporization_lng"><ElementItem :title="this.locale.elements.modal_content.heat_of_vaporization_lng" :value="element.heat_of_vaporization_lng" :unitKey="'kJ/mol'" /></div>
@@ -166,7 +166,7 @@
 				<div v-if="element.specific_heat_capacity"><ElementItem :title="this.locale.elements.modal_content.specific_heat_capacity" :value="element.specific_heat_capacity" :unitFixed="'J/gK'" /></div>
 				
 				<details>
-					<summary class="details">{{ this.locale.elements.modal_content.specific_heat }}</summary>
+					<summary class="details" id="modal_specific_heat">{{ this.locale.elements.modal_content.specific_heat }}</summary>
 					<div v-if="element.specific_heat_crc"><ElementItem :title="this.locale.elements.modal_content.specific_heat_crc" :value="element.specific_heat_crc" :unitFixed="'J/molK'" /></div>
 					<div v-if="element.specific_heat_wel"><ElementItem :title="this.locale.elements.modal_content.specific_heat_wel" :value="element.specific_heat_wel" :unitFixed="'J/molK'" /></div>
 					<div v-if="element.specific_heat_lng"><ElementItem :title="this.locale.elements.modal_content.specific_heat_lng" :value="element.specific_heat_lng" :unitFixed="'J/molK'" /></div>
@@ -177,7 +177,7 @@
 
 			<!-- Ses Hızı Özellikleri -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.sound_speed_features }}</summary>
+				<summary id="modal_sound_speed_features">{{ this.locale.elements.modal_content.sound_speed_features }}</summary>
 				<div v-if="element.speed_of_sound_longitudinal"><ElementItem :title="this.locale.elements.modal_content.speed_of_sound_longitudinal" :value="element.speed_of_sound_longitudinal" :unitKey="'m/s'" /></div>
 				<div v-if="element.speed_of_sound_transversal"><ElementItem :title="this.locale.elements.modal_content.speed_of_sound_transversal" :value="element.speed_of_sound_transversal" :unitKey="'m/s'" /></div>
 				<div v-if="element.speed_of_sound_extensional"><ElementItem :title="this.locale.elements.modal_content.speed_of_sound_extensional" :value="element.speed_of_sound_extensional" :unitKey="'m/s'" /></div>
@@ -185,7 +185,7 @@
 
 			<!-- Elektriksel Direnç -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.electrical_resistance }}</summary>
+				<summary id="modal_electrical_resistance">{{ this.locale.elements.modal_content.electrical_resistance }}</summary>
 				<div v-if="element.electrical_resistivity_80K"><ElementItem :title="this.locale.elements.modal_content.electrical_resistivity_80K" :value="element.electrical_resistivity_80K" :unitFixed="'nΩm'" /></div>
 				<div v-if="element.electrical_resistivity_273K"><ElementItem :title="this.locale.elements.modal_content.electrical_resistivity_273K" :value="element.electrical_resistivity_273K" :unitFixed="'nΩm'" /></div>
 				<div v-if="element.electrical_resistivity_293K"><ElementItem :title="this.locale.elements.modal_content.electrical_resistivity_293K" :value="element.electrical_resistivity_293K" :unitFixed="'nΩm'" /></div>
@@ -196,7 +196,7 @@
 			
 			<!-- Manyetik Özellikler -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.magnetic_features }}</summary>
+				<summary id="modal_magnetic_features">{{ this.locale.elements.modal_content.magnetic_features }}</summary>
 				<div v-if="element.magnetic_ordering"><ElementItem :title="this.locale.elements.modal_content.magnetic_ordering" :value="element.magnetic_ordering" /></div>
 				<div v-if="element.neel_point"><ElementItem :title="this.locale.elements.modal_content.neel_point" :value="element.neel_point" :unitKey="'K'" /></div>
 				<div v-if="element.magnetic_susceptibility"><ElementItem :title="this.locale.elements.modal_content.magnetic_susceptibility" :value="element.magnetic_susceptibility" :unitFixed="'m3/kg'" /></div>
@@ -204,7 +204,7 @@
 
 			<!-- Elastik Özellikler -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.elastic_features }}</summary>
+				<summary id="modal_elastic_features">{{ this.locale.elements.modal_content.elastic_features }}</summary>
 				<div v-if="element.shear_modulus"><ElementItem :title="this.locale.elements.modal_content.shear_modulus" :value="element.shear_modulus" :unitFixed="'GPa'" /></div>
 				<div v-if="element.bulk_modulus"><ElementItem :title="this.locale.elements.modal_content.bulk_modulus" :value="element.bulk_modulus" :unitFixed="'GPa'" /></div>
 				<div v-if="element.poisson_ratio"><ElementItem :title="this.locale.elements.modal_content.poisson_ratio" :value="element.poisson_ratio" /></div>
@@ -213,7 +213,7 @@
 
 			<!-- Sertlik -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.toughness }}</summary>
+				<summary id="modal_toughness">{{ this.locale.elements.modal_content.toughness }}</summary>
 				<div v-if="element.mohs_hardness"><ElementItem :title="this.locale.elements.modal_content.mohs_hardness" :value="element.mohs_hardness" /></div>
 				<div v-if="element.brinell_hardness"><ElementItem :title="this.locale.elements.modal_content.brinell_hardness" :value="element.brinell_hardness" /></div>
 				<div v-if="element.vickers_hardness"><ElementItem :title="this.locale.elements.modal_content.vickers_hardness" :value="element.vickers_hardness" /></div>
@@ -221,7 +221,7 @@
 
 			<!-- Etimolojik Özellikler -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.etymological_features }}</summary>
+				<summary id="modal_etymological_features">{{ this.locale.elements.modal_content.etymological_features }}</summary>
 				<div v-if="element.description"><ElementItem :title="this.locale.elements.modal_content.description" :value="element.description" /></div>
 				<div v-if="element.language_of_origin"><ElementItem :title="this.locale.elements.modal_content.language_of_origin" :value="element.language_of_origin" /></div>
 				<div v-if="element.origin_of_word"><ElementItem :title="this.locale.elements.modal_content.origin_of_word" :value="element.origin_of_word" /></div>
@@ -233,7 +233,7 @@
 			
 			<!-- Keşif & İzolasyon Özellikleri -->
 			<details id="pagetour_item">
-				<summary>{{ this.locale.elements.modal_content.discovery_features }}</summary>
+				<summary id="modal_discovery_features">{{ this.locale.elements.modal_content.discovery_features }}</summary>
 				<div v-if="element.observed_predicted_by"><ElementItem :title="this.locale.elements.modal_content.observed_predicted_by" :value="element.observed_predicted_by" /></div>
 				<div v-if="element.observation_or_discovery_year"><ElementItem :title="this.locale.elements.modal_content.observation_or_discovery_year" :value="element.observation_or_discovery_year" /></div>
 				<div v-if="element.discovery_location"><ElementItem :title="this.locale.elements.modal_content.discovery_location" :value="element.discovery_location" /></div>
@@ -244,14 +244,14 @@
 			
 			<!-- Üretim & Kullanım -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.production_use }}</summary>
+				<summary id="modal_production_use">{{ this.locale.elements.modal_content.production_use }}</summary>
 				<div v-if="element.sources"><ElementItem :title="this.locale.elements.modal_content.sources" :value="element.sources" /></div>
 				<div v-if="element.uses"><ElementItem :title="this.locale.elements.modal_content.uses" :value="element.uses" /></div>
 			</details>
 			
 			<!-- Radyoaktif Özellikler -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.radioactive_properties }}</summary>
+				<summary id="modal_radioactive_properties">{{ this.locale.elements.modal_content.radioactive_properties }}</summary>
 				<div v-if="element.is_radioactive"><ElementItem :title="this.locale.elements.modal_content.is_radioactive" :value="element.is_radioactive" /></div>
 				<div v-if="element.decay_mode"><ElementItem :title="this.locale.elements.modal_content.decay_mode" :value="element.decay_mode" /></div>
 				<div v-if="element.half_life"><ElementItem :title="this.locale.elements.modal_content.half_life" :value="element.half_life" /></div>
@@ -263,7 +263,7 @@
 			
 			<!-- Elektron İlgisi -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.electron_affinity }}</summary>
+				<summary id="modal_electron_affinity">{{ this.locale.elements.modal_content.electron_affinity }}</summary>
 				<div v-if="element.electron_affinity_eV"><ElementItem :title="this.locale.elements.modal_content.electron_affinity_eV" :value="element.electron_affinity_eV" :unitFixed="'eV'" /></div>
 				<div v-if="element.electron_affinity_kJmol"><ElementItem :title="this.locale.elements.modal_content.electron_affinity_kJmol" :value="element.electron_affinity_kJmol" :unitFixed="'kj/mol'" /></div>
 				<div v-if="element.electronegativity_pauling"><ElementItem :title="this.locale.elements.modal_content.electronegativity_pauling" :value="element.electronegativity_pauling" :unitFixed="'pauling'" /></div>
@@ -273,7 +273,7 @@
 			
 			<!-- Dipol Kutuplanabilirliği -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.dipole_polarity }}</summary>
+				<summary id="modal_dipole_polarity">{{ this.locale.elements.modal_content.dipole_polarity }}</summary>
 				<div v-if="element.dipole_polarizability"><ElementItem :title="this.locale.elements.modal_content.dipole_polarizability" :value="element.dipole_polarizability" /></div>
 				<div v-if="element.dipole_polarizability_unc"><ElementItem :title="this.locale.elements.modal_content.dipole_polarizability_unc" :value="element.dipole_polarizability_unc" /></div>
 				<div v-if="element.c6_gb"><ElementItem :title="this.locale.elements.modal_content.c6_gb" :value="element.c6_gb" /></div>
@@ -282,7 +282,7 @@
 			
 			<!-- Kafes Özellikleri -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.cage_features }}</summary>
+				<summary id="modal_cage_features">{{ this.locale.elements.modal_content.cage_features }}</summary>
 				<div v-if="element.lattice_constant_internal_default_radii"><ElementItem :title="this.locale.elements.modal_content.lattice_constant_internal_default_radii" :value="element.lattice_constant_internal_default_radii" /></div>
 				<div v-if="element.lattice_constant"><ElementItem :title="this.locale.elements.modal_content.lattice_constant" :value="element.lattice_constant" /></div>
 				<div v-if="element.lattice_structure"><ElementItem :title="this.locale.elements.modal_content.lattice_structure" :value="element.lattice_structure" /></div>
@@ -292,31 +292,31 @@
 			
 			<!-- Elektron & Kuantum Özellikleri -->
 			<details>
-				<summary>{{ this.locale.elements.modal_content.electron_quantum_properties }}</summary>
+				<summary id="modal_electron_quantum_properties">{{ this.locale.elements.modal_content.electron_quantum_properties }}</summary>
 				<div v-if="element.oxidation_states"><ElementItem :title="this.locale.elements.modal_content.oxidation_states" :value="element.oxidation_states" /></div>
 				<div v-if="element.electron_configuration"><ElementItem :title="this.locale.elements.modal_content.electron_configuration" :value="element.electron_configuration" /></div>
 				<div v-if="element.quantum_number"><ElementItem :title="this.locale.elements.modal_content.quantum_number" :value="element.quantum_number" /></div>
 				<div v-if="element.electron_configuration_semantic"><ElementItem :title="this.locale.elements.modal_content.electron_configuration_semantic" :value="element.electron_configuration_semantic" /></div>
 				
 				<details>
-						<summary class="details">{{ this.locale.elements.modal_content.shell }}</summary>
+						<summary class="details" id="modal_shell">{{ this.locale.elements.modal_content.shell }}</summary>
 						<div v-for="i in 7" :key="i">
-								<div v-if="element[`shells-${i-1}`]"> 
+								<div v-if="element[`shells-${i-1}`] !== 'NULL'"> 
 									<ElementItem :title="this.locale.elements.modal_content.shell + ' ' + String(i-1) + ':'" :value="element[`shells-${i-1}`]" />
 								</div>
 						</div>
 				</details>
 					
+				<div v-if="element[`ionization_energies-0`] !== ''">
 					<details>
-							<summary class="details">{{ this.locale.elements.modal_content.ionization_energy }}</summary>
+							<summary class="details" id="modal_ionization_energy">{{ this.locale.elements.modal_content.ionization_energy }}</summary>
 					<div v-for="i in 29" :key="i">
 							<div v-if="element[`ionization_energies-${i-1}`]"> 
 									<ElementItem :title="this.locale.elements.modal_content.ionization_energy + ' ' + String(i-1) + ':'" :value="element[`ionization_energies-${i-1}`]" />
 							</div>
 					</div>
 					</details>
-	
-
+				</div>
 			</details>
 		</div>
 
@@ -364,7 +364,7 @@
 					image: '',
 					references: ''
 				},
-				lang: this.locale.elements.modal_content,
+				// lang: this.locale.elements.modal_content,
 				categoryColors: {
 					'alkaline_metals': '#ffaf80',          // turuncu
 					'alkaline_metals_shade': '#ef9851',
@@ -443,6 +443,9 @@
 						})
 					} catch (err) {console.log(err)}
 				})
+			},
+			handle(content) {
+				return content === 'NULL' || content === "" ? null : content
 			}
 		}
 	}
@@ -586,7 +589,7 @@
 			z-index: 10;
 			padding: 0 1rem;
 			backdrop-filter: blur(5px);
-			filter: opacity(.8);
+			filter: opacity(.9);
 			background: #1c222e;
 			background-image: linear-gradient(0deg, #1c222e 10%, #1c222e 70%);
 		}
@@ -643,7 +646,7 @@
 		}
 	}
 
-	.search {
+	.modal_search {
 		background-color: #1c222e;
 		text-align: center;
 		margin: 0 0 1rem 0;

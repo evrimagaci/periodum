@@ -138,6 +138,7 @@ export default {
 		outline: 0;
 		border: 0;
 		border-radius: .3rem;
+		border-radius: 300px;
 		// width: 400px;
 		max-width: 100%;
 		transition: box-shadow 0.2s ease-in-out;
@@ -303,13 +304,18 @@ input:checked + .slider:before {
   ::-webkit-scrollbar-thumb:hover {
     background: #e5bb09;
   }
-   
+
+  .preventMouseEvent {
+    pointer-events:none;
+  }
+
   @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
+
   .fade {
-    animation: fadeIn 200ms ease-in-out both; 
+    animation: fadeIn 120ms ease-in; 
   }
   .mute {
     opacity: .3;
@@ -446,15 +452,6 @@ input:checked + .slider:before {
 	border-radius: .3rem;
   display: block;
 }
-
-// @keyframes anim_dropdown {
-//   from {
-//     height: 0;
-//   }
-//   to {
-//     height: 20vh; /* your line height here */
-//   }
-// }
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #e5bb09; color: #000; border-radius: .1vw;}

@@ -1,7 +1,7 @@
 {
   "pages": {
     "credits": {
-      "title": "künye",
+      "title": "Künye",
       "project_leaders": "Proje Liderleri",
       "sponsor_support": "Sponsor & Destek Ekibi",
       "titles": {
@@ -15,7 +15,7 @@
       }
     },
     "about": {
-      "title": "hakkında",
+      "title": "Hakkında",
       "what_is": {
         "title": "Periodum Nedir?",
         "content": {
@@ -37,7 +37,7 @@
       }
     },
     "support": {
-      "title": "destek",
+      "title": "Destek Ol",
       "link_to": "https://evrimagaci.org/destekol"
     }
   },
@@ -242,7 +242,10 @@
       "quantum_number": "Kuantum Sayısı",
       "electron_configuration_semantic": "Elektron Konfigürasyonu (Semantik)",
       "shell": "Kabuk",
-      "ionization_energy": "İyonizasyon Enerjisi"
+      "ionization_energy": "İyonizasyon Enerjisi",
+      "metrics": {
+        "mol_ratio": "silisyuma göre mol oranı"
+      }
     }
   },
   "sub_menu": {

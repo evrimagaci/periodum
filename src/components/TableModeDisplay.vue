@@ -8,12 +8,12 @@
   </div> -->
   <div class="grid">
     <!-- <input placeholder="Arama yap..." class="arama" type="search" name="searchBox" id=""> -->
-    <div v-show="panelView" class="tabbedNav fade">
-      <button class="btn" :style="[filterView ? { border: 'solid 1px #e5bb09' }   : {color: '#e5bb09'}]" id="filtermode"   @click="toggleTablePanel('filter')">{{ locale.modules.group }}</button>
-      <button class="btn" :style="[heatView ? { border: 'solid 1px #e5bb09' }     : {color: '#e5bb09'}]" id="heatmode"     @click="toggleTablePanel('heat')">{{ locale.modules.heat }}</button>
-      <!-- <button class="btn" :style="[articleView ? { border: 'solid 1px #e5bb09' }  : {color: '#e5bb09'}]" id="articlemode"  @click="toggleTablePanel('article')">Makale</button> -->
-      <!-- <button class="btn" :style="[compoundView ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]" id="compoundmode" @click="toggleTablePanel('compound')">Bileşik</button> -->
-      <!-- <button class="btn" :style="[summaryView ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]"  id="summarymode"  @click="toggleTablePanel('summary')">Özet</button> -->
+    <div v-show="table_panelMode" class="table_tabs fade">
+      <button class="btn" :style="[table_filterMode ? { border: 'solid 1px #e5bb09' }   : {color: '#e5bb09'}]" id="table_moduleBtn_filterMode"   @click="toggleTablePanel('filter')">{{ locale.modules.group }}</button>
+      <button class="btn" :style="[table_heatMode ? { border: 'solid 1px #e5bb09' }     : {color: '#e5bb09'}]" id="table_moduleBtn_heatMode"     @click="toggleTablePanel('heat')">{{ locale.modules.heat }}</button>
+      <!-- <button class="btn" :style="[table_articleMode ? { border: 'solid 1px #e5bb09' }  : {color: '#e5bb09'}]" id="table_moduleBtn_articleMode"  @click="toggleTablePanel('article')">Makale</button> -->
+      <!-- <button class="btn" :style="[table_compoundMode ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]" id="table_moduleBtn_compoundMode" @click="toggleTablePanel('compound')">Bileşik</button> -->
+      <!-- <button class="btn" :style="[table_summaryMode ? { border: 'solid 1px #e5bb09' } : {color: '#e5bb09'}]"  id="table_moduleBtn_summaryMode"  @click="toggleTablePanel('summary')">Özet</button> -->
     </div>
 
     <div class="search table">
@@ -21,17 +21,17 @@
     </div>
 
     <label class="switch">
-      <input
+      <input id="table_module_switcher"
         type="checkbox"
-        :checked="panelView"
-        @change="panelView = !panelView"
+        :checked="table_panelMode"
+        @change="table_panelMode = !table_panelMode"
       />
       <span class="slider round"></span>
     </label>
 
-    <div v-show="panelView" id="modulePanel" class="modules fade">
+    <div v-show="table_panelMode" id="modulePanel" class="modules fade">
       <!-- Özet Modülü -->
-      <!-- <div v-show="summaryView" class="h-100 flex-between flex-column fade">
+      <!-- <div v-show="table_summaryMode" class="h-100 flex-between flex-column fade">
         <div class="flex-between">
           <h2><div class="element-summary-title text-primary"></div></h2>
           <h5><div class="element-summary-titleEN text-primary"></div></h5>
@@ -40,10 +40,10 @@
       </div> -->
 
       <!-- Sıcaklık Modülü -->
-      <div v-show="heatView" class="h-100 flex-between flex-column fade">
+      <div v-show="table_heatMode" class="h-100 flex-between flex-column fade">
         <!-- <input class="inactive" :heat_value="displayStateButtons()"/> -->
         <input @input="sliderChange()" v-model="heatValue" type="range" step=".1" :min="minScale" :max="maxScale" id="heat_slider" >
-        <!-- @click="toggleHeatview()" -->
+        <!-- @click="toggletable_heatMode()" -->
         <div class="flex-between align-end">
           <div @click.prevent="filterByState($event)" class="states flex-between">
             <div class="fade btn"           id="solid">     <img :src="states.solid"/></div>
@@ -70,59 +70,59 @@
       </div>
       
       <!-- Filtre Modülü -->
-      <div v-show="filterView" class="h-100 flex-between flex-column fade">
+      <div v-show="table_filterMode" class="h-100 flex-between flex-column fade">
         <div class="groupFilter" @click.prevent="viewGroup($event)">
-          <img :src="groups.s" id="s" class="s-block">
-          <img :src="groups.d" id="d" class="d-block">
-          <img :src="groups.p" id="p" class="p-block">
-          <img :src="groups.f" id="f" class="f-block">
+          <img :src="groups.table_groupFilter_s" id="table_groupFilter_s" class="s-block">
+          <img :src="groups.table_groupFilter_d" id="table_groupFilter_d" class="d-block">
+          <img :src="groups.table_groupFilter_p" id="table_groupFilter_p" class="p-block">
+          <img :src="groups.table_groupFilter_f" id="table_groupFilter_f" class="f-block">
         </div>
-        <div @click="viewFilter($event)" class="advancedFilter text-white fit-content">
-          <ul class="advancedFilterList float">
-            <li class="mainFilter" id="metaller">{{ locale.elements.categories.metals.main }}</li>
-            <li id="alkaline_metals">{{ locale.elements.categories.metals.alkaline_metal }}</li>
-            <li id="alkaline_earth_metal">{{ locale.elements.categories.metals.alkaline_earth_metal }}</li>
-            <li id="transition_metal">{{ locale.elements.categories.metals.transition_metal }}</li>
-            <li id="post_transition_metal">{{ locale.elements.categories.metals.post_transition_metal }}</li>
-            <li id="lanthanides">{{ locale.elements.categories.metals.lanthanides }}</li>
-            <li id="actinides">{{ locale.elements.categories.metals.actinides }}</li>
+        <div @click="viewFilter($event)" class="table_categoricalFilter_container text-white fit-content">
+          <ul class="table_categoricalFilter float">
+            <li class="mainFilter" id="table_catFilter_metals">{{ locale.elements.categories.metals.main }}</li>
+            <li id="table_catFilter_alkaline_metals">{{ locale.elements.categories.metals.alkaline_metal }}</li>
+            <li id="table_catFilter_alkaline_earth_metal">{{ locale.elements.categories.metals.alkaline_earth_metal }}</li>
+            <li id="table_catFilter_transition_metal">{{ locale.elements.categories.metals.transition_metal }}</li>
+            <li id="table_catFilter_post_transition_metal">{{ locale.elements.categories.metals.post_transition_metal }}</li>
+            <li id="table_catFilter_lanthanides">{{ locale.elements.categories.metals.lanthanides }}</li>
+            <li id="table_catFilter_actinides">{{ locale.elements.categories.metals.actinides }}</li>
           </ul>
-          <ul class="advancedFilterList">
-            <li class="mainFilter" id="metalsiler">{{ locale.elements.categories.metalloid.main }}</li>
-            <li id="metalloid">{{ locale.elements.categories.metalloid.metalloid }}</li>
+          <ul class="table_categoricalFilter">
+            <li class="mainFilter" id="table_catFilter_metalloid">{{ locale.elements.categories.metalloid.main }}</li>
+            <li id="table_catFilter_metalloid">{{ locale.elements.categories.metalloid.metalloid }}</li>
           </ul>
-          <ul class="advancedFilterList">
-            <li class="mainFilter" id="ametaller">{{ locale.elements.categories.nonmetals.main }}</li>
-            <li id="noble_gas">{{ locale.elements.categories.nonmetals.noble_gases }}</li>
-            <li id="reactive_nonmetal">{{ locale.elements.categories.nonmetals.reactive_nonmetals }}</li>
+          <ul class="table_categoricalFilter">
+            <li class="mainFilter" id="table_catFilter_nonmetals">{{ locale.elements.categories.nonmetals.main }}</li>
+            <li id="table_catFilter_noble_gas">{{ locale.elements.categories.nonmetals.noble_gases }}</li>
+            <li id="table_catFilter_reactive_nonmetal">{{ locale.elements.categories.nonmetals.reactive_nonmetals }}</li>
           </ul>
-          <ul class="advancedFilterList">
-            <li class="mainFilter" id="diger">{{ locale.elements.categories.other.main }}</li>
-            <li id="unknown">{{ locale.elements.categories.other.unknown }}</li>
+          <ul class="table_categoricalFilter">
+            <li class="mainFilter" id="table_catFilter_other">{{ locale.elements.categories.other.main }}</li>
+            <li id="table_catFilter_unknown">{{ locale.elements.categories.other.unknown }}</li>
           </ul>
         </div>
       </div>
 
       <!-- Bileşik Modülü -->
-      <!-- <div v-show="compoundView" class="h-100 flex-between flex-column fade">
+      <!-- <div v-show="table_compoundMode" class="h-100 flex-between flex-column fade">
         <div class="tutorial_CompoundModule_FirstTime text-primary">Eklemek istediğiniz elementleri seçin.</div>
         <div class="compoundBucket fit-content"></div>
       </div> -->
     </div>
-    <!-- if (compoundView) compoundAdd($event); else  COMPOUND MODU İÇİN ÖNEMLİ!!!! -->
-    <div @click.prevent="toggleModal($event, element)" class="element noselect" :style="{ 'grid-row-start': element.ypos, 'grid-column-start': element.xpos}"
+    <!-- if (table_compoundMode) compoundAdd($event); else  COMPOUND MODU İÇİN ÖNEMLİ!!!! -->
+    <div class="element noselect" :style="{ 'grid-row-start': element.ypos, 'grid-column-start': element.xpos}"
         v-for="element in elements" :key="element.number">
-      <div :id="'table'+element.number" @mouseover="if (summaryView) displaySummary(elements.indexOf(element));"> <TableItem :heat_view="heatView" :heat_value="Number(heatValue)" :element="element"> {{ element }} </TableItem> </div>
+      <div @click.prevent="toggleModal($event, element)" @mouseover="if (table_summaryMode) displaySummary(elements.indexOf(element));"> <TableItem :eID="`table_${element.number}_${element.name}`" :heat_view="table_heatMode" :heat_value="Number(heatValue)" :element="element"> {{ element }} </TableItem> </div>
     </div>
     
   </div>
 
-  <div class="keyElement">
-    <div class="block">
-      <div class="number"><p> {{ locale.misc.sample_element.atomic_number }} </p></div>
-      <div class="symbol" >{{ locale.misc.sample_element.symbol }}</div>
-      <div class="name"> {{ locale.misc.sample_element.name }} </div>
-      <h2 class="block atomic">{{ locale.misc.sample_element.atomic_mass }}</h2>
+  <div class="table_demo_element">
+    <div class="table_demo_block">
+      <div class="table_demo_number"><p> {{ locale.misc.sample_element.atomic_number }} </p></div>
+      <div class="table_demo_symbol" >{{ locale.misc.sample_element.symbol }}</div>
+      <div class="table_demo_name"> {{ locale.misc.sample_element.name }} </div>
+      <h2 class="table_demo_atomic">{{ locale.misc.sample_element.atomic_mass }}</h2>
     </div>
   </div>
   
@@ -143,11 +143,11 @@ export default {
   emits: ["getElement", "checkStatus"],
   data() {
     return {
-      // summaryView: false,
-      panelView: true,
-      filterView: true,
-      heatView: false,
-      compoundView: false,
+      // table_summaryMode: false,
+      table_panelMode: true,
+      table_filterMode: true,
+      table_heatMode: false,
+      table_compoundMode: false,
       heatValue: 298.15,
       lastIndexOfHoveredItem: 0,
       lastChosenFilter: '',
@@ -155,14 +155,14 @@ export default {
       minScale: 0,
       maxScale: 7273,
       groups: {
-        s:          require("../resources/img/groups/s.svg"),
-        s_selected: require("../resources/img/groups/s_selected.svg"),
-        d:          require("../resources/img/groups/d.svg"),
-        d_selected: require("../resources/img/groups/d_selected.svg"),
-        p:          require("../resources/img/groups/p.svg"),
-        p_selected: require("../resources/img/groups/p_selected.svg"),
-        f:          require("../resources/img/groups/f.svg"),
-        f_selected: require("../resources/img/groups/f_selected.svg"),
+        table_groupFilter_s:          require("../resources/img/groups/s.svg"),
+        table_groupFilter_s_selected: require("../resources/img/groups/s_selected.svg"),
+        table_groupFilter_d:          require("../resources/img/groups/d.svg"),
+        table_groupFilter_d_selected: require("../resources/img/groups/d_selected.svg"),
+        table_groupFilter_p:          require("../resources/img/groups/p.svg"),
+        table_groupFilter_p_selected: require("../resources/img/groups/p_selected.svg"),
+        table_groupFilter_f:          require("../resources/img/groups/f.svg"),
+        table_groupFilter_f_selected: require("../resources/img/groups/f_selected.svg"),
       },
       states: {
         solid:      require("../resources/img/states/solid.svg"),
@@ -198,18 +198,18 @@ export default {
       document.body.classList.add('active_modal');
     },
     defaultView() {
-      this.summaryView = false;
-      this.heatView = false; this.heatValue = 0;
-      this.filterView = false;
-      this.compoundView = false;
+      this.table_summaryMode = false;
+      this.table_heatMode = false; this.heatValue = 0;
+      this.table_filterMode = false;
+      this.table_compoundMode = false;
     },
     toggleTablePanel(mode) {
         this.defaultView();
       // if (mode === 'summary') {
-      //   this.summaryView = true;
+      //   this.table_summaryMode = true;
       // }
       if (mode === 'heat') {
-        this.heatView = true;
+        this.table_heatMode = true;
         this.heatValue = 298.15;
         this.heat_toDisplay_table = this.heatValue;
         
@@ -220,17 +220,17 @@ export default {
         }
       }
       if (mode === 'filter') {
-        this.filterView = true;
+        this.table_filterMode = true;
         this.filterValue = 0;
       }
       if (mode === 'compound') {
-        this.compoundView = true;
+        this.table_compoundMode = true;
       }
       // if (mode === 'hide') {
       //   this.defaultView();
-      //   this.filterView = true;
+      //   this.table_filterMode = true;
       //   this.filterValue = 0;
-      //   document.querySelector('.tabbedNav').classList.add('inactive')
+      //   document.querySelector('.table_tabs').classList.add('inactive')
       //   document.querySelector('.modules').classList.add('inactive')
       //   document.querySelector('#tablePanelBtn').classList.remove('inactive')
       // }
@@ -238,26 +238,26 @@ export default {
       // document.querySelector('.navSwitch').classList.toggle('switchON')
       // document.querySelector('.navSwitch').classList.toggle('switchOFF')
     },
-    displaySummary(index) {
-      if (this.lastIndexOfHoveredItem === index) return;
+    // displaySummary(index) {
+    //   if (this.lastIndexOfHoveredItem === index) return;
 
-      this.lastIndexOfHoveredItem = index;
-      const ELEMENT = this.elements[index];
-      document.querySelector('.element-summary-title').textContent = `${ELEMENT.name_tr}`;
-      document.querySelector('.element-summary-titleEN').textContent = `${ELEMENT.name_en}`;
-      document.querySelector('.element-summary-description').textContent = ELEMENT.description !== '' ? `${ELEMENT.description.split('.')[0]+ '. ' + ELEMENT.description.split('.')[1] + '.'}` : '';
-    },
+    //   this.lastIndexOfHoveredItem = index;
+    //   const ELEMENT = this.elements[index];
+    //   document.querySelector('.element-summary-title').textContent = `${ELEMENT.name_tr}`;
+    //   document.querySelector('.element-summary-titleEN').textContent = `${ELEMENT.name_en}`;
+    //   document.querySelector('.element-summary-description').textContent = ELEMENT.description !== '' ? `${ELEMENT.description.split('.')[0]+ '. ' + ELEMENT.description.split('.')[1] + '.'}` : '';
+    // },
     viewGroup($event) {
-      if (this.heatView) this.heatView = ! this.heatView
+      if (this.table_heatMode) this.table_heatMode = ! this.table_heatMode
       const TARGET = $event.target;
       
       document.querySelectorAll('.element').forEach(function(el) {
-        const ELEMENT = el.querySelector('.container');
+        const ELEMENT = el.querySelector('.table_elementContainer');
         ELEMENT.classList.remove('mute')
         ELEMENT.classList.remove('glow')
       });
 
-      const allBlocks = document.getElementsByClassName('block');
+      const allBlocks = document.getElementsByClassName('table_elementBlock');
       
       // TRYCATCH OLMADAN ÇALIŞIR HALE GETİR
       const view = function(allBlocks, _default) {
@@ -278,7 +278,7 @@ export default {
 
           try {
             
-            block.parentElement.querySelector('.number').classList.remove('colored')
+            block.parentElement.querySelector('.table_atomicNumber').classList.remove('colored')
             block.parentElement.childNodes.forEach(function(el) {
               if (_default) {
                 el.classList.add('colored')
@@ -322,7 +322,7 @@ export default {
 
         if (this.lastChosenMainFilter === MAIN_FILTER.textContent) {
         document.querySelectorAll('.element').forEach(function(el) {
-          const ELEMENT = el.querySelector('.container');
+          const ELEMENT = el.querySelector('.table_elementContainer');
           ELEMENT.classList.remove('highlight')
           ELEMENT.classList.remove('mute')
           ELEMENT.classList.add('colored')
@@ -335,12 +335,12 @@ export default {
           // console.log(list);
 
           if(list !== $event.target) {
-            FILTRE_IDs.push(list.id.replaceAll('-', ' '))
+            FILTRE_IDs.push(list.id.replaceAll('-', ' ').replace('table_catFilter_', ''))
 
 
             document.querySelectorAll('.element').forEach(function(el) {
-              const ELEMENT = el.querySelector('.container');
-              const CATEGORY = el.querySelector('.category');
+              const ELEMENT = el.querySelector('.table_elementContainer');
+              const CATEGORY = el.querySelector('.table_elementCategory');
               
               if (FILTRE_IDs.includes(CATEGORY.textContent)) {
                 ELEMENT.classList.add('highlight')
@@ -351,7 +351,7 @@ export default {
                 })
 
                 // Atomik kütleyi siyahlaştır
-                ELEMENT.querySelector('.number').classList.remove('colored')
+                ELEMENT.querySelector('.table_atomicNumber').classList.remove('colored')
               }
               if (!FILTRE_IDs.includes(CATEGORY.textContent)) {
                 ELEMENT.classList.remove('highlight')
@@ -359,7 +359,7 @@ export default {
                 ELEMENT.classList.add('colored')
                 
                 // Atomik kütleyi renklendir
-                ELEMENT.querySelector('.number').classList.add('colored')
+                ELEMENT.querySelector('.table_atomicNumber').classList.add('colored')
               }
             })
           }
@@ -373,7 +373,7 @@ export default {
       
       if (this.lastChosenFilter === CLICKED) {
         document.querySelectorAll('.element').forEach(function(el) {
-          const ELEMENT = el.querySelector('.container');
+          const ELEMENT = el.querySelector('.table_elementContainer');
           ELEMENT.classList.remove('highlight')
           ELEMENT.classList.remove('mute')
           ELEMENT.classList.add('colored')
@@ -383,10 +383,10 @@ export default {
       }
 
       document.querySelectorAll('.element').forEach(function(el) {
-        const ELEMENT = el.querySelector('.container');
-        const CATEGORY = el.querySelector('.category');
+        const ELEMENT = el.querySelector('.table_elementContainer');
+        const CATEGORY = el.querySelector('.table_elementCategory');
         
-        if (CATEGORY.textContent === CLICKED.replaceAll('-', ' ')) {
+        if (CATEGORY.textContent === CLICKED.replaceAll('-', ' ').replace('table_catFilter_', '')) {
           ELEMENT.classList.add('highlight')
           ELEMENT.classList.remove('mute')
           
@@ -395,7 +395,7 @@ export default {
           })
 
           // Atomik kütleyi siyahlaştır
-          ELEMENT.querySelector('.number').classList.remove('colored')
+          ELEMENT.querySelector('.table_atomicNumber').classList.remove('colored')
         }
         else {
           ELEMENT.classList.remove('highlight')
@@ -403,14 +403,14 @@ export default {
           ELEMENT.classList.add('colored')
           
           // Atomik kütleyi renklendir
-          ELEMENT.querySelector('.number').classList.add('colored')
+          ELEMENT.querySelector('.table_atomicNumber').classList.add('colored')
         }
       })
 
       this.lastChosenFilter = CLICKED
     },
     viewGroupStylizer() {
-      // const FILTERS = document.querySelector('.advancedFilter')
+      // const FILTERS = document.querySelector('.table_categoricalFilter_container')
       const categoryColors = {
         'alkaline_metals': '#ffaf80',          // turuncu
         'alkaline_metals_shade': '#ef9851',
@@ -443,12 +443,12 @@ export default {
         'unknown_shade': '#e0e0e0'
       }
       document.querySelectorAll('li').forEach(function(item) {
-        item.style.color = categoryColors[item.id.replaceAll('-', ' ')]
+        item.style.color = categoryColors[item.id.replaceAll('-', ' ').replace('table_catFilter_', '')]
       })
       // return {'color': this.categoryColors[$event.target.id.replaceAll('-', ' ')]}
     },
     filterByState($event) {
-      if (!this.heatView) return
+      if (!this.table_heatMode) return
       if ($event.target.classList.contains('states')) return;
 
       try {
@@ -464,7 +464,7 @@ export default {
         if (document.querySelector(`.${ID}`).classList.contains('glow')) {
           Object.keys(STATES).forEach(state => document.querySelectorAll(`.${state}`).forEach(function(el) {
             el.removeAttribute('class')
-            el.classList.add(`container`)
+            el.classList.add(`table_elementContainer`)
             el.classList.add(state)
           }))
           return
@@ -477,7 +477,7 @@ export default {
 
         document.querySelectorAll(`.${ID}`).forEach(function(el) {
           el.removeAttribute('class')
-          el.classList.add(`container`)
+          el.classList.add(`table_elementContainer`)
           el.classList.add('glow')
           el.classList.add(ID)
         });
@@ -496,7 +496,7 @@ export default {
 
       Object.keys(STATES).forEach(state => document.querySelectorAll(`.${state}`).forEach(function(el) {
         el.removeAttribute('class')
-        el.classList.add(`container`)
+        el.classList.add(`table_elementContainer`)
         el.classList.add(`${state}`)
         el.classList.remove('mute')
         el.classList.remove('glow')
@@ -584,27 +584,26 @@ export default {
     },
     tableSearching($event) {
       const INPUT = $event.target.value.toLowerCase()
-      const KEY = document.querySelector('.keyElement')
+      const KEY = document.querySelector('.table_demo_element')
       
       const CONDITIONS = function(el) {
         let searchIn = []
         if (!INPUT.includes('.')) {
           searchIn = [
-            el.querySelector('.number').textContent,
-            el.querySelector('.symbol').textContent,
-            el.querySelector('.name').textContent,
-            el.querySelector('.atomic').textContent.split('.')[0],
-            el.querySelector('.name_en').textContent
+            el.querySelector('.table_atomicNumber').textContent,
+            el.querySelector('.table_symbol').textContent,
+            el.querySelector('.table_name').textContent,
+            el.querySelector('.table_atomicMass').textContent.split('.')[0]
           ].join('').toLowerCase()
         } else {
           searchIn = [
-            el.querySelector('.atomic').textContent
+            el.querySelector('.table_atomicMass').textContent
           ].join('').toLowerCase()
         }
         
         return INPUT !== ''
-        && !el.classList.contains('block')
-        && !el.classList.contains('category')
+        && !el.classList.contains('.table_elementBlock')
+        && !el.classList.contains('.table_elementCategory')
         && searchIn.includes(INPUT)
       }
 
@@ -684,7 +683,7 @@ export default {
     grid-template-columns: repeat(18, 1fr);
     grid-template-rows: repeat(8, 1fr);
   }
-  .tabbedNav {
+  .table_tabs {
     grid-row-start: 1; grid-row-end: 1; grid-column-start: 3; grid-column-end: 13;
     align-self: center;
     z-index: 0;
@@ -728,8 +727,8 @@ export default {
     padding: 1vw;
     margin-left: .2rem; margin-right: .2rem; margin-bottom: .2vw;
     border-radius: .3rem;
-    background-color: #232a38;
-
+    background-color: transparent;
+    background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
     // display: inline-block;
 
     h2 {
@@ -830,12 +829,12 @@ export default {
       float:left;
     }
 
-    .advancedFilter {
+    .table_categoricalFilter_container {
       position: absolute;
       margin-top: -.5vw;
       margin-left: 12vw;
 
-      .advancedFilterList {
+      .table_categoricalFilter {
         list-style: none;
         margin-left: 1vw;
         float: left;
@@ -881,7 +880,7 @@ export default {
     }
   }
   
-  .keyElement {
+  .table_demo_element {
     margin-top: -7.3vw;
     margin-left: 5vw;
     width: 7vw;
@@ -892,48 +891,47 @@ export default {
     background-image: linear-gradient(136deg, #80fffc 0%, #5ab3b0);
 
     color: #000;
+    
+    .table_demo_block {
+      justify-self: flex-start;
+      cursor: default;
+    }
+    .table_demo_number {
+      font-weight: bolder;
+      font-size: .5vw;
+      margin-top: .2rem;
+      opacity: .5;
+    }
+    .table_demo_symbol {
+      font-size: 1vmax;
+      font-weight: bold;
+      letter-spacing: normal;
+    }
+    .table_demo_name {
+      text-align: left;
+      margin-top: 1vw;
+      font-size: .52vw;
+      opacity: .8;
+    }
+    .table_demo_atomic {
+      float: left;
+      font-weight: 100;
+      font-size: .5vw;
+      opacity: .6;
+    }
   }
   
-  .block {
-    justify-self: flex-start;
-    cursor: default;
-  }
-  .number {
-    font-weight: bolder;
-    font-size: .5vw;
-    margin-top: .2rem;
-    opacity: .5;
-  }
-  .symbol {
-    font-size: 1vmax;
-    font-weight: bold;
-    letter-spacing: normal;
-  }
-  .name {
-    text-align: left;
-    margin-top: 1vw;
-    font-size: .52vw;
-    opacity: .8;
-  }
-  .block.atomic {
-    float: left;
-    font-weight: 100;
-    font-size: .5vw;
-    opacity: .6;
-  }
 
   .dropdown-content {
     bottom: 2.2rem;
-    height: 5rem;
+    height: 6rem;
     width: 1.5rem;
     img {
       width: 1.5rem;
     }
   }
 
-
   #tableLanguagemenu {
-    
     position: absolute;
     display: inline-block;
     top: 5vw;

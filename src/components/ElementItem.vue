@@ -45,7 +45,12 @@
 			return {
 				defaultColor: "#fff",
 				units: UNITLIST,
-				initialValue: this.value
+				// initialValue: this.value
+			}
+		},
+		computed: {
+			initialValue() {
+				return this.value
 			}
 		},
 		methods: {
@@ -69,8 +74,10 @@
 				// document.querySelector('.dropdown-button').textContent = CLICKED.textContent
 				const DEEPDIVE = CLICKED.parentElement.parentElement.parentElement.parentElement.parentElement
 
+				// console.log(DEEPDIVE);
+
 				const UNIT_KEY = CLICKED.textContent;
-				const TARGET = DEEPDIVE.querySelector('p');
+				const TARGET = DEEPDIVE.querySelector('.value');
 				const TARGET_INITIAL_VALUE = this.initialValue
 
 				const defaultFontSize = function(el) {
@@ -85,7 +92,7 @@
 				const objectItem = JSON.parse(JSON.stringify(this.units[this.unitKey])).find(({ target_unit }) => target_unit === UNIT_KEY);
 				console.log(objectItem);
 
-				const func = eval(objectItem.formula)
+				const func = eval(objectItem?.formula) || function(num) { return num }
 				TARGET.textContent = await this.formatNumber(func(Number(TARGET_INITIAL_VALUE)))
 				if (TARGET.textContent.length >= 10) {
 					TARGET.style.fontSize = '1rem'

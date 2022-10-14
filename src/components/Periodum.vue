@@ -1,46 +1,45 @@
 <template>
-  <div class="fade margin">
+  <div class="fade">
     <div class="header">
       <div class="navLeft"> <router-link to="/"> 
-        <img  alt="Periodum Logo" src="../resources/img/periodum.svg" height="40"> 
+        <img id="mmenu_logo"
+        alt="Periodum Logo" src="../resources/img/periodum.svg" height="40"> 
       </router-link> </div>
 
       <div class="navRight"> 
-        <router-link to="/kunye" class="navIcon">
+        <router-link to="/kunye" id="mmenu_credits" class="navIcon">
           {{ loc.pages.credits.title }}
         </router-link>
-        <router-link to="/hakkinda" class="navIcon">
+        <router-link to="/hakkinda" id="mmenu_about" class="navIcon">
           {{ loc.pages.about.title }}
         </router-link>
-        <a :href="loc.pages.support.link_to" target="_blank" class="navIcon">
+        <a :href="loc.pages.support.link_to" target="_blank" id="mmenu_support" class="navIcon">
           {{ loc.pages.support.title }}
         </a>
         
-        <button @click="languageSwitch()" class="navIcon" id="languageSwitcher"><img src="" alt=""></button>
+        <button @click="languageSwitch()" class="navIcon" id="mmenu_langSwitch"></button>
       </div>
     </div>
     
     <router-view :loc="loc" v-if="!homepage" />
     <div v-if="homepage">
-      <div class="fade list"> <ListDisplay :locale="loc" :elements="elements" @getElement="setElement" @changeLanguage="changeLanguage" /> </div>
-      <div class="fade table"> <TableDisplay :locale="loc" :elements="elements" @getElement="setElement" @changeLanguage="changeLanguage" /> </div>
+      <div id="listmode" class="fade"> <ListDisplay :locale="loc" :elements="elements" @getElement="setElement" /> </div>
+      <div id="tablemode" class="fade"> <TableDisplay :locale="loc" :elements="elements" @getElement="setElement" /> </div>
     </div>
   
     <div @click="toggleModal" class="modal" id="element_modal">
       <div :class="{
-      'modal active': modalViewable === true,
+      'modal active fade': modalViewable === true,
       'modal inactive': modalViewable === false}">
-        <ElementModal :locale="localization" :element="currentElement"></ElementModal>
+        <ElementModal :locale="localization" :element="currentElement" :key="modalkey"/>
       </div>
     </div>
   </div>
 
-  <div v-if="visitedBefore() === 'false'" >
-    <TOUR />
-  </div>
+  <div v-if="visitedBefore() === 'false' && language === 'tr'" ><TOUR /></div>
 
   <footer v-if="!homepage">
-    <a href="https://dar.vin/eadiscord_periodum" class="social">
+    <a href="https://dar.vin/eadiscord_periodum" id="discordInvitation" class="social">
       <img :src="social.discord" alt="discord logosu">Evrim Ağacı Discord Sunucusuna Katıl
     </a>
   </footer>
@@ -102,7 +101,8 @@ export default {
         en:       require("../resources/locale/en/elements_text.json"),
         en_flag:  require("../resources/locale/flags/en.svg"),
       },
-      language: 'en'
+      language: 'en',
+      modalkey: 0
     }
   },
   computed: {
@@ -144,25 +144,31 @@ export default {
       //#region Content
       this.loc = this.locale[lang]
     },
+    flagDisplay(lang) {
+      lang = lang === 'tr' ? 'en' : 'tr'
+      document.querySelector('#mmenu_langSwitch').innerHTML = `<img id="mmenu_langSwitch_flag" src="${this.elementLanguage[lang + '_flag']}" alt="${lang} Flag">`
+    },
     languageSwitch() {
       if (this.language === 'en') {
         this.language = 'tr'
-        document.querySelector('#languageSwitcher').innerHTML = `<img src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">`
+        this.flagDisplay('tr')
         this.changeLanguage('tr')
-        document.querySelector('#langmenu_list').innerHTML = `<img style="width: 1.5rem;" src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">` + " Türkçe"
+        // document.querySelector('#langmenu_list').innerHTML = `<img style="width: 1.5rem;" src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">` + " Türkçe"
         return
       }
       else {
         this.language = 'en'
-        document.querySelector('#languageSwitcher').innerHTML = `<img src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">`
+        this.flagDisplay('en')
         this.changeLanguage('en')
-        document.querySelector('#langmenu_list').innerHTML = `<img style="width: 1.5rem;" src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">` + " English"
+        // document.querySelector('#langmenu_list').innerHTML = `<img style="width: 1.5rem;" src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">` + " English"
         return
       }
     },
     getUserLanguage() {
       this.language = navigator.language.split('-')[0]
-      document.querySelector('#languageSwitcher').innerHTML = `<img src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">`
+      // document.querySelector('#mmenu_langSwitch').innerHTML = `<img src="${this.elementLanguage[this.language + '_flag']}" alt="${this.language} Flag">`
+      
+      this.flagDisplay(this.language)
       this.changeLanguage(this.language)
       return this.language
     },
@@ -171,7 +177,7 @@ export default {
       this.currentElement = el
     },
     toggleModal($event) {
-      let eventTarget = $event.target
+      const eventTarget = $event.target
 
       if (eventTarget.classList.contains('close-modal') || eventTarget.classList.contains('overlay')) { 
         // document.body.classList.remove('active_modal');
@@ -179,6 +185,8 @@ export default {
 
         //Arama kutusunu temizle
         document.querySelector('#modalSearch').value = ''
+
+        this.modalkey++
 
         this.modalViewable = false;
         return
@@ -191,7 +199,7 @@ export default {
     //   this.appView = state
     // },
     toggleTablePanel() {
-      document.querySelector('.tabbedNav').classList.remove('inactive')
+      document.querySelector('.table_tabs').classList.remove('inactive')
       document.querySelector('.modules').classList.remove('inactive')
       document.querySelector('#tablePanelBtn').classList.add('inactive')
     },
@@ -231,7 +239,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#languageSwitcher {
+#mmenu_langSwitch {
   min-height: 2.5rem;
   min-width: 2.5rem;
   align-items: center;
@@ -243,24 +251,23 @@ export default {
       margin-right: 1vw;
     }
   }
-  .table  { 
+
+  #tablemode  {
     display: block;
     height: fit-content;
-  }
-  .list   { display: none;  }
 
-  @media screen and (max-width: 720px) {
-    .table { display: none; }
-    .list {
+    @media screen and (max-width: 720px) {
+      display: none;
+     }
+  }
+  #listmode   {
+    display: none; 
+
+    @media screen and (max-width: 720px) {
       display: block;
       width: 90vw;
-      // width: 85vw;
-    }
 
-    // list modunda en alttaki element görünsün diye
-    .margin { // margin -> Periodum.vue
       padding-bottom: 30vw;
-      // margin-top: -2rem;
     }
   }
 
@@ -273,7 +280,6 @@ export default {
     justify-content: space-between;
     margin-bottom: 2.5vw;
     margin-top: 1rem;
-
     
     align-items: center;
     

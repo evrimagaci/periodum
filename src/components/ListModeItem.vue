@@ -1,59 +1,49 @@
 <template>
-  <div @click="toggleInfo($event)" class="container_List fade"
+  <div @click="toggleInfo($event)" :id="eID" class="list_elementContainer fade"
     :class="{
-      'uncertain_list':  heatState('uncertain', element),
-      'solid_list':      heatState('solid', element),
-      'liquid_list':     heatState('liquid', element),
-      'gas_list':        heatState('gas', element),
+      'list_stateUncertain':  heatState('uncertain', element),
+      'list_stateSolid':      heatState('solid', element),
+      'list_stateLiquid':     heatState('liquid', element),
+      'list_stateGas':        heatState('gas', element),
     }">
-    <div class="item noselect">
-      <div class="number flex-between fade" v-if="infoViewable === false">
-        <p class="number_List">{{ element.number }}</p>
-        <h2 class="labels atomic muted">{{ this.locale.elements.modal_content.atomic_mass }} {{ element.atomic_mass }}</h2>
-        <!-- <img v-show="heat_view" class="heatState" :src="displayHeatState(element)" /> -->
-      </div>
-      <div class="number text-left fade" v-else>
-        <p>{{ element.number }} {{ element.name }} </p>
-        <!-- ({{ element.name_en }}) -->
-        <h2 class="labels atomic muted">{{ this.locale.elements.modal_content.atomic_mass }} {{ element.atomic_mass }}</h2>
-
-        <!-- <img v-show="heat_view" class="heatState" :src="displayHeatState(element)" /> -->
-        <!-- <button class="close" @click="closeInfo">&times;</button> -->
-      </div>
-
-      <div class="labels">
-
-        <h2 class="names fade" v-show="infoViewable === false">
-          <div class="nameTR "> {{ element.name }} </div>
-          <!-- <div class="nameEN muted"> {{ element.name_en }} </div> -->
-        </h2>
-
-        <div class="symbol" :style="{ color: colorCode }">
-          <div v-show="!heat_view">{{ element.symbol }}</div>
-          <img v-show="heat_view" class="heatState" :src="displayHeatState(element)" />
+      <div class="item preventMouseEvent noselect">
+        <div class="list_number_container flex-between fade" v-if="infoViewable === false">
+          <p class="list_atomicNumber muted">{{ element.number }}</p>
+          <h2 class="list_labels list_atomicMass muted">{{ this.locale.elements.modal_content.atomic_mass }} {{ element.atomic_mass }}</h2>
         </div>
-        <span class="block_List inactive">{{ element.block }}</span>
-        <span class="category_List inactive">{{ element.category_code }}</span>
+        <div class="list_number_container text-left fade" v-else>
+          <p>{{ element.number }} {{ element.name }} </p>
+          <!-- ({{ element.name_en }}) -->
+          <h2 class="list_labels list_atomicMass muted">{{ this.locale.elements.modal_content.atomic_mass }} {{ element.atomic_mass }}</h2>
 
-      </div> 
-      <!-- <h2 class="labels atomic muted">Atomik kütle: {{ element.atomic_mass }}</h2> -->
+        </div>
+
+        <div class="list_labels">
+          <div v-show="infoViewable === false" class="list_name fade"> {{ element.name }} </div>
+
+          <div class="list_symbol" :style="{ color: colorCode }">
+            <div v-show="!heat_view">{{ element.symbol }}</div>
+            <img v-show="heat_view" class="heatState" :src="displayHeatState(element)" />
+          </div>
+          <span class="list_elementBlock inactive">{{ 'list_groupFilter_' + element.block }}</span>
+          <span class="list_elementCategory inactive">{{ element.category_code }}</span>
+
+      </div>
     </div>
 
     <div :class="{
       'moreInfo active': infoViewable,
       'moreInfo inactive': !infoViewable}">
-      <p class="description text-left fade">{{ element.description }}</p>
+      <p class="list_description text-left fade">{{ element.description }}</p>
     </div>
 
-      <a class="modal-open noselect flex-between" href="#">
-        <span class="details-button muted">☰ {{ this.locale.misc.details }}</span>
-      </a>
+    <span class="details-button muted noselect">☰ {{ this.locale.misc.details }}</span>
   </div>
 </template>
 
 <script>
   export default {
-    props: { element: Object, heat_value: [Number, String], heat_changed: Boolean, heat_view: Boolean, locale: Object },
+    props: { element: Object, heat_value: [Number, String], heat_changed: Boolean, heat_view: Boolean, locale: Object, eID: String },
     data() {
       const categoryOfElement = this.element.category_code
       const categoryColors = {
@@ -101,7 +91,7 @@
     },
     methods: {
       toggleInfo($event) {
-        if (!$event.target.closest('.labels') && !$event.target.closest('.number')) return
+        if ($event.target.classList.contains('details-button')) return
         this.infoViewable = !this.infoViewable
       },
       displayHeatState(element) {
@@ -150,76 +140,63 @@
 </script>
 
 <style lang="scss" scoped>
-  .container_List {
+  .list_elementContainer {
     border: .1px solid #1d232f;
-    border-radius: 1vw;
+    border-radius: .3rem;
 
     display: grid;
-    margin-bottom: .5rem;
+    margin-bottom: .2rem;
 
     background: rgb(39,47,63);
     background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
-    /* background-color: #232b38; */
-    color: whitesmoke;
+    color: gainsboro;
     &:hover {
       filter: drop-shadow(0 0 .2rem v-bind(colorCode));
     }
     &:active {
-      filter: drop-shadow(0 0 .5rem v-bind(colorCode));
+      // filter: drop-shadow(0 0 .5rem v-bind(colorCode));
+      border: 1px solid v-bind(colorCode);
     }
 
     .item {
-      // margin: 10px 15px;
       padding: .5rem 1rem;
     }
   }
   
-  .labels {
+  .list_labels {
     display: flex;
     justify-content: space-between;
-    font-weight:100;
+    font-weight: 100;
     font-size: large;
     
-    .names {
+    .list_name {
       color: v-bind(colorCode);
-      justify-self: flex-start;
-      text-align: left;
-      
-      // .nameEN {
-      //   font-weight: lighter;
-      //   font-size: medium;
-      // }
-      .nameTR {
-        font-size: 8vw;
-        font-weight: bolder;
-      }
+      font-size: 8vw;
+      font-weight: bold;
     }
-    .symbol {
-      font-size: 3rem;
+    .list_symbol {
+      font-size: 8vw;
       font-weight: bold;
       filter: drop-shadow(0 0 .1rem v-bind(colorCode));
     }
   }
-  .atomic {
+  .list_atomicMass {
     color: v-bind(colorCode);
-    align-self: center;
     font-size: small;
   }
-  .number {
-    font-size: large;
-    justify-self: flex-start;
+  .list_number_container {
     position: relative;
 
+    font-size: small;
     color: v-bind(colorCode);
   }
   .heatState {
     margin-top: .5rem;
-    // font-family: 'Emoji', sans-serif;
-    filter: drop-shadow(0 0 .2rem v-bind(colorCode));
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2rem;
+    height: 2rem;
   }
-  .description {
+  .list_description {
+    margin-top: -.5rem;
     margin-bottom: 1rem;
     font-weight: 100;
   }
@@ -231,21 +208,20 @@
     transition: all 500ms ease;
     margin: 0 1rem;
   }
-  .modal-open {
+  .details-button {
+    width: 100%;
     text-decoration: none;
     // color: v-bind(colorCode);
     background: rgb(39,47,63);
     background-image: linear-gradient(90deg, #272f3f 0%, #1d232f 100%);
-    border-radius: 0 0 .3rem .3rem;
-    // border-bottom-left-radius: .3rem;
-    // border-bottom-right-radius: .3rem;
-    padding: .3rem 1rem;
+    border-radius: 0 0 2vw 2vw;
+    padding: .2rem 1rem;
 
-    // .details-button {
-    //   padding: .4rem .4rem;
-    //   background-color: #1d232f;
-    //   border-radius: .3rem;
-    // }
+    border-top: .5px solid #1d232f;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
   .close {
     position: absolute;

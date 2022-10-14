@@ -16,41 +16,55 @@
 
     <div class="content" id="updates">
       <h3 class="versionNumber">v{{ versionNumber }}</h3>
-        
-      <h3>{{ loc.pages.about.updates.visual }}</h3>
-      <li>İngilizce desteği eklendi.</li>
-      <li>Tablo ve Liste görünümündeki bazı sorunlar düzeltildi.</li>
-      <h3>{{ loc.pages.about.updates.tech }}</h3>
-      <li>Menüye dil değiştirme özelliği eklendi.</li>
-      <li>İngilizce version: Detaylı bilgi penceresine Wikipedia kısayolu eklendi.</li>
+        <h3>{{ loc.pages.about.updates.visual }}</h3>
+        <li>Ana menünün görünümünde değişiklikler yapıldı.</li>
+        <li>Dil değiştirme butonun görünümünde değişiklikler yapıldı.</li>
+        <li>Sıcaklık modülünün görünümünde değişiklikler yapıldı.</li>
+        <li>Mobil moddaki açılır menünün görünümünde değişiklikler yapıldı.</li>
+        <li>Detaylı bilgi penceresine animasyon eklendi.</li>
+        <li>Animasyonlar hızlandırıldı.</li>
 
+        <h3>{{ loc.pages.about.updates.tech }}</h3>
+        <li>Detaylı bilgi penceresindeki değer dönüştürme sorunu düzeltildi.</li>
+        <li>Detaylı bilgi penceresindeki NULL değerler gizlendi.</li>
+      <br />
+      <h3 class="versionNumber">v2.0.8</h3>
+        <h3>{{ loc.pages.about.updates.visual }}</h3>
+        <li>İngilizce desteği eklendi.</li>
+        <li>Tablo ve Liste görünümündeki bazı sorunlar düzeltildi.</li>
+
+        <h3>{{ loc.pages.about.updates.tech }}</h3>
+        <li>Menüye dil değiştirme özelliği eklendi.</li>
+        <li>İngilizce version: Detaylı bilgi penceresine Wikipedia kısayolu eklendi.</li>
+      <br />
       <h3 class="versionNumber">v2.0.1</h3>
-      <h3>{{ loc.pages.about.updates.visual }}</h3>
-      <li>Ufak problemler düzeltildi.</li>
-      <li>Tablo ve Liste görünüşleri değiştirildi.</li>
-      <h3>{{ loc.pages.about.updates.tech }}</h3>
-      <li>Arama özelliği geliştirildi.</li>
-      <li>Detaylı bilgi penceresine Evrim Ağacı Makale kısayolu eklendi.</li>
-      <li>Künyeye Evrim Ağacı Profil bağlantıları eklendi.</li>
-      <li>Öğretici tur geliştirildi.</li>
+        <h3>{{ loc.pages.about.updates.visual }}</h3>
+        <li>Ufak problemler düzeltildi.</li>
+        <li>Tablo ve Liste görünüşleri değiştirildi.</li>
 
+        <h3>{{ loc.pages.about.updates.tech }}</h3>
+        <li>Arama özelliği geliştirildi.</li>
+        <li>Detaylı bilgi penceresine Evrim Ağacı Makale kısayolu eklendi.</li>
+        <li>Künyeye Evrim Ağacı Profil bağlantıları eklendi.</li>
+        <li>Öğretici tur geliştirildi.</li>
+      <br />
       <h3 class="versionNumber">v2.0.0</h3>
-      <h3>{{ loc.pages.about.updates.visual }}</h3>
-      <li>Hem bilgisayar hem de mobil cihaz ekranlarına uyumlu, iki mod (liste ve tablo) tasarlandı.</li>
-      <li>Detaylı element bilgi penceresi tasarımı güncellendi.</li>
-      
-      <h3>{{ loc.pages.about.updates.tech }}</h3>
-      <li>Tablo modunda Modüler sistem geliştirildi. Grup ve Sıcaklık modülleri eklendi.</li>
-      <li>Grup Modülü: Blok veya kategori bilgisine göre elementleri filtreleme özelliği.</li>
-      <li>Sıcaklık Modülü: Kelvin, Celcius ve Fahrenheit üzerinden sıcaklık belirlenip, elementlerin durumlarını görselleştiren mod.</li>
-      <li>Detaylı element bilgi penceresine arama özelliği eklendi.</li>
-      <li>Tablo ve Liste modunda arama özelliği eklendi.</li>
-      <li>Mobil modda sıcaklık ve arama özellikleri için sanal klavyeler eklendi.</li>
-      <li>Sıcaklık filtre özelliği geliştirildi ve varsayılan sıcaklık 25C° (77F°, 298.15K) olarak belirlendi.</li>
+        <h3>{{ loc.pages.about.updates.visual }}</h3>
+        <li>Hem bilgisayar hem de mobil cihaz ekranlarına uyumlu, iki mod (liste ve tablo) tasarlandı.</li>
+        <li>Detaylı element bilgi penceresi tasarımı güncellendi.</li>
+        
+        <h3>{{ loc.pages.about.updates.tech }}</h3>
+        <li>Tablo modunda Modüler sistem geliştirildi. Grup ve Sıcaklık modülleri eklendi.</li>
+        <li>Grup Modülü: Blok veya kategori bilgisine göre elementleri filtreleme özelliği.</li>
+        <li>Sıcaklık Modülü: Kelvin, Celcius ve Fahrenheit üzerinden sıcaklık belirlenip, elementlerin durumlarını görselleştiren mod.</li>
+        <li>Detaylı element bilgi penceresine arama özelliği eklendi.</li>
+        <li>Tablo ve Liste modunda arama özelliği eklendi.</li>
+        <li>Mobil modda sıcaklık ve arama özellikleri için sanal klavyeler eklendi.</li>
+        <li>Sıcaklık filtre özelliği geliştirildi ve varsayılan sıcaklık 25C° (77F°, 298.15K) olarak belirlendi.</li>
 
       <div class="flex-between">
         <div></div>
-        <a id="mail" href="mailto:info@evrimagaci.org">{{ loc.pages.about.updates.report }}</a>
+        <a id="about_suggestReportLink" href="mailto:info@evrimagaci.org">{{ loc.pages.about.updates.report }}</a>
         <div></div>
       </div>
     </div>
@@ -58,9 +72,9 @@
     <div class="flex-between mute">
       <div class="miniNav">
         <!-- <a href="/" @click="purgeSettings('pagetour')">Ayarları sıfırla</a> -->
-        <a href="/" @click="purgeSettings('pagetour')">Öğretici turu yinele</a>
+        <a id="about_pagetourLink" href="/" @click="purgeSettings('pagetour')">Öğretici turu yinele</a>
       </div>
-      <a href="https://evrimagaci.org">Evrim Ağacı © 2022</a>
+      <a id="about_evrimagaciLink" href="https://evrimagaci.org">Evrim Ağacı © 2022</a>
     </div>
   </div>
 </template>
@@ -105,7 +119,7 @@
     list-style:disc;
     background-color: #232936;
     border-radius: .3rem;
-    padding: 2rem 3rem;
+    padding: 2rem;
     h3 {
       margin-bottom: .5rem;
     }
@@ -131,12 +145,12 @@
   li {
     margin-bottom: .3vw;
   }
-  a#mail::after {
+  a#about_suggestReportLink::after {
     content: "✉";
     color:#e5bb09;
     margin: 0 3px 0 5px;
   }
-  #mail {
+  #about_suggestReportLink {
     margin-top: 2vw;
   }
 </style>

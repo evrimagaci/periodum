@@ -1,36 +1,35 @@
 <template>
-  <div @click="toggleModal($event)" class="container"
+  <div @click="toggleModal($event)" :id="eID" class="table_elementContainer"
    :class="{
     'uncertain':  heatState('uncertain', element),
     'solid':      heatState('solid', element),
     'liquid':     heatState('liquid', element),
     'gas':        heatState('gas', element),
   }">
-    <div class="flex-between">
-      <div
-        class="number"
-        :class="{'colored flex-between': heat_view === false}">
-          <p> {{ element.number }} </p>
+      <div class="flex-between preventMouseEvent">
+        <div
+          class="table_atomicNumber"
+          :class="{'colored flex-between': !heat_view}">
+            <p> {{ element.number }} </p>
+        </div>
+        
+        <img v-show="heat_view"
+          class="heatState fade"
+          :src="displayHeatState(element)"
+        />
       </div>
       
-      <img v-show="heat_view"
-      class="fade heatState"
-      :src="displayHeatState(element)"
-      />
-    </div>
-    
-    <div class="symbol" :class="{'colored': heat_view === false}">{{ element.symbol }}</div>
-    <div class="name" :class="{'colored': heat_view === false}"> {{ element.name }} </div>
-    <div class="atomic" :class="{'colored': heat_view === false}">{{ element.atomic_mass }}</div>
-    <span class="block inactive">{{ element.block }}</span>
-    <span class="category inactive">{{ element.category_code }}</span>
-    <span class="name_en inactive">{{ element.name_en }}</span>
+      <div class="table_symbol preventMouseEvent" :class="{'colored': !heat_view}" >{{ element.symbol }}</div>
+      <div class="table_name preventMouseEvent" :class="{'colored': !heat_view}"> {{ element.name }} </div>
+      <div class="table_atomicMass preventMouseEvent" :class="{'colored': !heat_view}">{{ element.atomic_mass }}</div>
+      <span class="table_elementBlock inactive">{{ 'table_groupFilter_' + element.block }}</span>
+      <span class="table_elementCategory inactive">{{ element.category_code }}</span>
   </div>
 </template>
 
 <script>
   export default {
-    props: { element: Object, heat_value: [Number, String], heat_changed: Boolean, heat_view: Boolean },
+    props: { element: Object, heat_value: [Number, String], heat_changed: Boolean, heat_view: Boolean, eID: String },
     data() {
       const elementCategory = this.element.category_code
       const categoryColors = {
@@ -86,7 +85,7 @@
           return
         }
         
-        if (!eventTarget.closest('.block')) return
+        if (!eventTarget.closest('.table_elementBlock')) return
         this.modalViewable = !this.modalViewable
       },
       toggleInfo($event) {
@@ -98,7 +97,7 @@
 
         if (eventTarget.classList.contains('modal-open')) return
         if (eventTarget.classList.contains('modal')) return
-        if (!eventTarget.closest('.block')) return
+        if (!eventTarget.closest('.table_elementBlock')) return
         this.modalViewable = false
       },
       heatState(check, element) {
@@ -146,7 +145,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .container {
+  .table_elementContainer {
     height: 4.2vmax;
     width: 4.2vmax;
     
@@ -212,36 +211,35 @@
     background: v-bind(colorCode);
     background-image: linear-gradient(127deg, v-bind(colorCode) 46%, v-bind(colorCodeShaded) 100%);
     // filter: drop-shadow(0 0 0 1rem v-bind(colorCode));
-    color: black;
-    z-index: 99999;
+    color: black !important;
   }
 
-  .number {
+  .table_atomicNumber {
     font-weight: bolder;
     font-size: .5vw;
     margin-top: .2vh;
     opacity: .7;
+    // color: inherit;
   }
 
-  .symbol {
+  .table_symbol {
     font-size: 1vmax;
     font-weight: bold;
     letter-spacing: normal;
     filter: drop-shadow(0 0 5px rgba(255,255,255, .2));
   }
-  .name {
+  .table_name {
     /* color: white; */
     text-align: left;
     margin-top: -.2vh;
-    // color: white;
+    // color: inherit;
     font-size: .52vw;
     opacity: .8;
   }
   
-  .atomic {
+  .table_atomicMass {
     float: left;
     font-weight: 100;
-    /* color: #e9e9e9; */
     font-size: .5vw;
     opacity: .6;
     

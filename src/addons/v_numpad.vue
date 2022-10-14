@@ -47,7 +47,7 @@ export default {
       } else {
         if (value < 0.00001) {
           return Number.parseFloat(Number(value.toFixed(100)))
-          .toExponential().toPrecision(2)
+          .toExponential() || Number(value.toFixed(2))
         }
         return value
       }
@@ -116,8 +116,8 @@ export default {
         // if (INPUT_FIELD.value === '') {
         //   INPUT_FIELD.value = 0
           
-        //   document.querySelector('#liquid_list').classList.add('inactive')
-        //   document.querySelector('#gas_list').classList.add('inactive')
+        //   document.querySelector('#list_stateLiquid').classList.add('inactive')
+        //   document.querySelector('#list_stateGas').classList.add('inactive')
         //   INPUT_FIELD.focus();
         //   return
         // }
@@ -157,7 +157,7 @@ export default {
     grid-template-rows: repeat(5, 1fr);
     padding: 0 1rem;
     position:relative;
-    width: 89vw;
+    width: 100vw;
     height: 13.2rem;
     grid-gap: .3rem;
     // background: $main;

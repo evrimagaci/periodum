@@ -1,7 +1,7 @@
 {
   "pages": {
     "credits": {
-      "title": "credits",
+      "title": "Credits",
       "project_leaders": "Project Leaders",
       "sponsor_support": "Sponsors & Supporting Team",
       "titles": {
@@ -15,7 +15,7 @@
       }
     },
     "about": {
-      "title": "about",
+      "title": "About",
       "what_is": {
         "title": "What is Periodum?",
         "content": {
@@ -37,7 +37,7 @@
       }
     },
     "support": {
-      "title": "support",
+      "title": "Support",
       "link_to": "https://kreosus.com/evrimagaci2"
     }
   },
@@ -242,7 +242,10 @@
       "quantum_number": "Quantum Number",
       "electron_configuration_semantic": "Electron Configuration (Semantic)",
       "shell": "Shell",
-      "ionization_energy": "Ionization Energy"
+      "ionization_energy": "Ionization Energy",
+      "metrics": {
+        "mol_ratio": "mole ratio to silicon"
+      }
     }
   },
   "sub_menu": {
