@@ -37,10 +37,10 @@
         </div>
 
         <div @click.prevent="filterByState_List($event)" class="bm_leanRight heatSVGs">
-          <div class="btn fade" id="list_stateSolid">           <img clas="preventMouseEvent" :src="states.solid"/></div>
-          <div class="btn fade inactive" id="list_stateLiquid"> <img clas="preventMouseEvent" :src="states.liquid"/></div>
-          <div class="btn fade inactive" id="list_stateGas">    <img clas="preventMouseEvent" :src="states.gas"/></div>
-          <div class="btn fade" id="list_stateUncertain">       <img clas="preventMouseEvent" :src="states.uncertain"/></div>
+          <div class="btn fade" id="list_stateSolid">     <img clas="preventMouseEvent" :src="states.solid"/></div>
+          <div class="btn fade" id="list_stateLiquid">    <img clas="preventMouseEvent" :src="states.liquid"/></div>
+          <div class="btn fade" id="list_stateGas">       <img clas="preventMouseEvent" :src="states.gas"/></div>
+          <div class="btn fade" id="list_stateUncertain"> <img clas="preventMouseEvent" :src="states.uncertain"/></div>
         </div>
       </section>
 
