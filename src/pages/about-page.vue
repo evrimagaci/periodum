@@ -18,7 +18,7 @@
       <h3 class="versionNumber">v{{ versionNumber }}</h3>
         <h3>{{ loc.pages.about.updates.visual }}</h3>
         <li>Ana menünün görünümünde değişiklikler yapıldı.</li>
-        <li>Dil değiştirme butonun görünümünde değişiklikler yapıldı.</li>
+        <li>Dil değiştirme butonunun görünümünde değişiklikler yapıldı.</li>
         <li>Sıcaklık modülünün görünümünde değişiklikler yapıldı.</li>
         <li>Mobil moddaki açılır menünün görünümünde değişiklikler yapıldı.</li>
         <li>Detaylı bilgi penceresine animasyon eklendi.</li>
@@ -28,6 +28,7 @@
         <li>Detaylı bilgi penceresindeki değer dönüştürme sorunu düzeltildi.</li>
         <li>Detaylı bilgi penceresindeki NULL değerler gizlendi.</li>
       <br />
+
       <h3 class="versionNumber">v2.0.8</h3>
         <h3>{{ loc.pages.about.updates.visual }}</h3>
         <li>İngilizce desteği eklendi.</li>
@@ -37,6 +38,7 @@
         <li>Menüye dil değiştirme özelliği eklendi.</li>
         <li>İngilizce version: Detaylı bilgi penceresine Wikipedia kısayolu eklendi.</li>
       <br />
+
       <h3 class="versionNumber">v2.0.1</h3>
         <h3>{{ loc.pages.about.updates.visual }}</h3>
         <li>Ufak problemler düzeltildi.</li>
@@ -48,6 +50,7 @@
         <li>Künyeye Evrim Ağacı Profil bağlantıları eklendi.</li>
         <li>Öğretici tur geliştirildi.</li>
       <br />
+
       <h3 class="versionNumber">v2.0.0</h3>
         <h3>{{ loc.pages.about.updates.visual }}</h3>
         <li>Hem bilgisayar hem de mobil cihaz ekranlarına uyumlu, iki mod (liste ve tablo) tasarlandı.</li>

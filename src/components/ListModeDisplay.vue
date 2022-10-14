@@ -289,7 +289,7 @@ export default {
     },
     listSearching($event) {
       const INPUT = $event.target.value.toLowerCase()
-      const KEY = document.querySelector('.list_element')
+      const KEY = document.querySelector('.table_demo_element')
       
       const CONDITIONS = function(el) {
         let searchIn = []
@@ -315,6 +315,7 @@ export default {
         if (CONDITIONS(element)) {
           element.style.filter = 'drop-shadow(0 0 .3vw white)'
           element.classList.remove('inactive')
+          KEY.classList.remove('inactive')
         }
         else {
           if (INPUT === '') {

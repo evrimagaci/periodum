@@ -47,8 +47,8 @@
         <div class="flex-between align-end">
           <div @click.prevent="filterByState($event)" class="states flex-between">
             <div class="fade btn"           id="solid">     <img :src="states.solid"/></div>
-            <div class="fade btn inactive"  id="liquid">    <img :src="states.liquid"/></div>
-            <div class="fade btn inactive"  id="gas">       <img :src="states.gas"/></div>
+            <div class="fade btn"  id="liquid">    <img :src="states.liquid"/></div>
+            <div class="fade btn"  id="gas">       <img :src="states.gas"/></div>
             <div class="fade btn"           id="uncertain"> <img :src="states.uncertain"/></div>
           </div>
           
@@ -88,7 +88,7 @@
             <li id="table_catFilter_actinides">{{ locale.elements.categories.metals.actinides }}</li>
           </ul>
           <ul class="table_categoricalFilter">
-            <li class="mainFilter" id="table_catFilter_metalloid">{{ locale.elements.categories.metalloid.main }}</li>
+            <li class="mainFilter" id="table_catFilter_metalloids">{{ locale.elements.categories.metalloid.main }}</li>
             <li id="table_catFilter_metalloid">{{ locale.elements.categories.metalloid.metalloid }}</li>
           </ul>
           <ul class="table_categoricalFilter">

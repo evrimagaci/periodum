@@ -132,10 +132,10 @@
 				<summary id="modal_density_features">{{ this.locale.elements.modal_content.density_features }}</summary>
 				
 				<details>
-					<summary class="details" id="modal_">{{ this.locale.elements.modal_content.solid_density }}</summary>
-					<div v-if="element.density_solid_WEL"><ElementItem :title="this.locale.elements.modal_content.density_solid_WEL" :value="element.density_solid_WEL" :unitKey="'kg/m3'" /></div>
-					<div v-if="element.density_solid_LNG"><ElementItem :title="this.locale.elements.modal_content.density_solid_LNG" :value="element.density_solid_LNG" :unitKey="'kg/m3'" /></div>
-					<div v-if="element.density_solid_CRC"><ElementItem :title="this.locale.elements.modal_content.density_solid_CRC" :value="element.density_solid_CRC" :unitKey="'kg/m3'" /></div>
+					<summary class="details" id="modal_solid_density">{{ this.locale.elements.modal_content.solid_density }}</summary>
+					<div v-if="element.density_solid_WEL"><ElementItem :title="this.locale.elements.modal_content.density_solid_wel" :value="element.density_solid_WEL" :unitKey="'kg/m3'" /></div>
+					<div v-if="element.density_solid_LNG"><ElementItem :title="this.locale.elements.modal_content.density_solid_lng" :value="element.density_solid_LNG" :unitKey="'kg/m3'" /></div>
+					<div v-if="element.density_solid_CRC"><ElementItem :title="this.locale.elements.modal_content.density_solid_crc" :value="element.density_solid_CRC" :unitKey="'kg/m3'" /></div>
 				</details>	<div v-if="element.density_rt"><ElementItem :title="this.locale.elements.modal_content.density_rt" :value="element.density_rt" :unitKey="'kg/m3'" /></div>
 				<div v-if="element.density_liquid_cr2"><ElementItem :title="this.locale.elements.modal_content.density_liquid_cr2" :value="element.density_liquid_cr2" :unitKey="'kg/m3'" /></div>
 				<div v-if="element.density_gas"><ElementItem :title="this.locale.elements.modal_content.density_gas" :value="element.density_gas" :unitKey="'kg/m3'" /></div>

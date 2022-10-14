@@ -6,28 +6,26 @@
       'list_stateLiquid':     heatState('liquid', element),
       'list_stateGas':        heatState('gas', element),
     }">
-      <div class="item preventMouseEvent noselect">
-        <div class="list_number_container flex-between fade" v-if="infoViewable === false">
-          <p class="list_atomicNumber muted">{{ element.number }}</p>
-          <h2 class="list_labels list_atomicMass muted">{{ this.locale.elements.modal_content.atomic_mass }} {{ element.atomic_mass }}</h2>
+    <div class="item preventMouseEvent noselect">
+      <div class="list_number_container flex-between fade" v-if="infoViewable === false">
+        <p class="list_atomicNumber muted">{{ element.number }}</p>
+        <h2 class="list_labels list_atomicMass muted">{{ this.locale.elements.modal_content.atomic_mass }} {{ element.atomic_mass }}</h2>
+      </div>
+      <div class="list_number_container text-left fade" v-else>
+        <p>{{ element.number }} {{ element.name }} </p>
+        <h2 class="list_labels list_atomicMass muted">{{ this.locale.elements.modal_content.atomic_mass }} {{ element.atomic_mass }}</h2>
+      </div>
+
+      <div class="list_labels">
+        <div v-show="!infoViewable" class="list_name fade">{{ element.name }}</div>
+
+        <div class="list_symbol" :style="{ color: colorCode }">
+          <div v-show="!heat_view">{{ element.symbol }}</div>
+          <img v-show="heat_view" class="heatState" :src="displayHeatState(element)" />
         </div>
-        <div class="list_number_container text-left fade" v-else>
-          <p>{{ element.number }} {{ element.name }} </p>
-          <!-- ({{ element.name_en }}) -->
-          <h2 class="list_labels list_atomicMass muted">{{ this.locale.elements.modal_content.atomic_mass }} {{ element.atomic_mass }}</h2>
 
-        </div>
-
-        <div class="list_labels">
-          <div v-show="infoViewable === false" class="list_name fade"> {{ element.name }} </div>
-
-          <div class="list_symbol" :style="{ color: colorCode }">
-            <div v-show="!heat_view">{{ element.symbol }}</div>
-            <img v-show="heat_view" class="heatState" :src="displayHeatState(element)" />
-          </div>
-          <span class="list_elementBlock inactive">{{ 'list_groupFilter_' + element.block }}</span>
-          <span class="list_elementCategory inactive">{{ element.category_code }}</span>
-
+        <span class="list_elementBlock inactive">{{ 'list_groupFilter_' + element.block }}</span>
+        <span class="list_elementCategory inactive">{{ element.category_code }}</span>
       </div>
     </div>
 
@@ -145,7 +143,7 @@
     border-radius: .3rem;
 
     display: grid;
-    margin-bottom: .2rem;
+    margin-bottom: .4rem;
 
     background: rgb(39,47,63);
     background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
