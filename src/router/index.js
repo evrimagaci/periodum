@@ -17,11 +17,6 @@ const routes = [
      path: '/hakkinda',
      name: 'hakkında',
      component: () => import('../pages/about-page.vue')
-   },
-   {
-     path: '/destek',
-     name: 'destek',
-     component: () => import('../pages/support-page.vue')
    }
 ]
 
