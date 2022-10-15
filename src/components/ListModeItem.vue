@@ -35,7 +35,7 @@
       <p class="list_description text-left fade">{{ element.description }}</p>
     </div>
 
-    <span class="details-button muted noselect">☰ {{ this.locale.misc.details }}</span>
+    <span id="list_elementDetailsBtn" class="details-button muted noselect">☰ {{ this.locale.misc.details }}</span>
   </div>
 </template>
 
