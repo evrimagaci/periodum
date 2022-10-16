@@ -1,13 +1,5 @@
 <template>
-  <!-- <div class="dropdown" id="tableLanguagemenu">
-    <button class="dropdown-button" id="langmenu_table"><img :src="flag[getUserLanguage()]" :alt="getUserLanguage() + 'Flag'"></button>
-    <div class="dropdown-content">
-      <a @click="changeLanguage($event, 'en')" href="#"><img :src="flag.en" alt="US Flag">English</a>
-      <a @click="changeLanguage($event, 'tr')" href="#"><img :src="flag.tr" alt="TR Bayrağı">Türkçe</a>
-    </div>
-  </div> -->
   <div class="grid">
-    <!-- <input placeholder="Arama yap..." class="arama" type="search" name="searchBox" id=""> -->
     <div v-show="table_panelMode" class="table_tabs fade">
       <button class="btn" :style="[table_filterMode ? { border: 'solid 1px #e5bb09' }   : {color: '#e5bb09'}]" id="table_moduleBtn_filterMode"   @click="toggleTablePanel('filter')">{{ locale.modules.group }}</button>
       <button class="btn" :style="[table_heatMode ? { border: 'solid 1px #e5bb09' }     : {color: '#e5bb09'}]" id="table_moduleBtn_heatMode"     @click="toggleTablePanel('heat')">{{ locale.modules.heat }}</button>
@@ -30,14 +22,6 @@
     </label>
 
     <div v-show="table_panelMode" id="modulePanel" class="modules fade">
-      <!-- Özet Modülü -->
-      <!-- <div v-show="table_summaryMode" class="h-100 flex-between flex-column fade">
-        <div class="flex-between">
-          <h2><div class="element-summary-title text-primary"></div></h2>
-          <h5><div class="element-summary-titleEN text-primary"></div></h5>
-        </div>
-        <div class="element-summary-description text-primary fit-content"></div>
-      </div> -->
 
       <!-- Sıcaklık Modülü -->
       <div v-show="table_heatMode" class="h-100 flex-between flex-column fade">
