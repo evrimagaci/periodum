@@ -266,5 +266,13 @@
     "modalSearch_text": "Başlık, alt başlık, içerik...",
     "details": "Detaylar",
     "thanks": "Proje geliştirme sürecindeki yardımlarından ötürü bionluk'a teşekkürler."
+  },
+  "tooltip": {
+    "copy": "Kopyala",
+    "copy_success": "Kopyalandı!",
+    "solid": "Katı",
+    "liquid": "Sıvı",
+    "gas": "Gaz",
+    "uncertain": "Bilinmeyen"
   }
 }

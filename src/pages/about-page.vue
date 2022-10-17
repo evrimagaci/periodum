@@ -17,6 +17,17 @@
     <div class="content" id="updates">
       <h3 class="versionNumber">v{{ versionNumber }}</h3>
         <h3>{{ loc.pages.about.updates.visual }}</h3>
+        <li>Detaylı bilgi penceresindeki sayısal değerlerdeki bilimsel kısaltmalar kaldırıldı.</li>
+        <li>Tablodaki basit mod sadece tablo ve arama kutusu görünecek şekilde güncellendi.</li>
+        <li>Liste modundaki açılır menünün görünüşü düzenlendi.</li>
+
+        <h3>{{ loc.pages.about.updates.tech }}</h3>
+        <li>Detaylı bilgi penceresindeki değerler tıklanarak kopyalanabilir hale getirildi.</li>
+        <li>Bilgilendirici not özelliği eklendi.</li>
+      <br />
+
+      <h3 class="versionNumber">v2.1.1</h3>
+        <h3>{{ loc.pages.about.updates.visual }}</h3>
         <li>Ana menünün görünümünde değişiklikler yapıldı.</li>
         <li>Dil değiştirme butonunun görünümünde değişiklikler yapıldı.</li>
         <li>Sıcaklık modülünün görünümünde değişiklikler yapıldı.</li>
@@ -73,10 +84,6 @@
     </div>
 
     <div class="flex-between mute">
-      <div class="miniNav">
-        <!-- <a href="/" @click="purgeSettings('pagetour')">Ayarları sıfırla</a> -->
-        <a id="about_pagetourLink" href="/" @click="purgeSettings('pagetour')">Öğretici turu yinele</a>
-      </div>
       <a id="about_evrimagaciLink" href="https://evrimagaci.org">Evrim Ağacı © 2022</a>
     </div>
   </div>
@@ -156,4 +163,10 @@
   #about_suggestReportLink {
     margin-top: 2vw;
   }
+
+  
+  // <div class="miniNav">
+  //       <a href="/" @click="purgeSettings('pagetour')">Ayarları sıfırla</a>
+  //       <a id="about_pagetourLink" href="/" @click="purgeSettings('pagetour')">Öğretici turu yinele</a>
+  //     </div>
 </style>

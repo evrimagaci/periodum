@@ -78,7 +78,7 @@ for (const obj2 of ELEMENT_LANGUAGE) {
 
 // All objects have been merged or added. Convert our map to an array.
 const ELEMENTS = Object.values(objectsById);
-
+// TOUR
 export default {
   components: { ListDisplay, TableDisplay, ElementModal, TOUR },
   name: 'PeriodumPage',
@@ -174,6 +174,7 @@ export default {
     },
     setElement(el) {
       this.modalViewable = !this.modalViewable
+      
       this.currentElement = el
     },
     toggleModal($event) {
@@ -258,7 +259,7 @@ export default {
 
     @media screen and (max-width: 720px) {
       display: none;
-     }
+    }
   }
   #listmode   {
     display: none; 
@@ -375,6 +376,7 @@ export default {
       }
       &:hover {
         opacity: 1;
+        border: 3px dashed #1a1f2a;
         word-break:break-all;
       }
     }

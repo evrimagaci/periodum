@@ -148,12 +148,11 @@
     background: rgb(39,47,63);
     background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
     color: gainsboro;
-    &:hover {
+    &:active {
       filter: drop-shadow(0 0 .2rem v-bind(colorCode));
     }
-    &:active {
-      // filter: drop-shadow(0 0 .5rem v-bind(colorCode));
-      border: 1px solid v-bind(colorCode);
+    &:hover {
+      filter: drop-shadow(0 0 .2rem v-bind(colorCode));
     }
 
     .item {
@@ -215,7 +214,7 @@
     border-radius: 0 0 2vw 2vw;
     padding: .2rem 1rem;
 
-    border-top: .5px solid #1d232f;
+    border-top: .5px solid #181c24;
 
     &:hover {
       cursor: pointer;

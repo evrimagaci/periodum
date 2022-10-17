@@ -266,5 +266,13 @@
     "modalSearch_text": "Title, subtitle, content...",
     "details": "Details",
     "thanks": "A special thanks to bionluk for their contribution during the development of this project."
+  },
+  "tooltip": {
+    "copy": "Copy",
+    "copy_success": "Copied!",
+    "solid": "Solid",
+    "liquid": "Liquid",
+    "gas": "Gas",
+    "uncertain": "Uncertain"
   }
 }

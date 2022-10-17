@@ -154,6 +154,7 @@
     
     background: rgb(39,47,63);
     background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
+    
     /* color: whitesmoke; */
     padding: .3vw;
     

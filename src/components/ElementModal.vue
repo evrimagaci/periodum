@@ -12,6 +12,8 @@
 		<div class="modal_search">
 			<input type="search" name="search" id="modalSearch" :placeholder="this.locale.misc.modalSearch_text" autocomplete="off" @input="modalSearching($event)">
 		</div>
+
+		<infoBar :vis="'table'" :infoText="'Değerleri, onlara tıklayarak kopyalayabilirsin.'" />
 		<!-- Element Bilgileri -->
 		<div v-if="!eaContentView" class="text-left">
 			<div class="essentials">
@@ -133,12 +135,12 @@
 				
 				<details>
 					<summary class="modalTitle" id="modal_solid_density">{{ this.locale.elements.modal_content.solid_density }}</summary>
-					<div v-if="element.density_solid_WEL"><ElementItem :title="this.locale.elements.modal_content.density_solid_wel" :value="element.density_solid_WEL" :unitKey="'kg/m3'" /></div>
-					<div v-if="element.density_solid_LNG"><ElementItem :title="this.locale.elements.modal_content.density_solid_lng" :value="element.density_solid_LNG" :unitKey="'kg/m3'" /></div>
-					<div v-if="element.density_solid_CRC"><ElementItem :title="this.locale.elements.modal_content.density_solid_crc" :value="element.density_solid_CRC" :unitKey="'kg/m3'" /></div>
-				</details>	<div v-if="element.density_rt"><ElementItem :title="this.locale.elements.modal_content.density_rt" :value="element.density_rt" :unitKey="'kg/m3'" /></div>
-				<div v-if="element.density_liquid_cr2"><ElementItem :title="this.locale.elements.modal_content.density_liquid_cr2" :value="element.density_liquid_cr2" :unitKey="'kg/m3'" /></div>
-				<div v-if="element.density_gas"><ElementItem :title="this.locale.elements.modal_content.density_gas" :value="element.density_gas" :unitKey="'kg/m3'" /></div>
+					<div v-if="element.density_solid_WEL"><ElementItem :title="this.locale.elements.modal_content.density_solid_wel" :value="element.density_solid_WEL" :unitKey="'kg/m³'" /></div>
+					<div v-if="element.density_solid_LNG"><ElementItem :title="this.locale.elements.modal_content.density_solid_lng" :value="element.density_solid_LNG" :unitKey="'kg/m³'" /></div>
+					<div v-if="element.density_solid_CRC"><ElementItem :title="this.locale.elements.modal_content.density_solid_crc" :value="element.density_solid_CRC" :unitKey="'kg/m³'" /></div>
+				</details>	<div v-if="element.density_rt"><ElementItem :title="this.locale.elements.modal_content.density_rt" :value="element.density_rt" :unitKey="'kg/m³'" /></div>
+				<div v-if="element.density_liquid_cr2"><ElementItem :title="this.locale.elements.modal_content.density_liquid_cr2" :value="element.density_liquid_cr2" :unitKey="'kg/m³'" /></div>
+				<div v-if="element.density_gas"><ElementItem :title="this.locale.elements.modal_content.density_gas" :value="element.density_gas" :unitKey="'kg/m³'" /></div>
 			</details>
 			
 			<!-- Isı Özellikleri -->
@@ -345,9 +347,10 @@
 
 <script>
 	import ElementItem from './ElementItem.vue';
+	import infoBar from '../addons/infoBar.vue';
 
 	export default {
-		components: { ElementItem },
+		components: { ElementItem, infoBar },
 		props: {
 			element: Object,
 			toggleModal: Boolean,
@@ -548,13 +551,13 @@
 		position : fixed;
 		top: 0; left: 0;
 		width: 25rem; height: 100vh;
-		background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
 		background: rgba($color: #1d232f, $alpha: 1);
+		// background-image: linear-gradient(136deg, #202631 0%, #1d232f 100%);
 		padding: 1rem;
 		padding-bottom: 10rem;
 		
 		z-index: 10;
-		overflow: auto;
+		overflow:auto;
 	}
 	.close-modal {
 		position: fixed;
@@ -570,26 +573,23 @@
 	@media screen and (max-width: 700px) {
 		.modal {
 			position : fixed;
-			top: 50%; left: 50%;
-			transform: translate(-50%, -50%);
 			width: 100%; height: 100%;
 			padding: 2rem;
-			padding-bottom: 5rem;
-			border-radius: .5rem;
+			padding-bottom: 3rem;
 			z-index: 10;
 			overflow: scroll;
 		}
 		
 		.close-modal {
 			position : fixed;
-			left: 0;
+			left: -.05rem;
 			bottom: 0;
 			top:unset;
 			width: 100%;
 			z-index: 10;
 			padding: 0 1rem;
 			backdrop-filter: blur(5px);
-			filter: opacity(.9);
+			filter: opacity(.7);
 			background: #1c222e;
 			background-image: linear-gradient(0deg, #1c222e 10%, #1c222e 70%);
 		}
@@ -601,7 +601,7 @@
 		left: 0;
 		width: 120vw;
 		height: 120vh;
-		background-color: rgba(0, 0, 0, .7);
+		background-color: rgba(0, 0, 0, .4);
 		// backdrop-filter: blur(.05vw);
 		z-index: 1;
 	}
@@ -617,13 +617,12 @@
 			display: flex;
 			background: #272f3f;
 			border-radius: .3rem;
-			// border: 1px solid black;
 			color: black;
 			top: 1rem; right: 1rem;
 			width: 5rem; height: 5rem;
 			h2 {
 				padding: .3rem;
-				font-size: 2.5rem;
+				font-size: 2.3rem;
 				align-self: center;
 				text-align: center;
 				width: 5rem;

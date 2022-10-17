@@ -44,30 +44,9 @@
     </div>
 
     <div id="part-4" class="inactive">
-      <!-- <section id="section-searchModal">
-      <img class="arrow" id="upArrow" :src="arrows.up">
-        <div class="text">
-          <h2>Arama</h2>
-          <h4>Başlık, içerik, veri ile arama yapabilirsin.</h4>
-        </div>
-      </section>
-      <section id="section-modalResult">
-      <img class="arrow" id="upArrow" :src="arrows.up">
-        <div class="text">
-          <h2>İncele</h2>
-          <h4>Başlığa tıklayarak detayları inceleyebilirsin.</h4>
-        </div>
-      </section> -->
     </div>
 
     <div id="part-5" class="inactive">
-      <!-- <section id="section-modalExit">
-      <img class="arrow" id="upArrow" :src="arrows.up">
-        <div class="text">
-          <h2>Detayları Kapat</h2>
-          <h4>"X" butonu veya detaylar penceresinin dışında kalan herhangi bir yere tıklayarak tabloya dönebilirsin.</h4>
-        </div>
-      </section> -->
     </div>
 
     <div id="part-6" class="inactive">
@@ -145,7 +124,7 @@ export default {
         
         this.highlight({
           x: '47.7vmax',
-          y: '-21.3vw',
+          y: '-16.4vw',
           w: '22.5vw',
           h: '2.8vw'
         })
@@ -156,20 +135,20 @@ export default {
       // RODYUM ARAMASI YAP
       else if (this.currentPart === 2) {
         // document.querySelector('#tableSearch').style.boxShadow = 'none'
+        
+        this.highlight({
+          x: '30.1vmax',
+          y: '-.4vw',
+          w: '5vw',
+          h: '5vw'
+        })
+
         document.querySelector('#tableSearch').value = 'Rodyum'
         document.querySelector('#tableSearch').dispatchEvent(new Event('input'))
         
         document.querySelector('#table45').addEventListener('click', function() {
           document.querySelector('.next-button').dispatchEvent(new Event('click'))
         }, {once : true});
-
-        
-        this.highlight({
-          x: '30.1vmax',
-          y: '-5.2vw',
-          w: '5vw',
-          h: '5vw'
-        })
 
         document.querySelector('.next-button').classList.add('inactive')
       }
@@ -185,17 +164,17 @@ export default {
         document.querySelector('#modalSearch').value = 'Gözlem'
         document.querySelector('#modalSearch').dispatchEvent(new Event('input'))
 
-        const MODAL_SEARCH_INFOTEXT = document.createElement('div')
-        MODAL_SEARCH_INFOTEXT.textContent = 'Başlık, içerik, veri ile arama yapabilirsin.'
-        MODAL_SEARCH_INFOTEXT.id = 'temp_modal_search_info'
-        stylize_item(MODAL_SEARCH_INFOTEXT)
+        // const MODAL_SEARCH_INFOTEXT = document.createElement('div')
+        // MODAL_SEARCH_INFOTEXT.textContent = 'Başlık, içerik, veri ile arama yapabilirsin.'
+        // MODAL_SEARCH_INFOTEXT.id = 'temp_modal_search_info'
+        // stylize_item(MODAL_SEARCH_INFOTEXT)
 
         const MODAL_REFULT_INFOTEXT = document.createElement('div')
         MODAL_REFULT_INFOTEXT.textContent = 'Başlığa tıklayarak detayları inceleyebilirsin.'
         MODAL_REFULT_INFOTEXT.id = 'temp_modal_result_info'
         stylize_item(MODAL_REFULT_INFOTEXT)
         
-        document.querySelector('#modalSearch').parentNode.insertBefore(MODAL_SEARCH_INFOTEXT, document.querySelector('#modalSearch').nextSibling)
+        // document.querySelector('#modalSearch').parentNode.insertBefore(MODAL_SEARCH_INFOTEXT, document.querySelector('#modalSearch').nextSibling)
         document.querySelector('#pagetour_item').parentNode.insertBefore(MODAL_REFULT_INFOTEXT, document.querySelector('#pagetour_item').nextSibling)
 
         // pagetour_item
@@ -207,7 +186,7 @@ export default {
       // MODAL'DAN ÇIK
       else if (this.currentPart === 5) {        
         // ARAMA KUTUSUNU TEMİZLE ve GİRDİ ENGELİNİ KALDIR
-        document.querySelector('#temp_modal_search_info').remove()
+        // document.querySelector('#temp_modal_search_info').remove()
         document.querySelector('#temp_modal_result_info').remove()
         document.querySelector('#modalSearch').value = ''
         document.querySelector('#modalSearch').dispatchEvent(new Event('input'))
@@ -254,7 +233,7 @@ export default {
         
         this.highlight({
           x: '7.1vmax',
-          y: '-21.3vw',
+          y: '-16.3vw',
           w: '4.52vw',
           h: '2.8vw'
         })
@@ -262,7 +241,7 @@ export default {
         // Kullanıcının modüle tıklamasını sağla
 
         // document.querySelector('#heatmode').style.boxShadow = '0 0 10px white'
-        document.querySelector('#heatmode').addEventListener('click', function() {
+        document.querySelector('#table_moduleBtn_heatMode').addEventListener('click', function() {
           document.querySelector('.next-button').dispatchEvent(new Event('click'))
         }, {once : true});
       }
@@ -274,7 +253,7 @@ export default {
         
         this.highlight({
           x: '3.8vmax',
-          y: '-18.1vw',
+          y: '-13vw',
           w: '44vw',
           h: '9vw'
         })
@@ -286,7 +265,7 @@ export default {
         document.querySelector('#highlightContainer').classList.add('inactive')
 
         document.querySelector('.pageTourContainerTable').remove()
-        document.querySelector('#filtermode').dispatchEvent(new Event('click'))
+        document.querySelector('#table_moduleBtn_filterMode').dispatchEvent(new Event('click'))
         
         localStorage.setItem('visited_before', 'true')
       }
@@ -342,7 +321,7 @@ export default {
       pointer-events: none;
 
       left: 3.8vmax;
-      top: -18.1vw;
+      top: -13vw;
       width: 44vw;
       height: 9vw;
     }
@@ -351,7 +330,7 @@ export default {
     position: relative;
     #section-filter {
       left: 5vmax;
-      bottom:22vw;
+      bottom:18vw;
 
       #rightArrow {
         height: 8vw;
@@ -363,7 +342,7 @@ export default {
     position: relative;
     #section-search {
       left: 45vmax;
-      bottom: 32vw;
+      bottom: 26vw;
       
       #rightArrow {
         height: 8vw;
@@ -375,7 +354,7 @@ export default {
     position: relative;
     #section-searchElement {
       left: 27vmax;
-      bottom: 14vw;
+      bottom: 10vw;
 
       #rightArrow {
         height: 8vw;
@@ -427,7 +406,7 @@ export default {
     position: relative;
     #section-heat {
       left: 13vmax;
-      bottom: 27vw;
+      bottom: 23vw;
 
       #upArrow {
         height: 8vw;
@@ -439,7 +418,7 @@ export default {
     position: relative;
     #section-heat-slider {
       left: 33vmax;
-      bottom:23vw;
+      bottom:18vw;
 
       #upArrow {
       height: 8vw;
@@ -448,7 +427,7 @@ export default {
 
     #section-heat-statebuttons {
       left: 5vmax;
-      bottom:22vw;
+      bottom:18vw;
 
       #rightArrow {
         height: 8vw;

@@ -279,23 +279,23 @@ export default {
       formula: 'unit => unit*1.0E-12'
     }
   ],
-  'g/cm3': [
+  'g/cm³': [
     {
-      target_unit: 'kg/m3',
+      target_unit: 'kg/m³',
       formula: 'unit => unit*0.001'
     },
     {
-      target_unit: 'kg/cm3',
+      target_unit: 'kg/cm³',
       formula: 'unit => unit*1.00E-09'
     }
   ],
-  'kg/m3': [
+  'kg/m³': [
     {
-      target_unit: 'g/cm3',
+      target_unit: 'g/cm³',
       formula: 'unit => unit*0.001'
     },
     {
-      target_unit: 'kg/cm3',
+      target_unit: 'kg/cm³',
       formula: 'unit => unit*1.00E-06'
     }
   ],
@@ -305,7 +305,7 @@ export default {
       formula: 'unit => unit*0.001'
     },
     {
-      target_unit: 'mm3',
+      target_unit: 'mm³',
       formula: 'unit => unit*1000'
     }
   ],

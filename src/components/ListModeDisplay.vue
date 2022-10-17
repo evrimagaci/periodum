@@ -278,7 +278,7 @@ export default {
         document.querySelector('.bm_Content').classList.add('inactive')
         const PANELBUTON = document.querySelector('.bm_Button')
         PANELBUTON.classList.remove('activated')
-        PANELBUTON.style.marginTop = "-1.8rem"
+        PANELBUTON.style.marginTop = ".3rem"
         
         PREVIEW.style.position = "unset"
         PREVIEW.style.width = '94vw'
@@ -353,7 +353,7 @@ export default {
         if (document.querySelector(`.${ID}`).classList.contains('inactive')) {
           Object.keys(STATES).forEach(state => document.querySelectorAll(`.${state}`).forEach(function(el) {
             el.removeAttribute('class')
-            el.classList.add('inactive')
+            // el.classList.remove('inactive')
             el.classList.add(`list_elementContainer`)
             el.classList.add(state)
           }))
@@ -610,7 +610,7 @@ export default {
 
     padding: 0 1rem;
     // border: 1px solid #e5bb09;
-    border-top: 1px solid #e5bb09;
+    border-top: 5px solid #1a1f2a;
     
     // width: 108vw;
     width: 100%;
@@ -628,29 +628,29 @@ export default {
         
     .bm_Button {
       #bm_Icon {
-        transform: translateY(10%);
+        transform: translateY(0%);
         width: 2rem;
         height: 3rem;
       }
 
       position: absolute;
-      margin-top: -1.8rem;
+      margin-top: .3rem;
       background: rgb(39,47,63);
       background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
       align-content: center;
-      border: 1px solid #e5bb09;
+      border: 1px solid #323d52;
       border-radius: 100%;
 
       text-align: center;
       align-self: center;
-      height: 3.5rem;
-      width: 3.5rem;
+      height: 3rem;
+      width: 3rem;
 
       transition: all 50ms linear;
 
       z-index: 5;
 
-      &:hover {
+      &:active {
         img{
           filter: drop-shadow(0 0 1rem #e5bb09);
         }
@@ -828,6 +828,7 @@ export default {
   }
 
   .heatSVGs {
+    margin-top: -.3rem;
     /* grid-row-start: 3; grid-column-start: 4; grid-column-end: 7; */
     #list_stateSolid {
       background-image: linear-gradient(135deg, #acbdff, rgba(82, 101, 185, 0.4));

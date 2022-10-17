@@ -1,4 +1,5 @@
 <template>
+
   <div class="grid">
     <div v-show="table_panelMode" class="table_tabs fade">
       <button class="btn" :style="[table_filterMode ? { border: 'solid 1px #e5bb09' }   : {color: '#e5bb09'}]" id="table_moduleBtn_filterMode"   @click="toggleTablePanel('filter')">{{ locale.modules.group }}</button>
@@ -30,10 +31,10 @@
         <!-- @click="toggletable_heatMode()" -->
         <div class="flex-between align-end">
           <div @click.prevent="filterByState($event)" class="states flex-between">
-            <div class="fade btn"           id="solid">     <img :src="states.solid"/></div>
-            <div class="fade btn"  id="liquid">    <img :src="states.liquid"/></div>
-            <div class="fade btn"  id="gas">       <img :src="states.gas"/></div>
-            <div class="fade btn"           id="uncertain"> <img :src="states.uncertain"/></div>
+            <div class="fade btn" id="solid">     <img :src="states.solid"/></div>
+            <div class="fade btn" id="liquid">    <img :src="states.liquid"/></div>
+            <div class="fade btn" id="gas">       <img :src="states.gas"/></div>
+            <div class="fade btn" id="uncertain"> <img :src="states.uncertain"/></div>
           </div>
           
           <div>
@@ -101,7 +102,7 @@
     
   </div>
 
-  <div class="table_demo_element">
+  <div v-show="table_panelMode" class="table_demo_element fade">
     <div class="table_demo_block">
       <div class="table_demo_number"><p> {{ locale.misc.sample_element.atomic_number }} </p></div>
       <div class="table_demo_symbol" >{{ locale.misc.sample_element.symbol }}</div>
@@ -110,7 +111,7 @@
     </div>
   </div>
   
-  <div class="thanks mute flex-start margin">
+  <div v-show="table_panelMode" class="thanks mute flex-start margin">
     <a class="fade" href="https://bionluk.com" target="_blank">
     <img id="thanks-bionluk" src="../resources/img/bionluk.png" alt="bionluk logo">
     </a>
@@ -120,6 +121,8 @@
 
 <script>
 import TableItem from '@/components/TableModeItem.vue'
+// import infoBar from '../addons/infoBar.vue';
+// <infoBar class="infoBar" :fontSize="'.8vw'" :infoText="'Atomik kütle araması için \'.\' işaretini kullan.'" />
 
 export default {
   components: { TableItem },
@@ -619,6 +622,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .infoBar {
+    position: relative;
+  }
   .thanks {
     position: relative;
     margin-top: .7vw;
@@ -650,9 +656,10 @@ export default {
     grid-row-start: 1; grid-column-start: 13; grid-column-end: 18;
     #tableSearch {
       height: 2vw;
+
+      margin-top: 1vw;
       
       width: 98%;
-      margin-top: 1.2vw;
       font-size: .7vw;
     }
     z-index: 1;
@@ -866,7 +873,7 @@ export default {
   
   .table_demo_element {
     margin-top: -7.3vw;
-    margin-left: 5vw;
+    margin-left: 5.3vw;
     width: 7vw;
     height: 7vw;
     padding: .3vw;

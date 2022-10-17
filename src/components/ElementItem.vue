@@ -5,9 +5,9 @@
 			<span class="modalTitle noselect muted">{{ title }}</span>
 		</div>
 		<div class="flex-between">
-			<p
+			<p @click="copyToClipboard($event)"
 				class="value" :style="value.length > 40  ? { 'font-size': '1rem' } : ''">
-				{{ typeof value !== 'string' ? value : upperFirstLetter(value) }}
+				{{ typeof value !== 'string' ? formatNumber(value) : upperFirstLetter(value) }}
 			</p>
 			<div v-if="unitKey !== ''" class="dropdown">
 				<button class="dropdown-button">{{ unitKey }}</button>
@@ -26,6 +26,7 @@
 <!-- 'flex-between': strLongerThan50(value), -->
 <script>
 	import UNITLIST from '@/resources/misc/units.js';
+	const BigNumber = require('bignumber.js');
 
 	export default {
 		props: {
@@ -44,8 +45,7 @@
 		data() {
 			return {
 				defaultColor: "#fff",
-				units: UNITLIST,
-				// initialValue: this.value
+				units: UNITLIST
 			}
 		},
 		computed: {
@@ -59,10 +59,10 @@
 			},
 			formatNumber (value) {
 				if (value >= 0.01) {
-					return Number(value.toFixed(100))
+					return BigNumber(value).toFixed() //Number(value.toFixed(100))
 				} else {
 					if (value < 0.00001) {
-						return Number.parseFloat(Number(value.toFixed(100)))
+						return BigNumber(value).toFixed()//Number.parseFloat(Number(value.toFixed(100)))
 						// .toExponential().toPrecision(2)
 					}
 					return value
@@ -90,9 +90,9 @@
 				}
 
 				const objectItem = JSON.parse(JSON.stringify(this.units[this.unitKey])).find(({ target_unit }) => target_unit === UNIT_KEY);
-				console.log(objectItem);
 
 				const func = eval(objectItem?.formula) || function(num) { return num }
+
 				TARGET.textContent = await this.formatNumber(func(Number(TARGET_INITIAL_VALUE)))
 				if (TARGET.textContent.length >= 10) {
 					TARGET.style.fontSize = '1rem'
@@ -103,6 +103,9 @@
 				if (TARGET.textContent.length < 10) {
 					defaultFontSize(TARGET)
 				}
+
+				TARGET.style.wordBreak = 'break-all'
+				TARGET.style.marginRight = '3vw'
 			},
 			strLongerThan50(str) {
 				return String(str).length < 50
@@ -114,14 +117,27 @@
 					}
 					else slot.classList.add('inactive')
 				})
+			},
+			copyToClipboard($event) {
+				if ($event.target.textContent === "Kopyalandı!") return
+				const PARENT = $event.target.parentElement.parentElement
+				const currentMetric = PARENT.querySelector('.dropdown-button')?.textContent || PARENT.querySelector('.fixed-unit')?.textContent || ''
+				navigator.clipboard.writeText($event.target.textContent.replace('⬤ ', '') + " " + currentMetric)
+
+				const twas = $event.target.textContent
+				$event.target.classList.add('fade')
+				$event.target.classList.add('inactive')
+				$event.target.classList.remove('inactive')
+				$event.target.textContent = "Kopyalandı!"
+
+				function refreshDataTooltip(){
+					$event.target.textContent = twas
+					$event.target.classList.remove('fade')
+				}
+
+				setTimeout(refreshDataTooltip, 1100);
 			}
-		},
-		// computed: {
-		// 	checkValue() {
-		// 		if (this.value === '') this.remove()
-		// 		return null
-		// 	}
-		// }
+		}
 	}
 </script>
 
@@ -131,6 +147,13 @@
 		margin-top: .3rem;
 		text-align: left;
 		font-size: 1rem;
+	}
+	.value {
+		margin-right: 1vw;
+		&:hover {
+			color: #e5bb09;
+			cursor: pointer;
+		}
 	}
 	p, span { 
 		margin-left: .2rem;
