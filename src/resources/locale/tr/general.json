@@ -273,6 +273,7 @@
     "solid": "Katı",
     "liquid": "Sıvı",
     "gas": "Gaz",
-    "uncertain": "Bilinmeyen"
+    "uncertain": "Bilinmeyen",
+    "click_to_copy": "Değerleri, onlara tıklayarak kopyalayabilirsin."
   }
 }

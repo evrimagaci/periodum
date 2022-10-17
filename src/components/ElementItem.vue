@@ -119,7 +119,8 @@
 				})
 			},
 			copyToClipboard($event) {
-				if ($event.target.textContent === "Kopyalandı!") return
+				const copyText = document.querySelector('.modalTitle').textContent === 'İsim' ? 'Kopyalandı!' : 'Copied!'
+				if ($event.target.textContent === copyText) return
 				const PARENT = $event.target.parentElement.parentElement
 				const currentMetric = PARENT.querySelector('.dropdown-button')?.textContent || PARENT.querySelector('.fixed-unit')?.textContent || ''
 				navigator.clipboard.writeText($event.target.textContent.replace('⬤ ', '') + " " + currentMetric)
@@ -128,7 +129,7 @@
 				$event.target.classList.add('fade')
 				$event.target.classList.add('inactive')
 				$event.target.classList.remove('inactive')
-				$event.target.textContent = "Kopyalandı!"
+				$event.target.textContent = copyText
 
 				function refreshDataTooltip(){
 					$event.target.textContent = twas

@@ -273,6 +273,7 @@
     "solid": "Solid",
     "liquid": "Liquid",
     "gas": "Gas",
-    "uncertain": "Uncertain"
+    "uncertain": "Uncertain",
+    "click_to_copy": "You can click on values to copy them."
   }
 }

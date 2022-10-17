@@ -13,7 +13,7 @@
 			<input type="search" name="search" id="modalSearch" :placeholder="this.locale.misc.modalSearch_text" autocomplete="off" @input="modalSearching($event)">
 		</div>
 
-		<infoBar :vis="'table'" :infoText="'Değerleri, onlara tıklayarak kopyalayabilirsin.'" />
+		<infoBar :vis="'table'" :infoText="locale.tooltip.click_to_copy" />
 		<!-- Element Bilgileri -->
 		<div v-if="!eaContentView" class="text-left">
 			<div class="essentials">
