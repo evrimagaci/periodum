@@ -24,6 +24,8 @@
         <h3>{{ loc.pages.about.updates.tech }}</h3>
         <li>Detaylı bilgi penceresindeki değerler tıklanarak kopyalanabilir hale getirildi.</li>
         <li>Bilgilendirici not özelliği eklendi.</li>
+        <li>Element paylaşma özelliği eklendi.</li>
+        <li>Arama sistemi güncellendi.</li>
       <br />
 
       <h3 class="versionNumber">v2.1.1</h3>
