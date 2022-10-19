@@ -33,7 +33,10 @@
 				<div v-if="element.appearance"><ElementItem :title="this.locale.elements.modal_content.appearance" :value="element.appearance" /></div>
 				<div v-if="element.refractive_index"><ElementItem :title="this.locale.elements.modal_content.refractive_index" :value="element.refractive_index" /></div>
 				<div v-if="element.phase_at_stp"><ElementItem :title="this.locale.elements.modal_content.phase_at_stp" :value="element.phase_at_stp" /></div>
-				<div id="modal_link" style="justify-self: center; margin-top: 1rem;"><a :href="this.locale.elements.modal_content.article !== 'Wikipedia' ? 'http://evrimagaci.org/s/'+ element.ea_content_id : element.wikipedia" target="_blank"> {{ this.locale.elements.modal_content.article }}</a></div>
+				<div class="flex-between">
+					<div id="modal_link" style="justify-self: center; margin-top: 1rem;"><a :href="this.locale.elements.modal_content.article !== 'Wikipedia' ? 'http://evrimagaci.org/s/'+ element.ea_content_id : element.wikipedia" target="_blank"> {{ this.locale.elements.modal_content.article }}</a></div>
+					<div id="modal_link" style="justify-self: center; margin-top: 1rem;"><socialButtons class="align-center" :locale="locale" :number="element.number" :name="element.name" /></div>
+				</div>
 			</div>
 			
 
@@ -348,9 +351,10 @@
 <script>
 	import ElementItem from './ElementItem.vue';
 	import infoBar from '../addons/infoBar.vue';
+	import socialButtons from '../addons/socialButtons.vue';
 
 	export default {
-		components: { ElementItem, infoBar },
+		components: { ElementItem, infoBar, socialButtons },
 		props: {
 			element: Object,
 			toggleModal: Boolean,

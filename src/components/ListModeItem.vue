@@ -188,7 +188,7 @@
     color: v-bind(colorCode);
   }
   .heatState {
-    margin-top: .5rem;
+    margin-top: 0rem;
     width: 2rem;
     height: 2rem;
   }

@@ -12,6 +12,11 @@ export default {
     return {
       search_icon: 'require("../resources/img/misc/search.svg")'
     }
+  },
+  // created() {
+  //   window.onbeforeunload = function(){ return true }
+  // },
+  mounted() {
   }
 }
 </script>

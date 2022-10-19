@@ -262,6 +262,9 @@
       "name": "İsim",
       "atomic_mass": "Atomik Kütle"
     },
+    "sharing": {
+      "text": "Periodum'daki bu elementi incele."
+    },
     "elementSearch_text": "Element adı, atom numarası, atomik kütle...",
     "modalSearch_text": "Başlık, alt başlık, içerik...",
     "details": "Detaylar",

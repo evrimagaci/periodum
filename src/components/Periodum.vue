@@ -210,31 +210,6 @@ export default {
   },
   mounted() {
     this.getUserLanguage()
-    // const _loc = navigator.language.split('-')[0]
-    
-    // const objectsById = {};
-    
-    // for (const obj1 of ELEMENTS) {
-    //     objectsById[obj1.number] = obj1;
-    // }
-
-
-    // const LANGUAGE_FILE = this.elementLanguage[_loc]
-
-    // for (const obj2 of LANGUAGE_FILE) {
-    //     const id = obj2.number;
-
-    //     if (objectsById[id]) {
-    //         objectsById[id] = _.merge(objectsById[id], obj2)
-    //     } else {
-    //         objectsById[id] = obj2;
-    //     }
-    // }
-
-    // this.elements = Object.values(objectsById);
-    
-    // //#region Content
-    // this.loc = this.locale[_loc]
   }
 }
 </script>

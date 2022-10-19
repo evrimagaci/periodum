@@ -293,21 +293,27 @@ export default {
       
       const CONDITIONS = function(el) {
         let searchIn = []
-        if (!INPUT.includes('.')) {
+        if (INPUT.includes('.')) {
+          searchIn = [
+            el.querySelector('.list_atomicMass').textContent
+          ].join('').toLowerCase()
+        }
+        else if (INPUT.includes('#')) {
+          searchIn = [
+            el.querySelector('.list_atomicNumber').textContent
+          ].join('').toLowerCase()
+        }
+        else {
           searchIn = [
             el.querySelector('.list_atomicNumber').textContent,
             el.querySelector('.list_name').textContent,
             el.querySelector('.list_symbol').textContent,
             el.querySelector('.list_atomicMass').textContent.split('.')[0]
           ].join('').toLowerCase()
-        } else {
-          searchIn = [
-            el.querySelector('.list_atomicMass').textContent
-          ].join('').toLowerCase()
         }
         
         return INPUT !== ''
-        && searchIn.includes(INPUT)
+        && INPUT.includes('#') ? searchIn == (INPUT.replace('#', '')) : INPUT !== '' && searchIn.includes(INPUT)
       }
 
       document.querySelectorAll('.list_element').forEach(function(element) {
@@ -555,6 +561,14 @@ export default {
   },
   mounted() {
     this.categoryFilterStylizer()
+    
+    if (!/\?=/.test(window.location.href)) return
+
+    this.$nextTick(function () {
+      const refID = '#' + window.location.href.split('?=')[1].split('_')[0]
+      document.querySelector('#listSearch').value = refID
+      document.querySelector('#listSearch').dispatchEvent(new Event('input'));
+    })
   }
 }
 </script>

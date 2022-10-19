@@ -262,6 +262,9 @@
       "name": "Name",
       "atomic_mass": "Atomic Mass"
     },
+    "sharing": {
+      "text": "Check out this element on Periodum."
+    },
     "elementSearch_text": "Element name, atomic number, atomic mass...",
     "modalSearch_text": "Title, subtitle, content...",
     "details": "Details",

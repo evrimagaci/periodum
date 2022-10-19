@@ -575,23 +575,27 @@ export default {
       
       const CONDITIONS = function(el) {
         let searchIn = []
-        if (!INPUT.includes('.')) {
+        if (INPUT.includes('.')) {
+          searchIn = [
+            el.querySelector('.table_atomicMass').textContent
+          ].join('').toLowerCase()
+        }
+        else if (INPUT.includes('#')) {
+          searchIn = [
+            el.querySelector('.table_atomicNumber').textContent
+          ].join('').toLowerCase()
+        }
+        else {
           searchIn = [
             el.querySelector('.table_atomicNumber').textContent,
             el.querySelector('.table_symbol').textContent,
             el.querySelector('.table_name').textContent,
             el.querySelector('.table_atomicMass').textContent.split('.')[0]
           ].join('').toLowerCase()
-        } else {
-          searchIn = [
-            el.querySelector('.table_atomicMass').textContent
-          ].join('').toLowerCase()
         }
         
         return INPUT !== ''
-        && !el.classList.contains('.table_elementBlock')
-        && !el.classList.contains('.table_elementCategory')
-        && searchIn.includes(INPUT)
+        && INPUT.includes('#') ? searchIn == (INPUT.replace('#', '')) : INPUT !== '' && searchIn.includes(INPUT)
       }
 
       document.querySelectorAll('.element').forEach(function(element) {
@@ -616,7 +620,14 @@ export default {
   },
   mounted() {
     this.viewGroupStylizer()
-    // document.querySelector('.navRight').appendChild(document.querySelector('#languageSwitcher'))
+    
+    if (!/\?=/.test(window.location.href)) return
+
+    this.$nextTick(function () {
+      const refID = '#' + window.location.href.split('?=')[1].split('_')[0]
+      document.querySelector('#tableSearch').value = refID
+      document.querySelector('#tableSearch').dispatchEvent(new Event('input'));
+    })
   }
 }
 </script>
