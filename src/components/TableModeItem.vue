@@ -148,8 +148,8 @@
 
 <style lang="scss" scoped>
   .table_elementContainer {
-    height: 4.1vmax;
-    width: 4.1vmax;
+    height: 4.2vmax;
+    width: 4.2vmax;
     
     border: 1px double #1d232f;
     border-radius: .3rem;
@@ -161,6 +161,7 @@
     padding: .3vw;
     
     justify-self: flex-start;
+    margin-top: -.13vw;
 
     filter: drop-shadow(0 0 1px rgba($color: #000000, $alpha: .5));
 
