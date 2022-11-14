@@ -5,7 +5,7 @@
         <!-- <img id="mmenu_logo"
         alt="Periodum Logo" src="../resources/img/periodum.svg" height="40">  -->
       <!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+      <svg version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         viewBox="0 0 600 85" id="mmenu_logo" height="40" style="enable-background:new 0 0 600 85;" xml:space="preserve">
         <g id="LOGO">
           <router-link to="/">
