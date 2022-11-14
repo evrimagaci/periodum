@@ -13,7 +13,7 @@
 			<input type="search" name="search" id="modalSearch" :placeholder="this.locale.misc.modalSearch_text" autocomplete="off" @input="modalSearching($event)">
 		</div>
 
-		<infoBar :vis="'table'" :infoText="locale.tooltip.click_to_copy" />
+		<infoBar :infoText="locale.tooltip.click_to_copy" />
 		<!-- Element Bilgileri -->
 		<div v-if="!eaContentView" class="text-left">
 			<div class="essentials">
@@ -23,9 +23,9 @@
 				<!-- <div v-if="element.symbol"><ElementItem title="Sembol" :value="element.symbol" /></div> -->
 				<div v-if="element.symbol"><div style="z-index: -2"
 					:style="{
-									'background-image': `linear-gradient(127deg, ${categoryColors[element.category_code]} 46%, ${categoryColors[element.category_code+'_shade']} 100%)`,
-									'box-shadow': '0 0 5px ' + categoryColors[element.category_code]}"
+									'background-image': `linear-gradient(127deg, ${categoryColors[element.category_code]} 46%, ${categoryColors[element.category_code+'_shade']} 100%)`}"
 					class="modalSymbol"><h2>{{element.symbol}}</h2></div>
+					<!-- 'box-shadow': '0 0 5px ' + categoryColors[element.category_code] -->
 				</div>
 				<div v-if="element.number"><ElementItem :title="this.locale.elements.modal_content.atomic_number" :value="element.number" /></div>
 				<div v-if="element.gas_phase"><ElementItem :title="this.locale.elements.modal_content.gas_phase" :value="element.gas_phase" /></div>
@@ -33,12 +33,14 @@
 				<div v-if="element.appearance"><ElementItem :title="this.locale.elements.modal_content.appearance" :value="element.appearance" /></div>
 				<div v-if="element.refractive_index"><ElementItem :title="this.locale.elements.modal_content.refractive_index" :value="element.refractive_index" /></div>
 				<div v-if="element.phase_at_stp"><ElementItem :title="this.locale.elements.modal_content.phase_at_stp" :value="element.phase_at_stp" /></div>
+				<div v-show="this.misc.spectrum !== null" class="spectrum" @click="imagezoom($event)"><span>Spectrum (click or tap to zoom)</span><img :src="this.misc.spectrum" alt=""></div>
+
 				<div class="flex-between">
 					<div id="modal_link" style="justify-self: center; margin-top: 1rem;"><a :href="this.locale.elements.modal_content.article !== 'Wikipedia' ? 'http://evrimagaci.org/s/'+ element.ea_content_id : element.wikipedia" target="_blank"> {{ this.locale.elements.modal_content.article }}</a></div>
 					<div id="modal_link" style="justify-self: center; margin-top: 1rem;"><socialButtons class="align-center" :locale="locale" :number="element.number" :name="element.name" /></div>
 				</div>
 			</div>
-			
+			<!-- <div class="spectrum"><img :src="require(`@/resources/img/misc/spectrum/${element.symbol}_hd.jpg`)" alt=""></div> -->
 
 			<!-- Tanımlayıcı Numaralar -->
 			<details>
@@ -345,6 +347,8 @@
 	}">
 	</div>
 	<button class="close-modal flex-center" id="modalExit">&times;</button>
+
+	<!-- &times; ≡ -->
 	
 </template>
 
@@ -352,6 +356,8 @@
 	import ElementItem from './ElementItem.vue';
 	import infoBar from '../addons/infoBar.vue';
 	import socialButtons from '../addons/socialButtons.vue';
+	// eslint-disable-next-line no-unused-vars
+	import { nextTick } from 'vue'
 
 	export default {
 		components: { ElementItem, infoBar, socialButtons },
@@ -402,6 +408,9 @@
 
 					'unknown': '#fff',               // beyaz
 					'unknown_shade': '#e0e0e0'
+				},
+				misc: {
+					spectrum: String,
 				}
 			}
 		},
@@ -435,7 +444,7 @@
 			},
 			modalSearching($event) {
 				const INPUT = $event.target.value.toLowerCase()
-				
+
 				document.querySelectorAll('details').forEach(function(detail) {
 					try {
 						detail.childNodes.forEach(function(child) {
@@ -451,9 +460,39 @@
 					} catch (err) {console.log(err)}
 				})
 			},
+			// getImage(symbol) {
+			// 	return require('../resources/img/misc/spectrum/' + symbol + '_hd.jpg')
+			// },
 			handle(content) {
 				return content === 'NULL' || content === "" ? null : content
+			},
+			imagezoom($event) {
+				const target = $event.target
+				if (!target.src) { return }
+
+				target.src = this.misc.spectrum
+				
+				if (!target.classList.contains('fullscreen')) {
+					target.classList.add('fullscreen')
+					// target.style.outline = '100vh solid black'
+					// document.querySelector('.fullscreen-overlay').classList.remove('inactive')
+				}
+				else {
+					target.classList.remove('fullscreen')
+					// target.style.outline = "unset"
+					// document.querySelector('.fullscreen-overlay').classList.add('inactive')
+				}
+
 			}
+		},
+		beforeMount: async function () {
+			// this.$nextTick(function () {
+				await nextTick()
+
+				try {
+					this.misc.spectrum = require('../resources/img/misc/spectrum/' + this.element.symbol + '_hd.jpg')
+				}catch {this.misc.spectrum = null}
+			// })
 		}
 	}
 </script>
@@ -500,6 +539,45 @@
 	}
 	.align {
 		justify-self: center;
+	}
+	.spectrum {
+		// transition: all 100ms linear;
+		margin-top: .5rem;
+		span {
+			opacity: .5;
+			margin-left: .2rem;
+			text-align: left;
+			font-size: 1rem;
+		}
+		img {
+			margin-top: .5rem;
+			&:hover {
+				cursor: pointer;
+			}
+			border-radius: .3rem;
+		}
+		
+		.fullscreen {
+			z-index: 9999;
+			position: fixed;
+			margin: 0 auto;
+			width: 90%;
+			height: 20%;
+			top: 40%;
+			left: 5%;
+			// background-color: rgb(0, 0, 0);
+			box-shadow: 0 0 10px rgba($color: #000, $alpha: .5);
+			border-radius: .5rem;
+			img {
+				width: 100%;
+				height: 2rem;
+			}
+		}
+
+	}
+
+	#modal_link {
+		margin-left: .2rem;
 	}
 	img {
 		width: 100%;
@@ -560,19 +638,25 @@
 		padding: 1rem;
 		padding-bottom: 10rem;
 		
-		z-index: 10;
+		z-index: 2;
 		overflow:auto;
 	}
 	.close-modal {
 		position: fixed;
-		top:0;
-		left: 25.5rem;
-		font-size:3rem;
+		top:.75rem;
+		left: 24.8rem;
+		font-size:2rem;
 		color:#d6d6d6;
 		cursor: pointer;
 		border: none;
-		background: none;
+		background: #1d232f;
+		padding: .2rem .2rem;
+		border-radius: .2rem;
+		// filter: drop-shadow(2px 2px 5px black);
 		z-index: 1;
+		> * {
+			margin-top: 2rem;
+		}
 	}
 	@media screen and (max-width: 700px) {
 		.modal {
@@ -580,7 +664,7 @@
 			width: 100%; height: 100%;
 			padding: 2rem;
 			padding-bottom: 3rem;
-			z-index: 10;
+			z-index: 2;
 			overflow: scroll;
 		}
 		

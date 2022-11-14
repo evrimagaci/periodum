@@ -1,11 +1,13 @@
 <template>
-  <div @click="toggleModal($event)" :id="eID" class="table_elementContainer"
+  <div @click="toggleModal($event)" :id="eID" class="table_elementContainer flex-evenly flex-column"
    :class="{
     'uncertain':  heatState('uncertain', element),
     'solid':      heatState('solid', element),
     'liquid':     heatState('liquid', element),
     'gas':        heatState('gas', element),
+    'colored': !heat_view
   }">
+  
       <div class="flex-between preventMouseEvent">
         <div
           class="table_atomicNumber"
@@ -18,13 +20,12 @@
           :src="displayHeatState(element)"
         />
       </div>
-      
       <div class="table_symbol preventMouseEvent" :class="{'colored': !heat_view}" >{{ element.symbol }}</div>
       <div class="table_name preventMouseEvent" :class="{'colored': !heat_view}"> {{ element.name }} </div>
       <div class="table_atomicMass preventMouseEvent" :class="{'colored': !heat_view}">{{ element.atomic_mass }}</div>
       <span class="table_elementBlock inactive">{{ 'table_groupFilter_' + element.block }}</span>
       <span class="table_elementCategory inactive">{{ element.category_code }}</span>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -73,7 +74,8 @@
           liquid:     require("../resources/img/states/liquid.svg"),
           gas:        require("../resources/img/states/gas.svg"),
           uncertain:  require("../resources/img/states/uncertain.svg"),
-        }
+        },
+        elementSymbol: this.element.symbol
       }
     },
     methods: {
@@ -146,10 +148,10 @@
 
 <style lang="scss" scoped>
   .table_elementContainer {
-    height: 4.2vmax;
-    width: 4.2vmax;
+    height: 4.1vmax;
+    width: 4.1vmax;
     
-    border: 1px solid #1d232f;
+    border: 1px double #1d232f;
     border-radius: .3rem;
     
     background: rgb(39,47,63);
@@ -159,92 +161,90 @@
     padding: .3vw;
     
     justify-self: flex-start;
-    margin-top: -.13vw;
 
     filter: drop-shadow(0 0 1px rgba($color: #000000, $alpha: .5));
 
+    transition: all 0ms ease-in-out;
     &:hover {
-      filter: drop-shadow(0 0 .2rem v-bind(colorCode));
+      // filter: drop-shadow(0 0 .3vw v-bind(colorCode)) brightness(1.2);
+      border: 1px solid rgba($color: #fff, $alpha: .2);
+      filter: brightness(1.1);
       cursor: pointer;
     }
     &:active {
-      filter: drop-shadow(0 0 .5rem v-bind(colorCode));
+      // filter: drop-shadow(0 0 .3vw v-bind(colorCode));
+      filter: brightness(.8);
     }
   }
   .uncertain {
-    // color: black;
-    border-radius: 4px;
     // box-shadow: 0px 0px .2vmin .1vmin #c7732f;
-    // background-image: linear-gradient(135deg, #c7732f, #ed954b 100%);
     color: #ee9038;
   }
   .solid {
-    // color: black;
-    border-radius: 4px;
     // box-shadow: 0px 0px .2vmin .1vmin #d5b7ff;
-    // background-image: linear-gradient(135deg, #d5b7ff, rgba(185, 148, 250, 0.4));
     color: #acbdff;
   }
   .liquid {
-    // color: black;
-    border-radius: 4px;
     // box-shadow: 0px 0px .2vmin .1vmin #acbdff;
-    // background-image: linear-gradient(135deg, #acbdff, rgba(136, 158, 255, 0.4));
     color: #46b4b2;
   }
   .gas {
-    // color: black;
-    border-radius: 4px;
-    // box-shadow: 0px 0px .2vmin .1vmin #46b4b2;
-    // background-image: linear-gradient(135deg, #46b4b2, #56d9d7);
+    // box-shadow: 0px 0px .2vmin .1vmin #eb61b1;
     color: #eb61b1;
   }
   
   .colored {
     color: v-bind(colorCode);
+    // .table_name { color: v-bind(colorCode); }
   }
-  
+
   .glow {
-    box-shadow: 0 0 40px 0 rgba($color: #fff, $alpha: .3);
+    // box-shadow: 0 0 2px 0 rgba($color: #fff, $alpha: 1);
+    border: 1px solid  rgba($color: #fff, $alpha: .3);    
+    filter: drop-shadow(0 0 .4vw);
   }
 
   .highlight {
     background: v-bind(colorCode);
-    background-image: linear-gradient(127deg, v-bind(colorCode) 46%, v-bind(colorCodeShaded) 100%);
+    background-image: linear-gradient(130deg, v-bind(colorCode) 20%, v-bind(colorCodeShaded) 70%);
     // filter: drop-shadow(0 0 0 1rem v-bind(colorCode));
     color: black !important;
+    // .table_name {
+    //   color: black;
+    // }
   }
 
   .table_atomicNumber {
-    font-weight: bolder;
-    font-size: .5vw;
-    margin-top: .2vh;
+    font-size: .45vw;
     opacity: .7;
-    // color: inherit;
+
+    color: unset;
   }
 
   .table_symbol {
-    font-size: 1vmax;
+    font-size: 1.1vmax;
     font-weight: bold;
     letter-spacing: normal;
-    filter: drop-shadow(0 0 5px rgba(255,255,255, .2));
+    filter: drop-shadow(0 0 5px rgba(255,255,255, .1));
+    // filter: drop-shadow(0 0 1px v-bind(colorCode));
+
+    // &::before {
+    //   position: absolute;
+    //   content: "00";
+    //   filter:blur(5px) opacity(.5);
+    // }
   }
   .table_name {
-    /* color: white; */
-    text-align: left;
-    margin-top: -.2vh;
-    // color: inherit;
-    font-size: .52vw;
-    opacity: .8;
+    color: inherit;
+    font-size: .45vw;
+    opacity: .9;
+    opacity: .7;
   }
   
   .table_atomicMass {
-    float: left;
     font-weight: 100;
-    font-size: .5vw;
-    opacity: .6;
-    
-    /* text-shadow: 0 0 .1em v-bind(colorCode); */
+    font-size: .45vw;
+    opacity: .7;
   }
   
   .heatState {
@@ -252,19 +252,5 @@
     position: static;
     width: .7vw;
     height: .7vw;
-  }
-  
-  .flex-between {
-    display: flex;
-    justify-content: space-between;
-  }
-  .text-left {
-    text-align: left;
-  }
-  .text-justify {
-    text-align:justify;
-  }
-  .muted {
-    opacity: .5;
   }
 </style>

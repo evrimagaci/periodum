@@ -175,9 +175,9 @@ export default {
       span {
         font-size: 2rem;
       }
-      &:hover{
-        background: $keyBkgHover;
-      }
+      // &:hover{
+      //   background: $keyBkgHover;
+      // }
       &:active{
         background: $keyBkgActive;
         color: $black;
@@ -186,11 +186,11 @@ export default {
     }
   }
 
-  .key{
-    transition: .2s ease-out all; 
-    -moz-transition: .2s ease-out all; 
-    -webkit-transition: .2s ease-out all;
-  }
+  // .key{
+  //   transition: .2s ease-out all; 
+  //   -moz-transition: .2s ease-out all; 
+  //   -webkit-transition: .2s ease-out all;
+  // }
 
   .input:after {
     animation-name: cursor;

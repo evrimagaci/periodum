@@ -70,7 +70,8 @@ export default {
     margin: 0 .5rem;
 
     &:hover {
-      filter: drop-shadow(0 0 5px black);
+      // filter: drop-shadow(0 0 5px black);
+      filter: brightness(9000%);
       cursor: pointer;
     }
   }

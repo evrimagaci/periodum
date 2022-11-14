@@ -22,7 +22,7 @@
       <span class="slider round"></span>
     </label>
 
-    <div v-show="table_panelMode" id="modulePanel" class="modules fade">
+    <div v-show="table_panelMode" id="modulePanel" class="modules noselect fade">
 
       <!-- Sıcaklık Modülü -->
       <div v-show="table_heatMode" class="h-100 flex-between flex-column fade">
@@ -30,7 +30,7 @@
         <input @input="sliderChange()" v-model="heatValue" type="range" step=".1" :min="minScale" :max="maxScale" id="heat_slider" >
         <!-- @click="toggletable_heatMode()" -->
         <div class="flex-between align-end">
-          <div @click.prevent="filterByState($event)" class="states flex-between">
+          <div @click.prevent="filterByState($event)" class="states flex-between noselect">
             <div class="fade btn" id="solid">     <img :src="states.solid"/></div>
             <div class="fade btn" id="liquid">    <img :src="states.liquid"/></div>
             <div class="fade btn" id="gas">       <img :src="states.gas"/></div>
@@ -38,7 +38,7 @@
           </div>
           
           <div>
-            <input class="align-center" type="number" id="heatinput_table" pattern="[A-Za-z\s]{0,50}" :value="heat_toDisplay_table"
+            <input class="align-center" type="tel" id="heatinput_table" pattern="[A-Za-z\s]{0,50}" :value="heat_toDisplay_table"
               @change="heatinputAction()"
             >
 
@@ -102,7 +102,7 @@
     
   </div>
 
-  <div v-show="table_panelMode" class="table_demo_element fade">
+  <div v-show="table_panelMode" class="table_demo_element noselect fade">
     <div class="table_demo_block">
       <div class="table_demo_number"><p> {{ locale.misc.sample_element.atomic_number }} </p></div>
       <div class="table_demo_symbol" >{{ locale.misc.sample_element.symbol }}</div>
@@ -139,6 +139,7 @@ export default {
       lastIndexOfHoveredItem: 0,
       lastChosenFilter: '',
       lastChosenMainFilter: '',
+      lastChosenGroup: '',
       minScale: 0,
       maxScale: 7273,
       groups: {
@@ -236,12 +237,15 @@ export default {
     // },
     viewGroup($event) {
       if (this.table_heatMode) this.table_heatMode = ! this.table_heatMode
+
+      this.lastChosenFilter = ''
+      this.lastChosenMainFilter = ''
+
       const TARGET = $event.target;
       
       document.querySelectorAll('.element').forEach(function(el) {
         const ELEMENT = el.querySelector('.table_elementContainer');
         ELEMENT.classList.remove('mute')
-        ELEMENT.classList.remove('glow')
       });
 
       const allBlocks = document.getElementsByClassName('table_elementBlock');
@@ -251,12 +255,10 @@ export default {
         for (const block of allBlocks) {
           if (_default) {
             block.parentElement.classList.remove('highlight');
-            block.parentElement.classList.remove('glow')
           }
           else { 
             if (block.textContent === TARGET.id) {
               block.parentElement.classList.add('highlight')
-              block.parentElement.classList.add('glow')
             }
             else {
               false
@@ -271,8 +273,10 @@ export default {
                 el.classList.add('colored')
               }
               else {
+                el.parentElement.classList.add('mute')
                 if (block.textContent === TARGET.id) {
                   el.classList.remove('colored')
+                  el.parentElement.classList.remove('mute')
                 }
                 else {
                   false
@@ -286,9 +290,12 @@ export default {
 
       // Toggle
       if (TARGET.src.includes('selected')) {
+        this.lastChosenGroup = ''
         TARGET.src = this.groups[`${TARGET.id}`]
         return;
       }
+      
+      this.lastChosenGroup = TARGET.src
       
       // Only the selected
       TARGET.parentElement.childNodes.forEach(group => group.src = this.groups[`${group.id}`])
@@ -300,6 +307,8 @@ export default {
     },
     viewFilter($event) {
       const CLICKED = $event.target.id
+
+      // if (this.lastChosenGroup !== '') 
       
       const FILTRE_IDs = []
       const MAIN_FILTER = $event.target
@@ -337,16 +346,11 @@ export default {
                   el.classList.remove('colored')
                 })
 
-                // Atomik kütleyi siyahlaştır
-                ELEMENT.querySelector('.table_atomicNumber').classList.remove('colored')
               }
               if (!FILTRE_IDs.includes(CATEGORY.textContent)) {
                 ELEMENT.classList.remove('highlight')
                 ELEMENT.classList.add('mute')
                 ELEMENT.classList.add('colored')
-                
-                // Atomik kütleyi renklendir
-                ELEMENT.querySelector('.table_atomicNumber').classList.add('colored')
               }
             })
           }
@@ -642,7 +646,7 @@ export default {
     width: 20rem;
     word-wrap: break-word;
     span {
-      font-size: 1vw;
+      font-size: .6vw;
       display: none;
       color: white;
       transition: all 1000ms linear;
@@ -660,6 +664,7 @@ export default {
         position: absolute;
         display: block;
       }
+      opacity: 1;
     }
   }
 
@@ -720,9 +725,6 @@ export default {
     align-self: flex-end;
   }
   
-  .glow {
-    filter: drop-shadow(0 0 .3vw);
-  }
 
   .modules {
     grid-row-start: 2; grid-row-end: 4; grid-column-start: 3; grid-column-end: 13;
@@ -730,7 +732,8 @@ export default {
     margin-left: .2rem; margin-right: .2rem; margin-bottom: .2vw;
     border-radius: .3rem;
     background-color: transparent;
-    background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
+    background-color: #242b3a;
+    // background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
     // display: inline-block;
 
     h2 {
@@ -787,39 +790,42 @@ export default {
     .groupFilter {
       position: absolute;
       // left: 7vw;
-      width: 7.03vw;
-      height: 4.32vw;
-      margin-left: 1vw;
+      // width: 7.03vw;
+      height: 6vw;
+      margin-top: -.3vw;
+      margin-left: 2.5vw;
 
       .s-block {
         object-fit: contain;
         position: absolute;
         cursor: pointer;
-        height: 3.15vw;
+        height: 4.8vw;
+        // width: 29vw;
+        left: -1vw;
       }
       .d-block {
         object-fit: contain;
         position: absolute;
         cursor: pointer;
-        height: 1.61vw;
-        left: 1.47vw;
-        top: 1.54vw;
+        height: 2.4vw;
+        left: 1.2vw;
+        top: 2.4vw;
       }
       .p-block {
         object-fit: contain;
         position: absolute;
         cursor: pointer;
-        height: 2.49vw;
-        left: 4.61vw;
-        top: 0.66vw;
+        height: 3.8vw;
+        right: -9.5vw;
+        top: 1.1vw;
       }
       .f-block {
         object-fit: contain;
         position: absolute;
         cursor: pointer;
-        height: 0.88vw;
-        bottom: 0.15vw;
-        right: 0;
+        height: 1.4vw;
+        bottom: -.5vw;
+        right: -9.6vw;
       }
     }
     .compoundBucket {
@@ -832,27 +838,38 @@ export default {
     }
 
     .table_categoricalFilter_container {
-      position: absolute;
-      margin-top: -.5vw;
-      margin-left: 12vw;
+      margin-top: -.6vw;
+      margin-left: 14vw;
+
+      height: 1vw;
 
       .table_categoricalFilter {
         list-style: none;
-        margin-left: 1vw;
+        margin-left: 1.4vw;
         float: left;
 
-        .mainFilter {
-          font-size: .7vw;
-          color:#e5bb09;
-        }
+        // text-align: center;
+        font-size: .6vw;
 
-        li {
-          font-size: .6vw;
-          left:20vw;
+        .mainFilter {
+          color:#e5bb09;
           &:hover {
             cursor: pointer;
             text-decoration: underline;
-            // color: #e5bb09;
+          }
+        }
+
+        li {
+          margin: .1vw 0;
+          left:20vw;
+          
+          background-color: #1d2330;
+          padding: .07vw .6vw;
+          border-radius: .2vw;
+          
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
           }
         }
         // li::before {
@@ -891,8 +908,9 @@ export default {
 
     border-radius: 6px;
     background-image: linear-gradient(136deg, #80fffc 0%, #5ab3b0);
+    background-image: linear-gradient(136deg, #272f3f 0%, #1d2330);
 
-    color: #000;
+    color: #ccc;
     
     .table_demo_block {
       justify-self: flex-start;
@@ -900,26 +918,25 @@ export default {
     }
     .table_demo_number {
       font-weight: bolder;
-      font-size: .5vw;
+      font-size: .8vw;
       margin-top: .2rem;
-      opacity: .5;
+      opacity: .7;
     }
     .table_demo_symbol {
-      font-size: 1vmax;
+      font-size: 1.1vmax;
       font-weight: bold;
       letter-spacing: normal;
     }
     .table_demo_name {
       text-align: left;
-      margin-top: 1vw;
-      font-size: .52vw;
-      opacity: .8;
+      margin-top: 2vw;
+      font-size: .62vw;
     }
     .table_demo_atomic {
       float: left;
       font-weight: 100;
-      font-size: .5vw;
-      opacity: .6;
+      font-size: .6vw;
+      opacity: .5;
     }
   }
   
@@ -970,5 +987,4 @@ export default {
       }
     }
   }
-  
 </style>

@@ -44,23 +44,26 @@
 <style lang="scss" scoped>
   .infobar {
     position: relative;
+    display: flex;
+    align-items: center;
+    
     width: 100%;
-    padding: .1vw 0;
+    padding: .2rem 0;
     font-size: v-bind(fontSize);
     color: #e5bb09;
     background-color: #1A1F2A;
-    margin-bottom: 2px;
+    margin-bottom: .3rem;
 
-    border-radius: .3rem .3rem 0 0;
+    border-radius: .3rem;
 
     p {
-      margin-left: 25px;
+      margin-left: 2rem;
     }
     &::before {
       font-family: 'Emoji';
       content: "ℹ";
       position: absolute;
-      left: 5px;
+      left: .5rem;
     }
   }
 </style>

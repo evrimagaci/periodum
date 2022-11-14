@@ -104,7 +104,7 @@ export default {
 		margin: .3rem 0;
 	}
 
-  input[type="search"], input[type="text"], input[type="number"] {
+  input[type="search"], input[type="text"], input[type="tel"] {
     background-color: transparent;
     // width: 27vw;
     font-size: .8vw;
@@ -117,7 +117,7 @@ export default {
     color: white;
   }
 
-  input[type="search"]:focus, input[type="text"]:focus, input[type="number"]:focus {
+  input[type="search"]:focus, input[type="text"]:focus, input[type="tel"]:focus {
     border-radius: .3rem;
     border: 1px solid #e5bb09;
   }
@@ -168,27 +168,34 @@ export default {
       cursor: ew-resize;
       background: #000;
       box-shadow: -60vw 0 0 60vw #e5bb09, inset 0 0 0 0 #e5bb09;
-        transition: box-shadow 0.2s ease-in-out;
+      transition: box-shadow 0.2s ease-in-out;
       position: relative;
-      // top: 1px;
     }
     &:active::-webkit-slider-thumb {
       // background: #fff;
       box-shadow: -60vw 0 0 60vw #e5bb09, inset 0 0 0 3px #e5bb09;
     }
 		// Firefox
-		&::-moz-range-progress {
-			background-color: #43e5f7; 
-		}
-		&::-moz-range-track {  
-			background-color: #9a905d;
-		}
+    &::-moz-range-thumb {
+      width: 1px;
+      // -webkit-appearance: none;
+      margin-top: -5vw;
+      height: 10vw;
+      cursor: ew-resize;
+      background: #e5bb09;
+      box-shadow: -60vw 0 0 60vw #e5bb09, inset 0 0 0 0 #e5bb09;
+      transition: box-shadow 0.2s ease-in-out;
+      position: relative;
+    }
+    &:active::-moz-range-thumb {
+      box-shadow: -60vw 0 0 60vw #e5bb09, inset 0 0 0 3px #e5bb09;
+    }
 		// IE
 		&::-ms-fill-lower {
 			background-color: #43e5f7; 
 		}
 		&::-ms-fill-upper {  
-			background-color: #9a905d;
+			background-color: #e5bb09;
 		}
 	}
 
@@ -527,11 +534,11 @@ input:checked + .slider:before {
       //
 
   }
+
   @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
-
   .fade {
     animation: fadeIn 120ms ease-in; 
   }
@@ -561,6 +568,10 @@ input:checked + .slider:before {
   .flex-around {
     display: flex;
     justify-content: space-around;
+  }
+  .flex-evenly {
+    display: flex;
+    justify-content: space-evenly;
   }
   .flex-start {
     display: flex;

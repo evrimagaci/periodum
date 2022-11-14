@@ -17,6 +17,19 @@
     <div class="content" id="updates">
       <h3 class="versionNumber">v{{ versionNumber }}</h3>
         <h3>{{ loc.pages.about.updates.visual }}</h3>
+        <li>Detaylı bilgi penceresine atomik spektrum görseli eklendi.</li>
+        <li>Detaylı bilgi penceresinin görünümü düzenlendi.</li>
+        <li>Bazı tarayıcılarda ortaya çıkan tasarım sorunları çözüldü.</li>
+        <li>Tablo görünümü tasarımı düzenlendi.</li>
+        <li>Sıcaklık modundaki renkler ve görsel efektler düzenlendi.</li>
+        <li>Logo iki bölüme ayrıldı. "By Evrim Ağacı" kısmına tıklandığında evrimagaci.org'a gidilebiliyor.</li>
+
+        <h3>{{ loc.pages.about.updates.tech }}</h3>
+        <li>Liste modundaki sıcaklık filtresi geliştirildi (aktif filtreye tekrar tıklandığında varsayılan ayara geri alınabiliyor).</li>
+      <br />
+      
+      <h3 class="versionNumber">v2.1.5</h3>
+      <h3>{{ loc.pages.about.updates.visual }}</h3>
         <li>Detaylı bilgi penceresindeki sayısal değerlerdeki bilimsel kısaltmalar kaldırıldı.</li>
         <li>Tablodaki basit mod sadece tablo ve arama kutusu görünecek şekilde güncellendi.</li>
         <li>Liste modundaki açılır menünün görünüşü düzenlendi.</li>
@@ -85,8 +98,8 @@
       </div>
     </div>
 
-    <div class="flex-between mute">
-      <a id="about_evrimagaciLink" href="https://evrimagaci.org">Evrim Ağacı © 2022</a>
+    <div class="flex-center">
+      <a class="text-white" id="about_evrimagaciLink" href="https://evrimagaci.org">2022 © Evrim Ağacı, Tree of Evolution LLC'nin tescilli markasıdır.</a>
     </div>
   </div>
 </template>

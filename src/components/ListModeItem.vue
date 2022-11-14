@@ -28,19 +28,25 @@
         <span class="list_elementCategory inactive">{{ element.category_code }}</span>
       </div>
     </div>
-
     <div :class="{
       'moreInfo active': infoViewable,
       'moreInfo inactive': !infoViewable}">
       <p class="list_description text-left fade">{{ element.description }}</p>
     </div>
 
-    <span id="list_elementDetailsBtn" class="details-button muted noselect">☰ {{ this.locale.misc.details }}</span>
+    <div class="flex-between muted">
+      <span id="list_elementDetailsBtn" class="details-button noselect">☰ {{ this.locale.misc.details }}</span>
+    </div>
   </div>
 </template>
 
 <script>
+  // import socialButtons from '../addons/socialButtons.vue';
   export default {
+    
+    components: {
+      // socialButtons
+    },
     props: { element: Object, heat_value: [Number, String], heat_changed: Boolean, heat_view: Boolean, locale: Object, eID: String },
     data() {
       const categoryOfElement = this.element.category_code
@@ -89,7 +95,8 @@
     },
     methods: {
       toggleInfo($event) {
-        if ($event.target.classList.contains('details-button')) return
+        const targetClass = $event.target.classList
+        if (targetClass.contains('details-button') || targetClass.contains('list_description')) return
         this.infoViewable = !this.infoViewable
       },
       displayHeatState(element) {
@@ -140,20 +147,23 @@
 <style lang="scss" scoped>
   .list_elementContainer {
     border: .1px solid #1d232f;
-    border-radius: .3rem;
+    border-radius: 1vw;
 
     display: grid;
-    margin-bottom: .4rem;
+    margin: 1vw 0;
 
     background: rgb(39,47,63);
     background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
     color: gainsboro;
     &:active {
       filter: drop-shadow(0 0 .2rem v-bind(colorCode));
+      .list_elementContainer {
+        border: 1px solid v-bind(colorCode);
+      }
     }
-    &:hover {
-      filter: drop-shadow(0 0 .2rem v-bind(colorCode));
-    }
+    // &:hover {
+    //   filter: drop-shadow(0 0 .2rem v-bind(colorCode));
+    // }
 
     .item {
       padding: .5rem 1rem;

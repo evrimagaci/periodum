@@ -20,7 +20,7 @@
       <!-- Sıcaklık Önizleme -->
       <section class="bm_Preview flex-between" v-if="list_heatMode">
         <div class="flex-between">
-          <input class="align-center" type="number" id="heatinput" v-model.lazy="heat_toDisplay"
+          <input class="align-center" type="tel" id="heatinput" v-model.lazy="heat_toDisplay"
             @focus="disableKeyboard()"
             @click="disableKeyboard()"
             @change="sliderChange_List()"
@@ -278,7 +278,7 @@ export default {
         document.querySelector('.bm_Content').classList.add('inactive')
         const PANELBUTON = document.querySelector('.bm_Button')
         PANELBUTON.classList.remove('activated')
-        PANELBUTON.style.marginTop = ".3rem"
+        PANELBUTON.style.marginTop = ".5rem"
         
         PREVIEW.style.position = "unset"
         PREVIEW.style.width = '94vw'
@@ -350,19 +350,17 @@ export default {
         const ID = $event.target.id === '' ? $event.target.closest('.btn').id : $event.target.id
 
         const STATES = {
-          list_stateSolid: 'solid',
-          list_stateGas: 'gas',
-          list_stateUncertain: 'uncertain',
-          list_stateLiquid: 'liquid',
+          list_stateSolid: 'list_statesolid',
+          list_stateGas: 'list_stategas',
+          list_stateUncertain: 'list_stateuncertain',
+          list_stateLiquid: 'list_stateliquid',
         };
 
-        if (document.querySelector(`.${ID}`).classList.contains('inactive')) {
+        if (document.querySelector(`.${ID}`).classList.contains('glow')) {
           Object.keys(STATES).forEach(state => document.querySelectorAll(`.${state}`).forEach(function(el) {
-            el.removeAttribute('class')
-            // el.classList.remove('inactive')
-            el.classList.add(`list_elementContainer`)
-            el.classList.add(state)
+            el.classList.remove('inactive')
           }))
+          return
         }
 
         Object.keys(STATES).forEach(state => document.querySelectorAll(`.${state}`).forEach(function(el) {
@@ -373,9 +371,11 @@ export default {
         }))
 
         document.querySelectorAll(`.${ID}`).forEach(function(el) {
-          el.removeAttribute('class')
-          el.classList.add(`list_elementContainer`)
-          el.classList.add(ID)
+          el.classList.remove('inactive')
+          el.classList.add('glow')
+          // el.removeAttribute('class')
+          // el.classList.add(`list_elementContainer`)
+          // el.classList.add(ID)
         });
       }
       catch (err) {
@@ -383,20 +383,20 @@ export default {
       }
     },
     sliderChange_List() {
-      const STATES = {
-        uncertain: 'uncertain',
-        solid: 'solid',
-        gas: 'gas',
-        liquid: 'liquid',
-      };
+      // const STATES = {
+      //   uncertain: 'uncertain',
+      //   solid: 'solid',
+      //   gas: 'gas',
+      //   liquid: 'liquid',
+      // };
 
-      Object.keys(STATES).forEach(state => document.querySelectorAll(`.${state}`).forEach(function(el) {
-        el.removeAttribute('class')
-        el.classList.add(`container`)
-        el.classList.add(`${state}`)
-        el.classList.remove('mute')
-        el.classList.remove('glow')
-      }))
+      // Object.keys(STATES).forEach(state => document.querySelectorAll(`.${state}`).forEach(function(el) {
+      //   el.removeAttribute('class')
+      //   el.classList.add(`table_elementContainer`) // table mode'da elementlerin class'ını yeniliyor.
+      //   el.classList.add(`${state}`)
+      //   el.classList.remove('mute')
+      //   el.classList.remove('glow')
+      // }))
       
       this.metric_Initials.K = this.kelvin_setByUser
 
@@ -623,8 +623,8 @@ export default {
     flex-direction: column;
 
     padding: 0 1rem;
-    // border: 1px solid #e5bb09;
-    border-top: 5px solid #1a1f2a;
+    // border: 1px solid #e5bb09; 1a1f2a
+    border-top: 1px solid #e5bb09;
     
     // width: 108vw;
     width: 100%;
@@ -635,8 +635,13 @@ export default {
     left: 0;
     z-index: 2;
     
-    backdrop-filter: blur(10px);
-    filter: opacity(.9);
+    // backdrop-filter: blur(10px);
+    // -webkit-backdrop-filter: blur(10px);
+    // -moz-backdrop-filter: blur(10px);
+    // -ms-backdrop-filter: blur(10px);
+    // -o-backdrop-filter: blur(10px);
+    // backdrop-filter: blur(10px);
+    // filter: opacity(.9);
     background: #1c222e;
     background-image: linear-gradient(0deg, #1c222e 10%, #1c222e 70%);
         
@@ -648,11 +653,12 @@ export default {
       }
 
       position: absolute;
-      margin-top: .3rem;
+      margin-top: .5rem;
       background: rgb(39,47,63);
       background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
       align-content: center;
-      border: 1px solid #323d52;
+      // border: 1px solid #323d52;
+      border: 1px solid #e5bb09;
       border-radius: 100%;
 
       text-align: center;
@@ -720,7 +726,6 @@ export default {
       }
     }
     
-    
     .modules {
       justify-content: center;
       justify-self: center;
@@ -728,13 +733,13 @@ export default {
       .list_categoricalFilter_container {
         font-family: 'Nunito Sans', sans-serif;
         position: absolute;
-        margin-top: 3.4rem;
-        left: 1.3rem;
+        margin-top: 3.1rem;
+        left: 1rem;
 
         .list_categoricalFilter {
           list-style: none;
           float: left;
-          margin: 1vw;
+          margin: .5vw;
 
           .listTitle {
             font-size: 2vmin;
