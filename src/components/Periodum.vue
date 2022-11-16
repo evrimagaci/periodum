@@ -5,7 +5,7 @@
         <!-- <img id="mmenu_logo"
         alt="Periodum Logo" src="../resources/img/periodum.svg" height="40">  -->
       <!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-      <svg version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         viewBox="0 0 600 85" id="mmenu_logo" height="40" style="enable-background:new 0 0 600 85;" xml:space="preserve">
         <g id="LOGO">
           <router-link to="/">
@@ -55,7 +55,7 @@
         </g>
         <g id="EA">
           <g>
-            <a href="http://evrimagaci.org/" target="_blank" rel="periodum">
+            <a href="https://evrimagaci.org/" target="_blank" rel="periodum">
               <rect x="335" class="eaLogoBackPart" width="265" height="85"/>
             </a>
             <path class="eaLogoPart" d="M377.6,42.7c0,5.3-4.2,9.4-9.3,9.4c-3.5,0-6.3-1.8-7.8-4.6v4.2h-1.8V26.5h1.8v11.4c1.5-2.8,4.3-4.6,7.8-4.6

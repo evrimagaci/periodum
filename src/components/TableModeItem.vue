@@ -148,8 +148,8 @@
 
 <style lang="scss" scoped>
   .table_elementContainer {
-    height: 4.2vmax;
-    width: 4.2vmax;
+    height: 4.1vmax;
+    width: 4.1vmax;
     
     border: 1px double #1d232f;
     border-radius: .3rem;
