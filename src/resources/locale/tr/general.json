@@ -78,6 +78,7 @@
       "appearance": "Görünüm",
       "refractive_index": "Kırılma İndisi",
       "phase_at_stp": "Faz (NŞA)",
+      "spectrum": "Spektrum (yakınlaştırmak için tıkla)",
       "article": "Evrim Ağacı Makalesi",
       "descriptive_numbers": "Tanımlayıcı Numaralar",
       "cas_number": "CAS Numarası",
@@ -277,6 +278,6 @@
     "liquid": "Sıvı",
     "gas": "Gaz",
     "uncertain": "Bilinmeyen",
-    "click_to_copy": "Değerleri, onlara tıklayarak kopyalayabilirsin."
+    "click_to_copy": "Değerleri, onları seçerek kopyalayabilirsin."
   }
 }

@@ -75,7 +75,8 @@
           gas:        require("../resources/img/states/gas.svg"),
           uncertain:  require("../resources/img/states/uncertain.svg"),
         },
-        elementSymbol: this.element.symbol
+        elementSymbol: this.element.symbol,
+        settingDefaultsOnLoad: true
       }
     },
     methods: {
@@ -103,7 +104,6 @@
         this.modalViewable = false
       },
       heatState(check, element) {
-        // element.removeAttribute('class');
         if (check === 'uncertain') {
           if (
             this.heat_view === true && (element.boil_use === '' && element.melt_use === '') ||
@@ -139,6 +139,7 @@
           if (element.melt_use !== '' && this.heat_value <= element.melt_use) result = this.states.solid // `🪨`
           if (element.melt_use !== '' && this.heat_value >= element.melt_use) result = this.states.liquid // `💦`
           if (element.boil_use !== '' && this.heat_value >= element.boil_use) result = this.states.gas // `♨️`
+          
           return result
         }
       },
@@ -165,7 +166,7 @@
 
     filter: drop-shadow(0 0 1px rgba($color: #000000, $alpha: .5));
 
-    transition: all 0ms ease-in-out;
+    // transition: all 0ms ease-in-out;
     &:hover {
       // filter: drop-shadow(0 0 .3vw v-bind(colorCode)) brightness(1.2);
       border: 1px solid rgba($color: #fff, $alpha: .2);

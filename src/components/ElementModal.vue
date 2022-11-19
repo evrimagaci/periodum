@@ -33,7 +33,7 @@
 				<div v-if="element.appearance"><ElementItem :title="this.locale.elements.modal_content.appearance" :value="element.appearance" /></div>
 				<div v-if="element.refractive_index"><ElementItem :title="this.locale.elements.modal_content.refractive_index" :value="element.refractive_index" /></div>
 				<div v-if="element.phase_at_stp"><ElementItem :title="this.locale.elements.modal_content.phase_at_stp" :value="element.phase_at_stp" /></div>
-				<div v-show="this.misc.spectrum !== null" class="spectrum" @click="imagezoom($event)"><span>Spectrum (click or tap to zoom)</span><img :src="this.misc.spectrum" alt=""></div>
+				<div v-show="this.misc.spectrum !== null" class="spectrum noselect" @click="imagezoom($event)"><span>{{ this.locale.elements.modal_content.spectrum }}</span><img :src="this.misc.spectrum" alt=""></div>
 
 				<div class="flex-between">
 					<div id="modal_link" style="justify-self: center; margin-top: 1rem;"><a :href="this.locale.elements.modal_content.article !== 'Wikipedia' ? 'http://evrimagaci.org/s/'+ element.ea_content_id : element.wikipedia" target="_blank"> {{ this.locale.elements.modal_content.article }}</a></div>
@@ -643,14 +643,14 @@
 	}
 	.close-modal {
 		position: fixed;
-		top:.75rem;
+		top:.9rem;
 		left: 24.8rem;
 		font-size:2rem;
 		color:#d6d6d6;
 		cursor: pointer;
 		border: none;
 		background: #1d232f;
-		padding: .2rem .2rem;
+		padding: .4rem .4rem;
 		border-radius: .2rem;
 		// filter: drop-shadow(2px 2px 5px black);
 		z-index: 1;

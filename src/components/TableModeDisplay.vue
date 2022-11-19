@@ -39,7 +39,7 @@
           
           <div>
             <input class="align-center" type="tel" id="heatinput_table" pattern="[A-Za-z\s]{0,50}" :value="heat_toDisplay_table"
-              @change="heatinputAction()"
+              @input="heatinputAction()"
             >
 
             <div class="dropdown">
@@ -171,7 +171,7 @@ export default {
         C: 'unit => unit+273.15',
         F: 'unit => (unit+459.67)*5/9'
       },
-      heat_toDisplay_table: 298.15,
+      heat_toDisplay_table: 0,
       flag: {
         tr:  require("../resources/locale/flags/tr.svg"),
         en:  require("../resources/locale/flags/en.svg"),
@@ -187,7 +187,7 @@ export default {
     },
     defaultView() {
       this.table_summaryMode = false;
-      this.table_heatMode = false; this.heatValue = 0;
+      this.table_heatMode = false; this.heatValue = 298.15;
       this.table_filterMode = false;
       this.table_compoundMode = false;
     },
@@ -197,15 +197,27 @@ export default {
       //   this.table_summaryMode = true;
       // }
       if (mode === 'heat') {
+        if(this.heatValue === 298.15)
+        document.querySelector('#table_moduleBtn_heatMode').textContent = this.locale.modules.heat
+
         this.table_heatMode = true;
-        this.heatValue = 298.15;
         this.heat_toDisplay_table = this.heatValue;
         
-        this.metric_Initials = {
-          K: 298.15,
-          C: 25,
-          F: 77
-        }
+        this.$nextTick(() => {
+          document.querySelectorAll(`.gas`).forEach(function(el) {
+            el.removeAttribute('class')
+            el.classList.add(`table_elementContainer`)
+            el.classList.add(`flex-evenly`)
+            el.classList.add(`flex-column`)
+            el.classList.add('gas')
+          });
+          this.sliderChange()
+        })
+        // this.metric_Initials = {
+        //   K: 298.15,
+        //   C: 25,
+        //   F: 77
+        // }
       }
       if (mode === 'filter') {
         this.table_filterMode = true;
@@ -456,6 +468,8 @@ export default {
           Object.keys(STATES).forEach(state => document.querySelectorAll(`.${state}`).forEach(function(el) {
             el.removeAttribute('class')
             el.classList.add(`table_elementContainer`)
+            el.classList.add(`flex-evenly`)
+            el.classList.add(`flex-column`)
             el.classList.add(state)
           }))
           return
@@ -469,6 +483,8 @@ export default {
         document.querySelectorAll(`.${ID}`).forEach(function(el) {
           el.removeAttribute('class')
           el.classList.add(`table_elementContainer`)
+          el.classList.add(`flex-evenly`)
+          el.classList.add(`flex-column`)
           el.classList.add('glow')
           el.classList.add(ID)
         });
@@ -478,6 +494,7 @@ export default {
       }
     },
     sliderChange() {
+      if (this.heatValue !== 298.15 && !document.querySelector('#table_moduleBtn_heatMode').textContent.includes('🗘')) document.querySelector('#table_moduleBtn_heatMode').textContent = '🗘 ' + this.locale.modules.heat;
       const STATES = {
         uncertain: 'uncertain',
         solid: 'solid',
@@ -488,6 +505,8 @@ export default {
       Object.keys(STATES).forEach(state => document.querySelectorAll(`.${state}`).forEach(function(el) {
         el.removeAttribute('class')
         el.classList.add(`table_elementContainer`)
+        el.classList.add(`flex-evenly`)
+        el.classList.add(`flex-column`)
         el.classList.add(`${state}`)
         el.classList.remove('mute')
         el.classList.remove('glow')
@@ -517,7 +536,6 @@ export default {
       ? BUTTON_GAS.classList.remove('inactive') : BUTTON_GAS.classList.add('inactive')
       document.querySelectorAll('.solid').length >= 1
       ? BUTTON_SOLID.classList.remove('inactive') : BUTTON_SOLID.classList.add('inactive')
-
     },
     heatinputAction() {
       const INPUT_FIELD = document.querySelector('#heatinput_table')
@@ -539,8 +557,8 @@ export default {
         SLIDER.value = +(INPUT_FIELD.value)
         SLIDER.dispatchEvent(new Event('input'));
       }
-      
-      // INPUT_FIELD.focus();
+
+      this.sliderChange()
       return
     },
     formatNumber (value) {
@@ -825,7 +843,7 @@ export default {
         cursor: pointer;
         height: 1.4vw;
         bottom: -.5vw;
-        right: -9.6vw;
+        right: -9.5vw;
       }
     }
     .compoundBucket {
@@ -838,10 +856,11 @@ export default {
     }
 
     .table_categoricalFilter_container {
-      margin-top: -.6vw;
-      margin-left: 14vw;
+      margin-top: -.8vmax;
+      margin-left: 14.8vw;
 
       height: 1vw;
+      width: 26vw;
 
       .table_categoricalFilter {
         list-style: none;
@@ -849,10 +868,11 @@ export default {
         float: left;
 
         // text-align: center;
-        font-size: .6vw;
+        font-size: .65vmax;
 
         .mainFilter {
           color:#e5bb09;
+          font-size: .6vmax;
           &:hover {
             cursor: pointer;
             text-decoration: underline;
@@ -864,8 +884,8 @@ export default {
           left:20vw;
           
           background-color: #1d2330;
-          padding: .07vw .6vw;
-          border-radius: .2vw;
+          padding: 0 .5vw;
+          border-radius: .3vw;
           
           &:hover {
             cursor: pointer;

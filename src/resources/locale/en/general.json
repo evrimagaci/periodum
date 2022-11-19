@@ -78,6 +78,7 @@
       "appearance": "Appearance",
       "refractive_index": "Refractive Index",
       "phase_at_stp": "Phase at STP",
+      "spectrum": "Spectrum (click or tap to zoom)",
       "article": "Wikipedia",
       "descriptive_numbers": "Descriptive Numbers",
       "cas_number": "CAS Number",
@@ -277,6 +278,6 @@
     "liquid": "Liquid",
     "gas": "Gas",
     "uncertain": "Uncertain",
-    "click_to_copy": "You can click on values to copy them."
+    "click_to_copy": "You can select values to copy them."
   }
 }

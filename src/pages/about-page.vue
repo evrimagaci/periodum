@@ -17,10 +17,18 @@
     <div class="content" id="updates">
       <h3 class="versionNumber">v{{ versionNumber }}</h3>
         <h3>{{ loc.pages.about.updates.visual }}</h3>
+        <li>Tablo modunda kategori listesinin görünümü düzenlendi.</li>
+
+        <h3>{{ loc.pages.about.updates.tech }}</h3>
+        <li>Sıcaklık modundaki ufak hatalar düzeltildi.</li>
+      <br />
+      
+      <h3 class="versionNumber">v2.1.3</h3>
+        <h3>{{ loc.pages.about.updates.visual }}</h3>
         <li>Detaylı bilgi penceresine atomik spektrum görseli eklendi.</li>
         <li>Detaylı bilgi penceresinin görünümü düzenlendi.</li>
         <li>Bazı tarayıcılarda ortaya çıkan tasarım sorunları çözüldü.</li>
-        <li>Tablo görünümü tasarımı düzenlendi.</li>
+        <li>Tablo modunun tasarımı düzenlendi.</li>
         <li>Sıcaklık modundaki renkler ve görsel efektler düzenlendi.</li>
         <li>Logo iki bölüme ayrıldı. "By Evrim Ağacı" kısmına tıklandığında evrimagaci.org'a gidilebiliyor.</li>
 
@@ -28,7 +36,7 @@
         <li>Liste modundaki sıcaklık filtresi geliştirildi (aktif filtreye tekrar tıklandığında varsayılan ayara geri alınabiliyor).</li>
       <br />
       
-      <h3 class="versionNumber">v2.1.5</h3>
+      <h3 class="versionNumber">v2.1.2</h3>
       <h3>{{ loc.pages.about.updates.visual }}</h3>
         <li>Detaylı bilgi penceresindeki sayısal değerlerdeki bilimsel kısaltmalar kaldırıldı.</li>
         <li>Tablodaki basit mod sadece tablo ve arama kutusu görünecek şekilde güncellendi.</li>
@@ -55,13 +63,13 @@
         <li>Detaylı bilgi penceresindeki NULL değerler gizlendi.</li>
       <br />
 
-      <h3 class="versionNumber">v2.0.8</h3>
-        <h3>{{ loc.pages.about.updates.visual }}</h3>
-        <li>İngilizce desteği eklendi.</li>
+      <h3 class="versionNumber">v2.1</h3>
+      <h3>{{ loc.pages.about.updates.visual }}</h3>
+        <li>Menüye dil değiştirme özelliği eklendi.</li>
         <li>Tablo ve Liste görünümündeki bazı sorunlar düzeltildi.</li>
 
         <h3>{{ loc.pages.about.updates.tech }}</h3>
-        <li>Menüye dil değiştirme özelliği eklendi.</li>
+        <li>İngilizce çeviri eklendi.</li>
         <li>İngilizce version: Detaylı bilgi penceresine Wikipedia kısayolu eklendi.</li>
       <br />
 
@@ -77,7 +85,7 @@
         <li>Öğretici tur geliştirildi.</li>
       <br />
 
-      <h3 class="versionNumber">v2.0.0</h3>
+      <h3 class="versionNumber">v2</h3>
         <h3>{{ loc.pages.about.updates.visual }}</h3>
         <li>Hem bilgisayar hem de mobil cihaz ekranlarına uyumlu, iki mod (liste ve tablo) tasarlandı.</li>
         <li>Detaylı element bilgi penceresi tasarımı güncellendi.</li>

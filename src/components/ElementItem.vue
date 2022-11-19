@@ -5,7 +5,7 @@
 			<span class="modalTitle noselect muted">{{ title }}</span>
 		</div>
 		<div class="flex-between">
-			<p @click="copyToClipboard($event)"
+			<p  @mousedown="copyToClipboard($event)"
 				class="value" :style="value.length > 40  ? { 'font-size': '1rem' } : ''">
 				{{ typeof value !== 'string' ? formatNumber(value) : upperFirstLetter(value) }}
 			</p>
@@ -122,8 +122,9 @@
 				const copyText = document.querySelector('.modalTitle').textContent === 'İsim' ? 'Kopyalandı!' : 'Copied!'
 				if ($event.target.textContent === copyText) return
 				const PARENT = $event.target.parentElement.parentElement
-				const currentMetric = PARENT.querySelector('.dropdown-button')?.textContent || PARENT.querySelector('.fixed-unit')?.textContent || ''
-				navigator.clipboard.writeText($event.target.textContent.replace('⬤ ', '') + " " + currentMetric)
+				let currentMetric = PARENT.querySelector('.dropdown-button')?.textContent || PARENT.querySelector('.fixed-unit')?.textContent || ''
+				currentMetric !== '' ? currentMetric = ' ' + currentMetric : currentMetric = ''
+				navigator.clipboard.writeText($event.target.textContent.replace('⬤ ', '') + currentMetric)
 
 				const twas = $event.target.textContent
 				$event.target.classList.add('fade')
