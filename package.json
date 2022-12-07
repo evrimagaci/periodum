@@ -1,6 +1,6 @@
 {
   "name": "periodum",
-  "version": "2.1.3a",
+  "version": "2.1.3b",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

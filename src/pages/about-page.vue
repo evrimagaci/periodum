@@ -1,5 +1,12 @@
 <template>
   <div class="fade container flex-column">
+    <details>
+      <summary class="btn" id="promo_button">{{ loc.pages.about.promo }}</summary>
+      <div class="text-center">
+        <iframe id="promo_video" src="https://www.youtube-nocookie.com/embed/Z4ZBXkrJ7Bc?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </details>
+
     <div class="content">
       <h3 class="text-primary">{{ loc.pages.about.what_is.title }}</h3>      
       <div v-for="text in loc.pages.about.what_is.content" :key="text[0]">
@@ -70,7 +77,7 @@
 
         <h3>{{ loc.pages.about.updates.tech }}</h3>
         <li>İngilizce çeviri eklendi.</li>
-        <li>İngilizce version: Detaylı bilgi penceresine Wikipedia kısayolu eklendi.</li>
+        <li>İngilizce versiyon: Detaylı bilgi penceresine Wikipedia kısayolu eklendi.</li>
       <br />
 
       <h3 class="versionNumber">v2.0.1</h3>
@@ -134,7 +141,34 @@
 </script>
 
 <style lang="scss" scoped>
-  .miniNav a {
+#promo_button {
+  padding: 2rem;
+  text-align: center;
+  font-size: larger;
+  margin-bottom: 1rem;
+  height: auto;
+
+  transition: all 100ms ease-in-out;
+}
+#promo_video {
+  margin-bottom: .5rem;
+  width: 100%;
+  height: 720px;
+  @media screen and (max-width: 720px) {
+      height: 360px;
+    }
+}
+details > summary {
+  cursor: pointer;
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+.miniNav a {
     margin-right: 1rem;
   }
   .container {
