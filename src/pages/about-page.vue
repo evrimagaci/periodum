@@ -7,11 +7,20 @@
       </div>
     </details>
 
-    <div class="content">
-      <h3 class="text-primary">{{ loc.pages.about.what_is.title }}</h3>      
-      <div v-for="text in loc.pages.about.what_is.content" :key="text[0]">
-        <p>{{ text }}</p>
+    <div class="content flex flex-between align-center">
+      <div class="flex-column">
+        <h3 class="text-primary">{{ loc.pages.about.what_is.title }}</h3>      
+        <div v-for="text in loc.pages.about.what_is.content" :key="text[0]">
+          <p>{{ text }}</p>
+        </div>
       </div>
+      
+      <router-link to="/kunye" id="mmenu_credits" class="navIcon">
+        <div class="flex-column">
+          <div class="las la-users"></div>
+          {{ loc.pages.credits.title }}
+        </div>
+      </router-link>
     </div>
 
     <div class="content">
@@ -21,8 +30,15 @@
       </div>
     </div>
 
+
     <div class="content" id="updates">
       <h3 class="versionNumber">v{{ versionNumber }}</h3>
+        <h3>{{ loc.pages.about.updates.visual }}</h3>
+        <li>Bulunma sıklığı birimindeki hata düzeltildi.</li>
+        <li>Ana menü düzenlendi.</li>
+      <br />
+
+      <h3 class="versionNumber">v2.1.4</h3>
         <h3>{{ loc.pages.about.updates.visual }}</h3>
         <li>Tablo modunda kategori listesinin görünümü düzenlendi.</li>
 
@@ -114,7 +130,7 @@
     </div>
 
     <div class="flex-center">
-      <a class="text-white" id="about_evrimagaciLink" href="https://evrimagaci.org">2022 © Evrim Ağacı, Tree of Evolution LLC'nin tescilli markasıdır.</a>
+      <a class="text-white" id="about_evrimagaciLink" href="https://evrimagaci.org">2023 © Evrim Ağacı, Tree of Evolution LLC'nin tescilli markasıdır.</a>
     </div>
   </div>
 </template>
@@ -168,6 +184,23 @@ details > summary {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+.navIcon {
+    color: #e5bb09;
+    font-size: 1rem;
+    margin: 0 .2rem;
+    transition: all 100ms ease-in-out;
+
+    background-color: #1a1f2a;
+    border: 1px solid #232a38;
+    border-radius: .3rem;
+
+    padding: 3rem 1rem;
+    margin: 0 1rem;
+    &:hover {
+      color: white;
+    }
+  }
 .miniNav a {
     margin-right: 1rem;
   }

@@ -8,24 +8,24 @@
     'colored': !heat_view
   }">
   
-      <div class="flex-between preventMouseEvent">
-        <div
-          class="table_atomicNumber"
-          :class="{'colored flex-between': !heat_view}">
-            <p> {{ element.number }} </p>
-        </div>
-        
-        <img v-show="heat_view"
-          class="heatState fade"
-          :src="displayHeatState(element)"
-        />
+    <div class="flex-between preventMouseEvent">
+      <div
+        class="table_atomicNumber"
+        :class="{'colored flex-between': !heat_view}">
+          <p> {{ element.number }} </p>
       </div>
-      <div class="table_symbol preventMouseEvent" :class="{'colored': !heat_view}" >{{ element.symbol }}</div>
-      <div class="table_name preventMouseEvent" :class="{'colored': !heat_view}"> {{ element.name }} </div>
-      <div class="table_atomicMass preventMouseEvent" :class="{'colored': !heat_view}">{{ element.atomic_mass }}</div>
-      <span class="table_elementBlock inactive">{{ 'table_groupFilter_' + element.block }}</span>
-      <span class="table_elementCategory inactive">{{ element.category_code }}</span>
+      
+      <img v-show="heat_view"
+        class="heatState fade"
+        :src="displayHeatState(element)"
+      />
     </div>
+    <div class="table_symbol preventMouseEvent" :class="{'colored': !heat_view}" >{{ element.symbol }}</div>
+    <div class="table_name preventMouseEvent" :class="{'colored': !heat_view}"> {{ element.name }} </div>
+    <div class="table_atomicMass preventMouseEvent" :class="{'colored': !heat_view}">{{ element.atomic_mass }}</div>
+    <span class="table_elementBlock inactive">{{ 'table_groupFilter_' + element.block }}</span>
+    <span class="table_elementCategory inactive">{{ element.category_code }}</span>
+  </div>
 </template>
 
 <script>
@@ -203,14 +203,14 @@
   .glow {
     // box-shadow: 0 0 2px 0 rgba($color: #fff, $alpha: 1);
     border: 1px solid  rgba($color: #fff, $alpha: .3);    
-    filter: drop-shadow(0 0 .4vw);
+    filter: drop-shadow(0 0 .4vw) !important;
   }
 
   .highlight {
     background: v-bind(colorCode);
     background-image: linear-gradient(130deg, v-bind(colorCode) 20%, v-bind(colorCodeShaded) 70%);
     // filter: drop-shadow(0 0 0 1rem v-bind(colorCode));
-    color: black !important;
+    color: black;
     // .table_name {
     //   color: black;
     // }

@@ -88,15 +88,15 @@
       </svg>
     </div>
 
-      <div class="navRight"> 
-        <router-link to="/kunye" id="mmenu_credits" class="navIcon">
-          {{ loc.pages.credits.title }}
-        </router-link>
+      <div class="navRight">
+        <!-- <router-link to="/bilgi" id="mmenu_info" class="navIcon">
+          <div class="las la-book"></div> {{ loc.pages.info.title }}
+        </router-link> -->
         <router-link to="/hakkinda" id="mmenu_about" class="navIcon">
-          {{ loc.pages.about.title }}
+          <div class="las la-cube"></div> {{ loc.pages.about.title }}
         </router-link>
         <a :href="loc.pages.support.link_to" target="_blank" id="mmenu_support" class="navIcon">
-          {{ loc.pages.support.title }}
+          <div class="las la-hand-holding-heart"></div> {{ loc.pages.support.title }}
         </a>
         
         <button @click="languageSwitch()" class="navIcon" id="mmenu_langSwitch"></button>
@@ -412,7 +412,6 @@ export default {
 
     padding: .5rem .6rem;
     &:hover {
-      text-decoration: underline;
       color: white;
     }
   }

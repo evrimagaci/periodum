@@ -17,6 +17,11 @@ const routes = [
      path: '/hakkinda',
      name: 'hakkında',
      component: () => import('../pages/about-page.vue')
+   },
+   {
+     path: '/bilgi',
+     name: 'bilgi',
+     component: () => import('../pages/info-page.vue')
    }
 ]
 

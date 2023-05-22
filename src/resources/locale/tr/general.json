@@ -1,7 +1,7 @@
 {
   "pages": {
     "credits": {
-      "title": "Künye",
+      "title": "Proje ekibini gör",
       "project_leaders": "Proje Liderleri",
       "sponsor_support": "Sponsor & Destek Ekibi",
       "titles": {
@@ -35,6 +35,27 @@
         "visual": "Görünüş",
         "tech": "Teknolojik",
         "report": "Öneri/Sorun Bildir"
+      }
+    },
+    "info": {
+      "title": "Öğren",
+      "what_is": {
+        "title": "Periyodik Tablo Nedir?",
+        "content" : {
+          "0": "Periyodik tablo, kimyasal elementlerin sınıflandırılması için geliştirilmiş tablodur. Dilimizde periyodik tablo, periyodik cetvel, periyodik çizelge, elementler tablosu gibi birçok şekilde isimlendirilmiştir. Bu tablo bilinen bütün elementlerin artan atom numaralarına (buna proton sayısı da denir) göre bir sıralanışıdır. Periyodik cetvelden önce de bu yönde çalışmalar yapılmış olmakla birlikte, mucidi genelde Rus kimyager Dmitri Mendeleyev kabul edilir.¹"
+        }
+      },
+      "history": {
+        "title": "Tarihçe",
+        "content": {
+          "0": "Altın, gümüş, kalay, bakır, kurşun, cıva ve demir gibi elementler eski çağlardan beri biliniyordu. Bir elementin ilk bilimsel olarak bulunması 1649 yılında Henning Brand'ın fosforu bulmasıyla başlamıştır. Bundan sonraki 200 yıl boyunca elementler ve onların bileşikleri hakkında kimyacılar tarafından pek çok bilgi elde edilmiştir. Bununla beraber 1869 yılına kadar toplam 63 element bulunabilmiştir. 1817 yılında Johann Dobereiner benzer kimyasal özelliklere sahip olan stronsiyum, kalsiyum ve baryuma bakarak, stronsiyumun atom ağırlığının kalsiyum ve baryum atom ağırlıklarının ortasında olduğuna dikkat çekmiştir. 1829 yılında klor, brom ve iyot üçlüsünün de benzer özellikler gösterdiği bulunmuştu. Yine benzer davranış lityum, sodyum ve potasyum için de gözleniyordu. 1829 ve 1858 yılları arasında bu konuda pek çok araştırma yapıldı. Bu sırada halojenler grubu katıldı. Oksijen, kükürt, selenyum ve tellür bir grubun üyesi olarak düşünülürken azot, fosfor, arsenik, antimon ve bizmut başka bir grup içine yerleştirildiler. İlk periyodik tabloyu oluşturma şerefi Fransız bilim insanı A. E. Beguyer de Chancourtois'e düştü. De Chancourtois, silindirin çevresine 16 kütle birimleri yerleştirerek element ve iyonları buraya oturttu. Benzer özelliklerdeki elementler bu silindir üzerinde düşey satırlarda gruba ayırmıştı. Atom ağırlıkları sekizin katı kadar olan elementlerin özellikleri benzerdi. 1864 yılında yazılan bir yazıda Newlands bunu Oktav kanunu (Law of Octaves) olarak tanımladı. Bu kanuna göre herhangi bir element tablodaki sekizinci elementle benzerlikler gösteriyordu. Genelde periyodik tablonun babası olarak Alman bilim insanı Julius Lothar Meyer ve Rus bilim insanı Dmitri Mendeleyev kabul edilir. Her ikisi de birbirinden habersiz olarak dikkate değer benzer sonuçlar üretmişlerdir. Mendeleyev atomların artan atom ağırlıklarına göre sıralandıklarında belli özelliklerin tekrarlandığını görmüştür. Daha sonra elementleri tekrarlanan özelliklerine göre alt alta sıralayarak ilk iki periyodu yedişer, sonraki üç periyodu ise onyedişer element içeren bir periyodik sistem hazırlamıştır. Mendeleyev'in hazırladığı periyodik sistemde bazı yerleri henüz keşfedilmemiş elementlerin olduğunu düşünerek boş bırakmıştır. Daha sonra bulunan skandiyum, galyum, germanyum elementleri tablodaki boşluklara yerleşmişlerdir. 1895 yılında Lord Rayleigh, yeni bir soygaz (argon) keşfettiğini bildirdi. Bu element periyodik tabloda bilinen hiçbir yere oturtulamadı. 1898 yılında William Ramsay bu elementin klor ile potasyum arasında bir yere konulabileceğini önerdi. Helyum da aynı grubun bir üyesi olarak düşünüldü. Bu grup elementlerinin değerliklerinin sıfır olması nedeniyle sıfır grubu olarak adlandırıldı. Mendeleyev'in periyodik tablosu her ne kadar elementlerin periyodik özelliklerini gösterse de neden özelliklerin tekrarlandığı konusunda herhangi bir bilgi vermemektedir.²"
+        }
+      },
+      "resources": {
+        "1": {
+          "title": "1., 2. Wikipedia — Periyodik Tablo",
+          "link": "https://tr.wikipedia.org/wiki/Periyodik_tablo"
+        }
       }
     },
     "support": {
@@ -270,6 +291,7 @@
     "elementSearch_text": "Element adı, atom numarası, atomik kütle...",
     "modalSearch_text": "Başlık, alt başlık, içerik...",
     "details": "Detaylar",
+    "resources": "Kaynaklar",
     "thanks": "Proje geliştirme sürecindeki yardımlarından ötürü bionluk'a teşekkürler."
   },
   "tooltip": {

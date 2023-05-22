@@ -81,7 +81,7 @@
 			<!-- Bulunma Sıklığı -->
 			<details>
 				<summary class="modalTitle" id="modal_frequency_of_presence">{{ this.locale.elements.modal_content.frequency_of_presence }}</summary>
-				<div v-if="element.abundance_urban_soil"><ElementItem :title="this.locale.elements.modal_content.abundance_urban_soil" :value="element.abundance_urban_soil" :unitFixed="'kg/kg'" /></div>
+				<div v-if="element.abundance_urban_soil"><ElementItem :title="this.locale.elements.modal_content.abundance_urban_soil" :value="element.abundance_urban_soil" :unitFixed="'mg/kg (ppm)'" /></div>
 				<div v-if="element.abundance_seawater_w1"><ElementItem :title="this.locale.elements.modal_content.abundance_seawater_w1" :value="element.abundance_seawater_w1" :unitFixed="'kg/L'" /></div>
 				<div v-if="element.abundance_sun_s1"><ElementItem :title="this.locale.elements.modal_content.abundance_sun_s1" :value="element.abundance_sun_s1" :unitFixed="this.locale.elements.modal_content.metrics.mol_ratio" /></div>
 				<div v-if="element.abundance_in_earth_crust_c1"><ElementItem :title="this.locale.elements.modal_content.abundance_in_earth_crust_c1" :value="element.abundance_in_earth_crust_c1" :unitFixed="'kg/kg'" /></div>

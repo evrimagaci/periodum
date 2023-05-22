@@ -1,7 +1,7 @@
 {
   "pages": {
     "credits": {
-      "title": "Credits",
+      "title": "The team behind the project",
       "project_leaders": "Project Leaders",
       "sponsor_support": "Sponsors & Supporting Team",
       "titles": {
@@ -15,7 +15,7 @@
       }
     },
     "about": {
-      "title": "About",
+      "title": "Project",
       "promo": "Promo Video",
       "what_is": {
         "title": "What is Periodum?",
@@ -35,6 +35,27 @@
         "visual": "Visual",
         "tech": "Tech",
         "report": "Suggestion/Report"
+      }
+    },
+    "info": {
+      "title": "Learn",
+      "what_is": {
+        "title": "What is Periodic Table?",
+        "content" : {
+          "0": "The periodic table is a tabular array of the chemical elements organized by atomic number, from the element with the lowest atomic number, hydrogen, to the element with the highest atomic number, oganesson. The atomic number of an element is the number of protons in the nucleus of an atom of that element. Hydrogen has 1 proton, and oganesson has 118.¹"
+        }
+      },
+      "history": {
+        "title": "History",
+        "content": {
+          "0": "Mendeleyev’s periodic table of 1869 contained 17 columns, with two nearly complete periods (sequences) of elements, from potassium to bromine and rubidium to iodine, preceded by two partial periods of seven elements each (lithium to fluorine and sodium to chlorine), and followed by three incomplete periods. In an 1871 paper Mendeleyev presented a revision of the 17-group table, the principal improvement being the correct repositioning of 17 elements. He, as well as Lothar Meyer, also proposed a table with eight columns obtained by splitting each of the long periods into a period of seven, an eighth group containing the three central elements (such as iron, cobalt, nickel; Mendeleyev also included copper, instead of placing it in Group I), and a second period of seven. The first and second periods of seven were later distinguished by use of the letters “a” and “b” attached to the group symbols, which were the Roman numerals.²"
+        }
+      },
+      "resources": {
+        "1": {
+          "title": "1., 2. Britannica — periodic table",
+          "link": "https://www.britannica.com/science/periodic-table"
+        }
       }
     },
     "support": {
@@ -270,6 +291,7 @@
     "elementSearch_text": "Element name, atomic number, atomic mass...",
     "modalSearch_text": "Title, subtitle, content...",
     "details": "Details",
+    "resources": "Resources",
     "thanks": "A special thanks to bionluk for their contribution during the development of this project."
   },
   "tooltip": {

@@ -89,15 +89,16 @@
       </div>
 
       <!-- Bileşik Modülü -->
-      <!-- <div v-show="table_compoundMode" class="h-100 flex-between flex-column fade">
-        <div class="tutorial_CompoundModule_FirstTime text-primary">Eklemek istediğiniz elementleri seçin.</div>
-        <div class="compoundBucket fit-content"></div>
-      </div> -->
+      <div v-show="table_compoundMode" class="compoundContainer h-100 flex-start flex-row fade">
+        <div class="compoundSample mute"></div>
+        <div class="compoundBucket"></div>
+        <div class="compoundResult fit-content"></div>
+      </div>
     </div>
     <!-- if (table_compoundMode) compoundAdd($event); else  COMPOUND MODU İÇİN ÖNEMLİ!!!! -->
     <div class="element noselect" :style="{ 'grid-row-start': element.ypos, 'grid-column-start': element.xpos}"
         v-for="element in elements" :key="element.number">
-      <div @click.prevent="toggleModal($event, element)" @mouseover="if (table_summaryMode) displaySummary(elements.indexOf(element));"> <TableItem :eID="`table_${element.number}_${element.name}`" :heat_view="table_heatMode" :heat_value="Number(heatValue)" :element="element"> {{ element }} </TableItem> </div>
+      <div @click.prevent="if (table_compoundMode) compoundAdd($event); else toggleModal($event, element)" @mouseover="if (table_summaryMode) displaySummary(elements.indexOf(element));"> <TableItem :eID="`table_${element.number}_${element.name}`" :heat_view="table_heatMode" :heat_value="Number(heatValue)" :element="element"> {{ element }} </TableItem> </div>
     </div>
     
   </div>
@@ -124,12 +125,30 @@ import TableItem from '@/components/TableModeItem.vue'
 // import infoBar from '../addons/infoBar.vue';
 // <infoBar class="infoBar" :fontSize="'.8vw'" :infoText="'Atomik kütle araması için \'.\' işaretini kullan.'" />
 
+// const sqlite3 = require('sqlite3').verbose()
+// let sql;
+
+// const COMPOUNDSS = require("../resources/db.sql");
+// const db = new sqlite3.Database(COMPOUNDSS, sqlite3.OPEN_READONLY, (err) => {
+//   if (err) return console.error(err.message);
+// })
+
+
+// sql = `SELECT * FROM compounds`
+
+// db.all(sql, [], (err, rows) => {
+//   if (err) return console.error(err.message);
+//   rows.forEach(row => console.log(row))
+// })
+
 export default {
   components: { TableItem },
   props: { elements: Object, locale: Object },
   emits: ["getElement", "checkStatus"],
   data() {
     return {
+      compounds_list: [],
+      symbols_list: [],
       // table_summaryMode: false,
       table_panelMode: true,
       table_filterMode: true,
@@ -190,6 +209,12 @@ export default {
       this.table_heatMode = false; this.heatValue = 298.15;
       this.table_filterMode = false;
       this.table_compoundMode = false;
+      
+      document.querySelectorAll('.table_elementContainer').forEach(function(element) {
+        element.classList.remove('mute')
+      })
+
+      document.querySelector('#modulePanel').style.backgroundColor = '#242b3a'
     },
     toggleTablePanel(mode) {
         this.defaultView();
@@ -211,13 +236,11 @@ export default {
             el.classList.add(`flex-column`)
             el.classList.add('gas')
           });
+        })
+        
+        this.$nextTick(() => {
           this.sliderChange()
         })
-        // this.metric_Initials = {
-        //   K: 298.15,
-        //   C: 25,
-        //   F: 77
-        // }
       }
       if (mode === 'filter') {
         this.table_filterMode = true;
@@ -225,6 +248,21 @@ export default {
       }
       if (mode === 'compound') {
         this.table_compoundMode = true;
+        document.querySelectorAll('.element').forEach(function(element) {
+          element.classList.remove('mute')
+        })
+        this.$nextTick(() => {
+          document.querySelector('.compoundBucket').innerHTML = ''
+          document.querySelector('.compoundResult').innerHTML = ''
+
+          document.querySelector('.compoundSample').classList.remove('inactive')
+
+          // document.querySelector('.compoundBucket').innerHTML = '<div style="font-size: 1vw;" class="tutorial_CompoundModule_FirstTime text-primary">Eklemek istediğiniz elementleri seçin.</div>'
+          this.compounds_list = []
+
+          document.querySelector('#modulePanel').style.backgroundColor = '#101319'
+        })
+
       }
       // if (mode === 'hide') {
       //   this.defaultView();
@@ -583,13 +621,132 @@ export default {
       this.heat_toDisplay_table = SELECTION === 'C' ? this.metric_Initials.C : SELECTION === 'F' ? this.metric_Initials.F : this.metric_Initials.K;
     },
     async compoundAdd($event) {
-      const d = $event.target.classList.contains('element') ? $event.target.cloneNode(true) : $event.target.closest('.element').cloneNode(true);
-      const compoundBucket = document.querySelector('.compoundBucket')
-      if (compoundBucket.children.length > 8) {console.log('Max. compound element limit.'); return;}
-      compoundBucket.appendChild(d);
+      const d = $event.target.classList.contains('table_elementContainer') ? $event.target.cloneNode(true) : $event.target.closest('.table_elementContainer').cloneNode(true);
 
-      const TUTOR = document.querySelector('.tutorial_CompoundModule_FirstTime')
-      if (TUTOR) TUTOR.remove()
+      const compoundBucket = document.querySelector('.compoundBucket')
+      const compoundList = document.querySelector('.compoundResult')
+
+      // İlk element olup olmadığını kontrol et
+      let firstTime = 1; if (this.compounds_list.length !== 0) { firstTime = 0; }
+
+      // İzin verilen element sayısı
+      if (compoundBucket.children.length > 6) {console.log('Max. compound element limit.'); return;}
+
+      // Bileşiğe eklenemeyecek olanları engelle
+      if ($event.target.classList.contains('mute')) return
+      
+      // Başlangıç yazısı
+      // const TUTOR = document.querySelector('.tutorial_CompoundModule_FirstTime')
+      // if (TUTOR) TUTOR.remove()
+      document.querySelector('.compoundSample').classList.add('inactive')
+      
+      // Seçilen elementi sembolünü al
+      const selectedSymbol = d.querySelector('.table_symbol').textContent
+
+      // Listelenmiş bileşikleri temizle
+      compoundList.textContent = '';
+      
+      // Elementin görünüşünü bileşik kovasına sığacak şekilde düzenle
+      const clone = d//.childNodes[0]//.childNodes[0]
+      clone.classList.add('compoundElement')
+      // clone.classList.add('highlight')
+      // clone.childNodes.forEach((x) => {x.style.color = 'black'; x.style.fontWeight = '900'})
+      clone.id = 'cmp'+selectedSymbol
+      clone.setAttribute('data-count', 1)
+
+      // const counter = document.createElement('div')
+      // // counter.textContent = '+'
+      // // counter.style.position = 'absolute'
+      // // counter.style.bottom = '-1rem'
+      // // counter.style.color = 'white'
+      // // counter.style.left = '0'
+      // counter.classList.add('compoundElementCounter')
+      // let text = document.createTextNode('Test');
+      // counter.appendChild(text);
+      
+      // d.appendChild(counter)
+
+      const convertSubscript = (str) => {return str.replaceAll('0', '₀').replaceAll('1', '₁').replaceAll('2', '₂').replaceAll('3', '₃').replaceAll('4', '₄').replaceAll('5', '₅').replaceAll('6', '₆').replaceAll('7', '₇').replaceAll('8', '₈').replaceAll('9', '₉')}
+        
+      if (!compoundBucket.querySelector('#cmp'+selectedSymbol)) {
+        // Seçilen elementi bileşik kovasına ekle
+        compoundBucket.appendChild(d);
+      }
+      else {
+        const cmp = compoundBucket.querySelector('#cmp'+selectedSymbol)
+
+        const newCount = Number(cmp.getAttribute('data-count'))+1
+          cmp.setAttribute('data-count', newCount)
+          cmp.querySelector('.table_symbol').textContent = convertSubscript(selectedSymbol + cmp.getAttribute('data-count'))
+      }
+
+      // Eklenen ilk element için veritabanından veri çek
+      if (firstTime) {
+        await fetch('http://localhost:3000/compounds/?symbol=' + selectedSymbol)
+          .then(r => r.json())
+          .then(data => {
+
+            data.forEach(element => {
+              this.compounds_list.push(element.formula)
+            });
+          },
+          response => {
+            console.log('Error loading json:', response)
+        });
+      }
+      
+      // Sonradan eklenen tüm elementleri önceden alınan veri içinden filtrele
+      if (!firstTime) {
+        this.compounds_list = this.compounds_list.filter(compound => compound.includes(selectedSymbol))
+      }
+      
+      // Bulunan bileşikleri listele
+      // let listNode = document.createElement('h6');
+      // listNode.appendChild(document.createTextNode(convertSubscript(this.compounds_list.join('\n'))));
+      // compoundList.appendChild(listNode)
+
+      
+      // Bulunan bileşikleri listele
+      let listNode = document.createElement('p');
+      this.compounds_list.forEach((x) => {
+        compoundList.insertAdjacentHTML("beforeend", `<a href="google.com">${convertSubscript(x)+'\n'}</a>`);
+      })
+      compoundList.appendChild(listNode)
+
+      // İçerilen tüm sembolleri ayıkla
+      let SYMBOLS = []
+      this.compounds_list.forEach((comp) => {
+        const Elements = [...comp.replaceAll('+','').replaceAll('?','')].filter(x => isNaN(x));
+              
+        Elements.forEach(function(el, i) {
+
+          const listOfSubscript = ['₀', '₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉']
+          const subCheck = (x) => {return listOfSubscript.includes(x)}
+
+          const nextElement = i !== Elements.length-1 ? Elements[i+1] : Elements[i]
+          if (el === el.toUpperCase() && nextElement === nextElement.toLowerCase() && !subCheck(nextElement)) {
+            SYMBOLS.push(el + nextElement)
+          }
+          else if (el === el.toUpperCase() && nextElement !== nextElement.toLowerCase() && !subCheck(nextElement)) {
+            SYMBOLS.push(el)
+          }
+          else {
+            true
+          }
+        })
+      })
+
+      // İçerilen sembollerin dışındaki elementleri seçilemez duruma getir
+      document.querySelectorAll('.table_elementContainer').forEach(function(element) {
+        SYMBOLS.includes(element.querySelector('.table_symbol').textContent)
+        ? element.classList.remove('mute')
+        : element.classList.add('mute')
+      })
+
+      document.querySelector('.compoundBucket').childNodes.forEach(el => el.classList.remove('mute'))
+      
+      // get common elements
+      // const getCommon = res => [...new Set(res.flat())].filter(a => res.every(c => c.includes(a)));
     },
     tableSearching($event) {
       const INPUT = $event.target.value.toLowerCase()
@@ -650,7 +807,7 @@ export default {
       document.querySelector('#tableSearch').value = refID
       document.querySelector('#tableSearch').dispatchEvent(new Event('input'));
     })
-  }
+  },
 }
 </script>
 
@@ -846,13 +1003,54 @@ export default {
         right: -9.5vw;
       }
     }
+    .compoundContainer {
+      position: relative;
+      height: 100%;
+    }
     .compoundBucket {
-      width: 100%;
-
+      width: 60%;
     }
     .compoundBucket > * {
-      margin-right: .1vw;
+      // margin-right: .1vw;
       float:left;
+    }
+
+    .compoundSample {
+      height: 4.1vmax;
+      width: 4.1vmax;
+      
+      border: 2px dashed #ccc;
+      border-radius: .3rem;
+      
+      background: rgb(39,47,63);
+      background-image: linear-gradient(136deg, #272f3f 0%, #1d232f 100%);
+
+      position: relative;
+      &::after {
+        content: '+';
+        font-size: 2vmax;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: translate(110%, 20%);
+      }
+    }
+
+    .compoundResult {
+      height: 100%;
+      min-width: 25%;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      word-break: break-word;
+
+      position:absolute;
+      overflow:scroll;
+      overflow-x: hidden;
+      right: 0;
+
+      border-left: 1px solid rgba($color: #fff, $alpha: .2);
+      padding-left: 1vw;
+      font-size: 1vw;
     }
 
     .table_categoricalFilter_container {
@@ -919,6 +1117,50 @@ export default {
     }
   }
   
+  .compoundElement {
+    width: 5vw;
+    transform: scale(.7);
+    transform-origin: left top;
+    margin-right: -1vw !important;
+
+    &:hover {
+      filter: unset !important;
+      cursor: unset !important;
+    }
+
+    &::after,&::before {
+      min-width: 1.5vw;
+      height: 1.5vw;
+      line-height: 1.5vw;
+      
+      font-size: larger;
+      text-align: center;
+      
+      border-radius: .3vw;
+      background: rgba($color: #222, $alpha: .7);
+      border: 1px solid rgba($color: #fff, $alpha: .2);
+      
+      position: absolute;
+      right: .1vw;
+    }
+
+    &::before {
+      bottom: .2vw;
+      content: '-';
+    }
+    &::after {
+      top: .2vw;
+      content: '+';
+    }
+  }
+  .compoundElementCounter {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    color: white !important;
+    font-size: 2rem !important;
+  }
+
   .table_demo_element {
     margin-top: -7.3vw;
     margin-left: 5.3vw;
